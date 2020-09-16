@@ -44,6 +44,19 @@ Begin SubModelPart Parts_All// Group plate // Subtree Parts
     End SubModelPartElements
     Begin SubModelPartConditions
     End SubModelPartConditions
+    Begin SubModelPart Parts_Cut// Group plate // Subtree Parts
+        Begin SubModelPartNodes
+            4
+            5
+            7
+            8
+        End SubModelPartNodes
+        Begin SubModelPartElements
+            1
+        End SubModelPartElements
+        Begin SubModelPartConditions
+        End SubModelPartConditions
+    End SubModelPart
 End SubModelPart
 Begin SubModelPart DISPLACEMENT_support // Group support // Subtree DISPLACEMENT
     Begin SubModelPartNodes

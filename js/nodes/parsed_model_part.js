@@ -1,6 +1,4 @@
 function ParsedModelPart() {
-    // this.mp_name = this.addWidget("string","Name", "", function(v){});
-
     var self = this; // Not sure if this is clean :S
 
     this.input_manager = document.createElement('input');
@@ -19,25 +17,32 @@ function ParsedModelPart() {
 
             reader.onload = function(e) {
                 var contents = e.target.result;
-                console.log("Done:");
-            
-                let re = /^Begin SubModelPart ([a-zA-Z0-9_]+)/gm;
-                let sub_mdpa = contents.matchAll(re);
 
-                console.log(self);
+                let mdpa_subs_re = /.*((Begin SubModelPart) ([a-zA-Z0-9_]+))|(End SubModelPart$)/gm
+
+                let sub_mdpa = contents.matchAll(mdpa_subs_re);
+
+                console.log(sub_mdpa);
 
                 // Remove existing outputs
                 while (self.outputs != undefined && self.outputs.length != 0) {
                     self.removeOutput(0);
                 }
                 
+                // Obtain the name of the ModelPart to get complete routes
+                var sub_mdpa_namepath = file.name.slice(0,-5);
+
                 for(var match of sub_mdpa) {
-                    console.log(match[1]);
-                    self.addOutput(match[1],"string");
+                    console.log(match);
+                    if(match[0].includes("Begin")) {
+                        sub_mdpa_namepath = sub_mdpa_namepath + "." + match[3]
+                        self.addOutput(sub_mdpa_namepath,"string");
+                    } else {
+                        sub_mdpa_namepath = sub_mdpa_namepath.split(".").slice(0,-1).join(".");
+                    }
                 }
             };
 
-            console.log("Reading as text...")
             reader.readAsText(file);
         };
 
@@ -63,4 +68,4 @@ ParsedModelPart.prototype.onExecute = function() {
 
 LiteGraph.registerNodeType("model_part/ParsedModelPart", ParsedModelPart);
 
-console.log("ModelPart node created"); //helps to debug
+console.log("ParsedModelPart node created"); //helps to debug
