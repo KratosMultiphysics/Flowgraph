@@ -38,7 +38,6 @@ MultiInput.prototype.onExecute = function() {
 MultiInput.prototype.onConnectionsChange = function() {
     // Remove unconnected nodes
     for(var i = 0; i < this.inputs.length; i++) {
-        console.log("input", i, "is connected:", this.isInputConnected(i))
         if(!this.isInputConnected(i) && this.getOutputData(1) > 0) {
             this.incSize(1, -1);
             this.removeInput(i);
