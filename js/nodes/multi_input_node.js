@@ -1,16 +1,25 @@
 function MultiInput() {
     this.addInput("In0","number");
 
-    this.addOutput("List","array");
+    this.addOutput("array","array");
+    this.addOutput("size","number");
     
     this.size = this.computeSize();
-    this.serialize_widgets = true;
-
-    this.num_inputs = 1;
+    this.serialize_widgets = true; 
+    
+    this.setSize(1, 0);
 }
 
 MultiInput.title = "MultiInput";
 MultiInput.desc = "Merges several inputs into an array";
+
+MultiInput.prototype.setSize = function(slot, amount) {
+    this.setOutputData(slot, amount);
+};
+
+MultiInput.prototype.incSize = function(slot, amount) {
+    this.setOutputData(slot, this.getOutputData(slot) + amount);
+};
 
 MultiInput.prototype.onExecute = function() {
     if(!this._value) {
@@ -23,15 +32,15 @@ MultiInput.prototype.onExecute = function() {
         this._value[i] = this.getInputData(i);
     }
 
-    this.setOutputData(0,  this._value);
+    this.setOutputData(0, this._value);
 };
 
 MultiInput.prototype.onConnectionsChange = function() {
     // Remove unconnected nodes
-    for(var i = 1; i < this.inputs.length; i++) {
+    for(var i = 0; i < this.inputs.length; i++) {
         console.log("input", i, "is connected:", this.isInputConnected(i))
-        if(!this.isInputConnected(i)) {
-            this.num_inputs--;
+        if(!this.isInputConnected(i) && this.getOutputData(1) > 0) {
+            this.incSize(1, -1);
             this.removeInput(i);
         }
         
@@ -42,9 +51,11 @@ MultiInput.prototype.onConnectionsChange = function() {
 
     // If all nodes are connected, add another one.
     if(this.isInputConnected(this.inputs.length-1)) {
-        this.addInput("In"+this.num_inputs, "number");
-        this.num_inputs++;
+        this.addInput("In"+(this.getOutputData(1)+1), "number");
+        this.incSize(1, 1);
     }
+
+    this.size = this.computeSize();
 }
 
 LiteGraph.registerNodeType("model_part/InputList", MultiInput);
