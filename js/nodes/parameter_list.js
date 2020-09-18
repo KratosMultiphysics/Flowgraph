@@ -21,7 +21,7 @@ class ParameterList {
             this._value = new Array();
         }
         this._value.length = this.inputs.length - 1;
-        for (const i = 0; i < this.inputs.length - 1; ++i) {
+        for (let i = 0; i < this.inputs.length - 1; ++i) {
             this._value[i] = this.getInputData(i);
         }
         this.setOutputData(0, this._value);
@@ -29,7 +29,7 @@ class ParameterList {
 
     onConnectionsChange() {
         // Remove unconnected nodes
-        for (const i = 0; i < this.inputs.length; i++) {
+        for (let i = 0; i < this.inputs.length; i++) {
             if (!this.isInputConnected(i) && this.getOutputData(1) > 0) {
                 this.incSize(1, -1);
                 this.removeInput(i);
