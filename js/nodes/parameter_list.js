@@ -5,7 +5,7 @@ class ParameterList {
         this.addOutput("size", "number");
         this.size = this.computeSize();
         this.serialize_widgets = true;
-        this.setSize(1, 0);
+        this.setSize(1, 1);
     }
 
     setSize(slot, amount) {
@@ -24,6 +24,7 @@ class ParameterList {
         for (let i = 0; i < this.inputs.length - 1; ++i) {
             this._value[i] = this.getInputData(i);
         }
+        
         this.setOutputData(0, this._value);
     }
 
@@ -35,14 +36,16 @@ class ParameterList {
                 this.removeInput(i);
             }
             if (i < this.inputs.length) {
-                this.inputs[i].name = "In" + i;
+                this.inputs[i].name = "In" + (i);
             }
         }
         // If all nodes are connected, add another one.
         if (this.isInputConnected(this.inputs.length - 1)) {
-            this.addInput("In" + (this.getOutputData(1) + 1), "number");
+            this.addInput("In" + (this.getOutputData(1)), "number");
             this.incSize(1, 1);
         }
+
+        this.setSize(1, this.inputs.length);
         this.size = this.computeSize();
     }
 }
