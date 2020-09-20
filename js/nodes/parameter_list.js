@@ -1,6 +1,6 @@
 class ParameterList {
     constructor() {
-        this.addInput("In0", "number");
+        this.addInput("In0", "object");
         this.addOutput("array", "array");
         this.addOutput("size", "number");
         this.size = this.computeSize();
@@ -41,7 +41,7 @@ class ParameterList {
         }
         // If all nodes are connected, add another one.
         if (this.isInputConnected(this.inputs.length - 1)) {
-            this.addInput("In" + (this.getOutputData(1)), "number");
+            this.addInput("In" + (this.getOutputData(1)), "object");
             this.incSize(1, 1);
         }
 

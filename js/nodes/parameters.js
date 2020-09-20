@@ -159,7 +159,7 @@
     //********************************************************************/    
     //********************************************************************/
     function InletByFunction() {
-        this.addInput("model_part","text");
+        this.addInput("model_part","string");
         this.addOutput("OutputList","object");
 
         this.modulus = this.addWidget("string","f(x,y,z,t)=", "", function(v){} );
@@ -198,7 +198,7 @@
     //********************************************************************/    
     //********************************************************************/
     function OutletProcess() {
-        this.addInput("model_part","text");
+        this.addInput("model_part","string");
         this.addOutput("Output","object");
 
         this.properties = {
