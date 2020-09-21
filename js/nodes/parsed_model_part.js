@@ -47,6 +47,7 @@ class ParsedModelPart {
             let sub_mdpa_namepath = file.name.slice(0, -5);
 
             // Obtain the Submodelparts
+            this.addOutput(sub_mdpa_namepath, "string");
             for (const match of sub_mdpa) {
                 if (match[0].includes("Begin")) {
                     sub_mdpa_namepath = `${sub_mdpa_namepath}.${match[3]}`;
