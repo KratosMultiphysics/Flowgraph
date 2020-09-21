@@ -47,8 +47,8 @@
 
     MonolithicFluidSolver.prototype.onExecute = function() {
         tmp = this.properties
-        tmp["model_import_settings"]["input_filename"] = this.getInputData(0)["problem_name"];
-        tmp["model_part_name"] = this.getInputData(1);
+        tmp["model_part_name"] = this.getInputData(0);
+        tmp["model_import_settings"]["input_filename"] = this.getInputData(1)["problem_name"];
         tmp["domain_size"] = this.getInputData(2);
 
         tmp["volume_model_part_name"] = this.getInputData(3);;
