@@ -5,7 +5,7 @@ class ParameterList {
         this.addOutput("size", "number");
         this.size = this.computeSize();
         this.serialize_widgets = true;
-        this.setSize(1, 1);
+        this.setSize(1, 0);
     }
 
     setSize(slot, amount) {
@@ -29,6 +29,9 @@ class ParameterList {
     }
 
     onConnectionsChange() {
+        // Set the size in case is missing (copying the node from the graph?)
+        this.setSize(1, this.inputs.length);
+
         // Remove unconnected nodes
         for (let i = 0; i < this.inputs.length; i++) {
             if (!this.isInputConnected(i) && this.getOutputData(1) > 0) {
@@ -39,8 +42,9 @@ class ParameterList {
                 this.inputs[i].name = "In" + (i);
             }
         }
-        // If all nodes are connected, add another one.
-        if (this.isInputConnected(this.inputs.length - 1)) {
+
+        // If all nodes are connected, or there are no nodes, add one.
+        if (this.inputs.length <= 0 || this.isInputConnected(this.inputs.length - 1)) {
             this.addInput("In" + (this.getOutputData(1)), 0, "");
             this.incSize(1, 1);
         }
