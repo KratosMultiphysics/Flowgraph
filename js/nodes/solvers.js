@@ -5,13 +5,13 @@
     //********************************************************************/
     function MonolithicFluidSolver() {
         this.addInput("model_part_name", "string");
-        this.addInput("ProblemData", "object");
+        this.addInput("ProblemData", "map");
         this.addInput("domain_size", "number");
         this.addInput("volume_model_part_name", "string");
-        this.addInput("skin_parts", "object");
-        this.addInput("no_skin_parts", "object");
+        this.addInput("skin_parts", "map");
+        this.addInput("no_skin_parts", "map");
 
-        this.addOutput("solver_settings","object");
+        this.addOutput("solver_settings","map");
 
         this.properties = {
             "solver_type"                 : "Monolithic",

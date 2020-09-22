@@ -1,4 +1,4 @@
-class ParameterList {
+class List {
     constructor() {
         this.addInput("In0", 0, "");
         this.addOutput("array", "array");
@@ -54,9 +54,9 @@ class ParameterList {
     }
 }
 
-ParameterList.title = "ParameterList";
-ParameterList.desc = "Merges several parameter into an array";
+List.title = "List";
+List.desc = "Merges several elements into an array";
 
-LiteGraph.registerNodeType("parameters/ParameterList", ParameterList);
+LiteGraph.registerNodeType("parameters/List", List);
 
 console.log("ParsedModelPart node created"); //helps to debug

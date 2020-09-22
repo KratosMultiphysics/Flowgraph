@@ -1,6 +1,6 @@
     function InletByFunction() {
         this.addInput("model_part","string");
-        this.addOutput("OutputList","object");
+        this.addOutput("OutputList","map");
 
         this.modulus = this.addWidget("string","f(x,y,z,t)=", "", function(v){} );
 

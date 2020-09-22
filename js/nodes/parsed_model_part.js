@@ -63,7 +63,7 @@ class ParsedModelPart {
 }
 
 ParsedModelPart.title = "ParsedModelPart";
-ParsedModelPart.desc = "view of an Output object";
+ParsedModelPart.desc = "Parses a ModelPart";
 
 LiteGraph.registerNodeType("model_part/ParsedModelPart", ParsedModelPart);
 

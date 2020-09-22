@@ -4,7 +4,7 @@
 //********************************************************************/
 function OutletProcess() {
     this.addInput("model_part","string");
-    this.addOutput("Output","object");
+    this.addOutput("Output","map");
 
     this.properties = {
         "variable_name"      : "PRESSURE",
