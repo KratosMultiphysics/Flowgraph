@@ -15,11 +15,14 @@ function ProblemData() {
     this.size = this.computeSize();
 }
 
-ProblemData.title = "ProblemData";
+ProblemData.title = "Problem Data";
 ProblemData.desc = "Create a problem_data";
 
 ProblemData.prototype.onExecute = function() {
     this.setOutputData(0, this.properties);
+    this.setOutputData(1, this.properties["problem_name"]);
+    this.setOutputData(2, this.properties["start_time"]);
+    this.setOutputData(3, this.properties["end_time"]);
 };
 
 LiteGraph.registerNodeType("parameters/ProblemData", ProblemData);
