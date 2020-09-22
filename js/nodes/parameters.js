@@ -31,12 +31,12 @@ console.log("ProblemData node created"); //helps to debug
 
 function ProjectParameters() {
     this.addInput("problem_data", "map");
-    this.addInput("output_processes", "map");
+    this.addInput("output_processes", "process_array");
     this.addInput("solver_settings", "map");
-    this.addInput("initial_conditions_process_list", "map");
-    this.addInput("boundary_conditions_process_list", "map");
+    this.addInput("initial_conditions_process_list", "process_array");
+    this.addInput("boundary_conditions_process_list", "process_array");
     this.addInput("gravity", "map");
-    this.addInput("auxiliar_process_list", "map");
+    this.addInput("auxiliar_process_list", "process_array");
     
     this.addOutput("project_parameters","map");
     this.size = this.computeSize();
