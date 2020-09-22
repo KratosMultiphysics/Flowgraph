@@ -6,8 +6,6 @@ class OutputView {
     }
 
     onExecute() {
-        // this.inputs[0].name = JSON.stringify(this.getInputData(0), null, '\t');
-        // this.size = this.computeSize();
     }
 
     onDrawForeground(ctx, graphcanvas) {
