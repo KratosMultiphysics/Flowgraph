@@ -1,6 +1,6 @@
 class InputMap {
     constructor() {
-        this.addInput("In0", 0, "");
+        this.addInput("In0", "key-value", "");
         this.addOutput("map", "map");
         this.addOutput("size", "number");
         this.size = this.computeSize();
@@ -21,7 +21,7 @@ class InputMap {
         
         this._value.length = this.inputs.length - 1;
         for (let i = 0; i < this.inputs.length - 1; ++i) {
-            this._value[this.inputs[i].name] = this.getInputData(i);
+            this._value[this.getInputData(i)['key']] = this.getInputData(i)['value'];
         }
         
         this.setOutputData(0, this._value);
@@ -44,7 +44,7 @@ class InputMap {
 
         // If all nodes are connected, or there are no nodes, add one.
         if (this.inputs.length <= 0 || this.isInputConnected(this.inputs.length - 1)) {
-            this.addInput("In" + (this.getOutputData(1)), 0, "");
+            this.addInput("In" + (this.getOutputData(1)), "key-value", "");
             this.incSize(1, 1);
         }
 
