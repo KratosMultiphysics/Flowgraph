@@ -58,4 +58,4 @@ InputMap.desc = "Merges several parameter into a map";
 
 LiteGraph.registerNodeType("parameters/Map", InputMap);
 
-console.log("ParsedModelPart node created"); //helps to debug
+console.log("InputMap node created"); //helps to debug

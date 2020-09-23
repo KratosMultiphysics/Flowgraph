@@ -68,6 +68,6 @@ InputList.desc = "Merges several elements into an array";
 
 LiteGraph.registerNodeType("parameters/List", InputList);
 
-console.log("ParsedModelPart node created"); //helps to debug
+console.log("InputList node created"); //helps to debug
 
 // export default InputList;
