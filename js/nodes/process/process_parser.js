@@ -36,17 +36,22 @@ Object.entries(processes).forEach(([key, value]) => {
     let processClass = class {
         constructor() {
             this.properties = Object.assign({}, value);
+            this.widgets_up = true;
 
             // Delete the help and move it to the description
             if(this.properties['help'] != undefined) {
                 delete this.properties['help'];
             }
 
+            this.widget_storage = new Map();
+
             Object.entries(this.properties).forEach(([pkey, pvalue]) => {
                 if(pkey === "model_part_name") {
                     this.addInput(`${pkey}`,"string");
+                    this.addOutput(`${pkey}`,"string");
+                    this.widget_storage[`${pkey}`] = this.addWidget("string", `${pkey}`, this.properties[pkey], `${pkey}`)
                 }
-            })
+            });
 
             this.addOutput(`Process`,"process");
             this.serialize_widgets = true;
@@ -54,11 +59,34 @@ Object.entries(processes).forEach(([key, value]) => {
 
         onExecute() {
             this._value = Object.assign({}, this.properties);
-            this.setOutputData(0,  this._value);
+
+            // If connected to something its value takes precedence over the one
+            // in the properties.
+            for (let i = 0; i < this.inputs.length; i++) {
+                if (this.isInputConnected(i)) {
+                    this._value[this.inputs[i].name] = this.getInputData(i);
+                }
+                this.setOutputData(i,  this._value[this.inputs[i].name]);
+            }
+
+            this.setOutputData(this.outputs.length - 1,  this._value);
         }
 
         onAdded() {
             this.size = this.computeSize();
+        }
+
+        onConnectionsChange() {
+            // Last slot is the process output and all the others should behabe like widget-binded I/O
+            for (let i = 0; i < this.inputs.length; i++) {
+                if(!this.isInputConnected(i)) {
+                    this.widget_storage[this.inputs[i].name].type = "string"
+                    this.widget_storage[this.inputs[i].name].draw = true
+                } else {
+                    this.widget_storage[this.inputs[i].name].type = "invisible"
+                    this.widget_storage[this.inputs[i].name].draw = false
+                }
+            }
         }
     };
 
