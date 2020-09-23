@@ -1,6 +1,6 @@
 class OutputView {
     constructor() {
-        this.addInput("json", "map")
+        this.addInput("json", 0)
 
         this.size = this.computeSize();
     }
