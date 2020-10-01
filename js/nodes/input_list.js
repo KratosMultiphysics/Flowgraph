@@ -1,7 +1,16 @@
-class ParameterList {
+class InputList {
     constructor() {
-        this.addInput("In0", 0, "");
-        this.addOutput("array", "array");
+        this.input_type = 0;
+        this.output_type = "array";
+    }
+
+    onAdded() {
+        this.buildConnections();
+    }
+
+    buildConnections() {
+        this.addInput("In0", this.input_type, "");
+        this.addOutput("array", this.output_type);
         this.addOutput("size", "number");
         this.size = this.computeSize();
         this.serialize_widgets = true;
@@ -45,7 +54,7 @@ class ParameterList {
 
         // If all nodes are connected, or there are no nodes, add one.
         if (this.inputs.length <= 0 || this.isInputConnected(this.inputs.length - 1)) {
-            this.addInput("In" + (this.getOutputData(1)), 0, "");
+            this.addInput("In" + (this.getOutputData(1)), this.input_type, "");
             this.incSize(1, 1);
         }
 
@@ -54,9 +63,11 @@ class ParameterList {
     }
 }
 
-ParameterList.title = "ParameterList";
-ParameterList.desc = "Merges several parameter into an array";
+InputList.title = "List";
+InputList.desc = "Merges several elements into an array";
 
-LiteGraph.registerNodeType("parameters/ParameterList", ParameterList);
+LiteGraph.registerNodeType("parameters/List", InputList);
 
-console.log("ParsedModelPart node created"); //helps to debug
+console.log("InputList node created"); //helps to debug
+
+// export default InputList;

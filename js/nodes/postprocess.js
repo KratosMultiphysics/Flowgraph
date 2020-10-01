@@ -6,7 +6,7 @@
 function GidIO() {
     this.addInput("ModelPart", "string");
     this.addInput("OutputName", "string");
-    this.addOutput("GidIO", "object");
+    this.addOutput("GidIO", "map");
 
     this.settings = {
         "python_module": "gid_output_process",

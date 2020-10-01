@@ -1,205 +1,66 @@
-  //********************************************************************/    
-    //********************************************************************/    
-    //********************************************************************/    
-    //********************************************************************/
-    function ProblemData() {
+function ProblemData() {
 
-        this.properties = {
-            "problem_name"  : "riccardo",
-            "parallel_type" : "OpenMP",
-            "echo_level"    : 0,
-            "start_time"    : 0.0,
-            "end_time"      : 45
-        }
-
-        this.addOutput("problem_data","object");
-        this.addOutput("problem_name","string");
-        this.addOutput("start_time","number");
-        this.addOutput("end_time","number");
-        this.size = this.computeSize();
+    this.properties = {
+        "problem_name"  : "riccardo",
+        "parallel_type" : "OpenMP",
+        "echo_level"    : 0,
+        "start_time"    : 0.0,
+        "end_time"      : 45
     }
 
-    ProblemData.title = "ProblemData";
-    ProblemData.desc = "create an problem_data object";
+    this.addOutput("problem_data","map");
+    this.addOutput("problem_name","string");
+    this.addOutput("start_time","number");
+    this.addOutput("end_time","number");
+    this.size = this.computeSize();
+}
 
-    ProblemData.prototype.onExecute = function() {
-        this.setOutputData(0, this.properties);
-    };
+ProblemData.title = "Problem Data";
+ProblemData.desc = "Create a problem_data";
 
-    LiteGraph.registerNodeType("parameters/ProblemData", ProblemData);
+ProblemData.prototype.onExecute = function() {
+    this.setOutputData(0, this.properties);
+    this.setOutputData(1, this.properties["problem_name"]);
+    this.setOutputData(2, this.properties["start_time"]);
+    this.setOutputData(3, this.properties["end_time"]);
+};
 
-    console.log("ProblemData node created"); //helps to debug
+LiteGraph.registerNodeType("parameters/ProblemData", ProblemData);
 
-    //********************************************************************/    
-    //********************************************************************/    
-    //********************************************************************/    
-    //********************************************************************/
-    function StringsList() {
+console.log("ProblemData node created"); //helps to debug
 
-        this.addOutput("StringsList","object");
-        this.size = this.computeSize();
-    }
-
-    StringsList.title = "StringsList";
-    StringsList.desc = "create an empty list";
-
-    StringsList.prototype.onGetInputs = function() {
-        return [
-            ["string", "string"],
-        ];
-    };
-
-    StringsList.prototype.onExecute = function() {
-        tmp = []
-        console.log(this.inputs.length)
-        for (var i = 0; i < this.inputs.length; ++i) {
-                var input = this.inputs[i];
-                if (input.link !== null) {
-                    var v = this.getInputData(i);
-                    tmp.push(v);
-                }
-            }
-        console.log(tmp)
-        this.setOutputData(0, tmp);
-    };
-
-    LiteGraph.registerNodeType("parameters/StringsList", StringsList);
-
-    console.log("StringsList node created"); //helps to debug
-
-
-
-    //********************************************************************/    
-    //********************************************************************/    
-    //********************************************************************/    
-    //********************************************************************/
-    function ParametersList() {
-
-        this.addOutput("ParametersList","object");
-        this.size = this.computeSize();
-    }
-
-    ParametersList.title = "ParametersList";
-    ParametersList.desc = "create an empty list";
-
-    ParametersList.prototype.onGetInputs = function() {
-        return [
-            ["Process", "object"],
-        ];
-    };
-
-    ParametersList.prototype.onExecute = function() {
-        tmp = []
-        console.log(this.inputs.length)
-        for (var i = 0; i < this.inputs.length; ++i) {
-                var input = this.inputs[i];
-                if (input.link !== null) {
-                    var v = this.getInputData(i);
-                    tmp.push(v);
-                }
-            }
-        console.log(tmp)
-        this.setOutputData(0, tmp);
-    };
-
-    LiteGraph.registerNodeType("parameters/ParametersList", ParametersList);
-
-    console.log("ParametersList node created"); //helps to debug
-
-    //********************************************************************/    
-    //********************************************************************/    
-    //********************************************************************/    
-    //********************************************************************/
-    function EmptyList() {
-        this.addOutput("EmptyList","object");
-        this.size = this.computeSize();
-    }
-
-    EmptyList.title = "EmptyList";
-    EmptyList.desc = "create an empty list";
-
-    EmptyList.prototype.onExecute = function() {
-        tmp = []
-        this.setOutputData(0, tmp);
-    };
-
-    LiteGraph.registerNodeType("parameters/EmptyList", EmptyList);
-
-    console.log("EmptyList node created"); //helps to debug
+function ProjectParameters() {
+    this.addInput("problem_data", "map");
+    this.addInput("output_processes", "process_array");
+    this.addInput("solver_settings", "map");
+    this.addInput("initial_conditions_process_list", "process_array");
+    this.addInput("boundary_conditions_process_list", "process_array");
+    this.addInput("gravity", "map");
+    this.addInput("auxiliar_process_list", "process_array");
     
-    //********************************************************************/    
-    //********************************************************************/    
-    //********************************************************************/    
-    //********************************************************************/
-    function PushBack() {
-        this.addInput("InputList","object");
-        this.addInput("ToAdd","object");
-        this.addOutput("OutputList","object");
-        this.size = this.computeSize();
-        this.serialize_widgets = true;
-    }
+    this.addOutput("project_parameters","map");
+    this.size = this.computeSize();
+}
 
-    PushBack.title = "PushBack";
-    PushBack.desc = "add to a list";
+ProjectParameters.title = "Project Parameters";
+ProjectParameters.desc = "create a Project Parmaters";
 
-    PushBack.prototype.onExecute = function() {
-        tmp = this.getInputData(0)
-        v = this.getInputData(1)
+ProjectParameters.prototype.onExecute = function() {
+    tmp = {};
+    tmp["processes"] = {};
 
-        tmp.push(v)
-        this.setOutputData(0, tmp);
-    };
+    tmp["problem_data"] = this.getInputData(0); //0
+    tmp["output_processes"] = this.getInputData(1); //1
+    tmp["solver_settings"] = this.getInputData(2); //2
+    tmp["processes"]["initial_conditions_process_list"] = this.getInputData(3); //3
+    tmp["processes"]["boundary_conditions_process_list"] = this.getInputData(4);
+    tmp["processes"]["gravity"] = this.getInputData(5);
+    tmp["processes"]["auxiliar_process_list"] = this.getInputData(6); //6
 
-    LiteGraph.registerNodeType("parameters/PushBack", PushBack);
+    this.setOutputData(0, tmp);
+};
 
-    console.log("PushBack node created"); //helps to debug
+LiteGraph.registerNodeType("parameters/ProjectParameters", ProjectParameters);
 
-//********************************************************************/    
-    //********************************************************************/    
-    //********************************************************************/    
-    //********************************************************************/
-
-
-
-     //********************************************************************/    
-    //********************************************************************/    
-    //********************************************************************/    
-    //********************************************************************/
-    function ProjectParameters() {
-        this.addInput("problem_data", "object"); //0
-        this.addInput("output_processes", "object"); //1
-        this.addInput("solver_settings", "object"); //2
-        this.addInput("initial_conditions_process_list", "object"); //3
-        this.addInput("boundary_conditions_process_list", "object"); //4
-        this.addInput("gravity", "object"); //5
-        this.addInput("auxiliar_process_list", "object"); //6
-        
-
-
-
-        this.addOutput("project_parameters","object");
-        this.size = this.computeSize();
-    }
-
-    ProjectParameters.title = "ProjectParameters";
-    ProjectParameters.desc = "create an problem_data object";
-
-    ProjectParameters.prototype.onExecute = function() {
-        tmp = {};
-        tmp["processes"] = {};
-
-        tmp["problem_data"] = this.getInputData(0); //0
-        tmp["output_processes"] = this.getInputData(1); //1
-        tmp["solver_settings"] = this.getInputData(2); //2
-        tmp["processes"]["initial_conditions_process_list"] = this.getInputData(3); //3
-        tmp["processes"]["boundary_conditions_process_list"] = this.getInputData(4);
-        tmp["processes"]["gravity"] = this.getInputData(5);
-        tmp["processes"]["auxiliar_process_list"] = this.getInputData(6); //6
-
-        this.setOutputData(0, tmp);
-    };
-
-    LiteGraph.registerNodeType("parameters/ProjectParameters", ProjectParameters);
-
-    console.log("ProjectParameters node created"); //helps to debug
+console.log("ProjectParameters node created"); //helps to debug
 
