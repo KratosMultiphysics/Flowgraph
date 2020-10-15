@@ -1,34 +1,3 @@
-function ProblemData() {
-
-    this.properties = {
-        "problem_name"  : "riccardo",
-        "parallel_type" : "OpenMP",
-        "echo_level"    : 0,
-        "start_time"    : 0.0,
-        "end_time"      : 45
-    }
-
-    this.addOutput("problem_data","map");
-    this.addOutput("problem_name","string");
-    this.addOutput("start_time","number");
-    this.addOutput("end_time","number");
-    this.size = this.computeSize();
-}
-
-ProblemData.title = "Problem Data";
-ProblemData.desc = "Create a problem_data";
-
-ProblemData.prototype.onExecute = function() {
-    this.setOutputData(0, this.properties);
-    this.setOutputData(1, this.properties["problem_name"]);
-    this.setOutputData(2, this.properties["start_time"]);
-    this.setOutputData(3, this.properties["end_time"]);
-};
-
-LiteGraph.registerNodeType("parameters/ProblemData", ProblemData);
-
-console.log("ProblemData node created"); //helps to debug
-
 function ProjectParameters() {
     this.addInput("problem_data", "map");
     this.addInput("output_processes", "process_array");
@@ -37,7 +6,7 @@ function ProjectParameters() {
     this.addInput("boundary_conditions_process_list", "process_array");
     this.addInput("gravity", "map");
     this.addInput("auxiliar_process_list", "process_array");
-    
+
     this.addOutput("project_parameters","map");
     this.size = this.computeSize();
 }
@@ -63,4 +32,3 @@ ProjectParameters.prototype.onExecute = function() {
 LiteGraph.registerNodeType("parameters/ProjectParameters", ProjectParameters);
 
 console.log("ProjectParameters node created"); //helps to debug
-

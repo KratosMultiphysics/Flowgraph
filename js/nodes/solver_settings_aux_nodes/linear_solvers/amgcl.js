@@ -42,4 +42,4 @@
         this.setOutputData(0,  myoutput);
     };
 
-    LiteGraph.registerNodeType("linear_solver/AMGCLSolver", AMGCLSolver);
+    LiteGraph.registerNodeType("linear_solvers/AMGCL", AMGCLSolver);

@@ -1,4 +1,4 @@
-class MonolithicFluidSolver {
+class FluidMonolithicSolver {
     constructor() {
         this.addInput("model_part_name", "string");
         this.addInput("ProblemData", "map");
@@ -65,9 +65,9 @@ class MonolithicFluidSolver {
     }
 }
 
-MonolithicFluidSolver.title = "Monolithic Fluid Solver";
-MonolithicFluidSolver.desc = "Properties for the monolthic fluid solver";
+FluidMonolithicSolver.title = "Fluid monolithic solver";
+FluidMonolithicSolver.desc = "Properties for the monolthic fluid solver";
 
-LiteGraph.registerNodeType("solvers/MonolithicFluidSolver", MonolithicFluidSolver);
+LiteGraph.registerNodeType("solver_settings/FluidMonolithicSolver", FluidMonolithicSolver);
 
-console.log("MonolithicFluidSolver node created"); //helps to debug
+console.log("FluidMonolithicSolver node created"); //helps to debug

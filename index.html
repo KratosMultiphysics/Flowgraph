@@ -41,13 +41,20 @@
     <script type="text/javascript" src="js/nodes/input_list.js"></script>
     <script type="text/javascript" src="js/nodes/input_map.js"></script>
     <script type="text/javascript" src="js/nodes/output_view.js"></script>
-    <script type="text/javascript" src="js/nodes/linear_solver.js"></script>
-    <script type="text/javascript" src="js/nodes/solvers.js"></script>
     <script type="text/javascript" src="js/nodes/parameters.js"></script>
+    <script type="text/javascript" src="js/nodes/problem_data.js"></script>
+
+    <!-- Postprocess -->
     <script type="text/javascript" src="js/nodes/postprocess.js"></script>
 
-    <!-- Solver settings nodes -->
-    <script type="text/javascript" src="js/nodes/model_import_settings.js"></script>
+    <!-- Solver settings for solvers  -->
+    <script type="text/javascript" src="js/nodes/solver_settings/fluid_monolithic_solver.js"></script>
+
+    <!-- Auxiliary nodes required by solver settings -->
+    <!-- Other nodes -->
+    <script type="text/javascript" src="js/nodes/solver_settings_aux_nodes/model_import_settings.js"></script>
+    <!-- Linear_solvers -->
+    <script type="text/javascript" src="js/nodes/solver_settings_aux_nodes/linear_solvers/amgcl.js"></script>
 
     <!-- Processes nodes -->
     <script type="text/javascript" src="js/nodes/processes/"></script>
