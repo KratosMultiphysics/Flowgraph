@@ -6,6 +6,7 @@ class MonolithicFluidSolver {
         this.addInput("volume_model_part_name", "string");
         this.addInput("skin_parts", "map");
         this.addInput("no_skin_parts", "map");
+        this.addInput("linear_solver_settings", "map");
         this.addOutput("solver_settings", "map");
         this.properties = {
             "solver_type": "Monolithic",
@@ -31,7 +32,9 @@ class MonolithicFluidSolver {
                 "use_orthogonal_subscales": false,
                 "dynamic_tau": 1.0
             },
-            "reform_dofs_at_each_step": false
+            "reform_dofs_at_each_step": false,
+            "linear_solver_settings": {
+            }
         };
         this.size = this.computeSize();
     }
@@ -43,11 +46,12 @@ class MonolithicFluidSolver {
         if (this.getInputData(1) != undefined) {
             this._value["model_import_settings"]["input_filename"] = this.getInputData(1)["problem_name"];
         }
-        
+
         this._value["domain_size"] = this.getInputData(2);
         this._value["volume_model_part_name"] = this.getInputData(3);
         this._value["skin_parts"] = this.getInputData(4);
         this._value["no_skin_parts"] = this.getInputData(5);
+        this._value["linear_solver_settings"] = this.getInputData(6);
 
         this.setOutputData(0, this._value);
     }
