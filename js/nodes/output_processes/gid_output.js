@@ -1,12 +1,12 @@
 
-//********************************************************************/    
-//********************************************************************/    
-//********************************************************************/    
 //********************************************************************/
-function GidIO() {
+//********************************************************************/
+//********************************************************************/
+//********************************************************************/
+function GiDIO() {
     this.addInput("ModelPart", "string");
     this.addInput("OutputName", "string");
-    this.addOutput("GidIO", "map");
+    this.addOutput("GiDIO", "map");
 
     this.settings = {
         "python_module": "gid_output_process",
@@ -14,7 +14,6 @@ function GidIO() {
         "process_name": "GiDOutputProcess",
         "help": "This process writes postprocessing files for GiD",
         "Parameters": {
-
             "postprocess_parameters": {
                 "result_file_configuration": {
                     "gidpost_flags": {
@@ -43,10 +42,10 @@ function GidIO() {
     this.size = this.computeSize();
 }
 
-GidIO.title = "GidIO";
-GidIO.desc = "Creates Gid IO";
+GiDIO.title = "GiDIO";
+GiDIO.desc = "Creates GiD IO";
 
-GidIO.prototype.onExecute = function () {
+GiDIO.prototype.onExecute = function () {
     tmp = this.settings
     tmp["Parameters"]["model_part_name"] = this.getInputData(0);
     tmp["Parameters"]["output_name"] = this.getInputData(1);
@@ -60,6 +59,6 @@ GidIO.prototype.onExecute = function () {
     this.setOutputData(0, [tmp]);
 };
 
-LiteGraph.registerNodeType("postprocess/GidIO", GidIO);
+LiteGraph.registerNodeType("output_processes/GiDIO", GiDIO);
 
-console.log("GidIO node created"); //helps to debug
+console.log("GiDIO node created"); //helps to debug
