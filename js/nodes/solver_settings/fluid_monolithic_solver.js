@@ -8,6 +8,7 @@ class FluidMonolithicSolver {
         this.addInput("no_skin_parts", "array");
         this.addInput("linear_solver_settings", "map");
         this.addInput("model_import_settings", "map");
+        this.addInput("material_import_settings", "map");
         this.addOutput("solver_settings", "map");
         this.properties = {
             "solver_type": "Monolithic",
@@ -61,6 +62,7 @@ class FluidMonolithicSolver {
             // Custom input provided
             this._value["model_import_settings"] = this.getInputData(7);
         }
+        this._value["material_import_settings"] = this.getInputData(8);
 
         this.setOutputData(0, this._value);
     }
