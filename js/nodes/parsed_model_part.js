@@ -14,7 +14,9 @@ class ParsedModelPart {
     }
 
     onExecute() {
-        // Currently does nothing
+        for (let i = 0; i < this.outputs.length; ++i) {
+            this.setOutputData(i, this.outputs[i].name);
+        }
     }
 
     onSelection(e) {

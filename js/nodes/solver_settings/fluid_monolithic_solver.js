@@ -4,8 +4,8 @@ class FluidMonolithicSolver {
         this.addInput("ProblemData", "map");
         this.addInput("domain_size", "number");
         this.addInput("volume_model_part_name", "string");
-        this.addInput("skin_parts", "map");
-        this.addInput("no_skin_parts", "map");
+        this.addInput("skin_parts", "array");
+        this.addInput("no_skin_parts", "array");
         this.addInput("linear_solver_settings", "map");
         this.addInput("model_import_settings", "map");
         this.addOutput("solver_settings", "map");
@@ -47,6 +47,7 @@ class FluidMonolithicSolver {
         }
         this._value["domain_size"] = this.getInputData(2);
         this._value["volume_model_part_name"] = this.getInputData(3);
+        console.log(this.getInputData(4))
         this._value["skin_parts"] = this.getInputData(4);
         this._value["no_skin_parts"] = this.getInputData(5);
         this._value["linear_solver_settings"] = this.getInputData(6);

@@ -6,27 +6,7 @@
 function GiDIO() {
     this.addInput("ModelPart", "string");
     this.addInput("OutputName", "string");
-    this.addOutput("GiDIO", "map");
-
-    this.settings = {
-        "python_module": "gid_output_process",
-        "kratos_module": "KratosMultiphysics",
-        "process_name": "GiDOutputProcess",
-        "help": "This process writes postprocessing files for GiD",
-        "Parameters": {
-            "postprocess_parameters": {
-                "result_file_configuration": {
-                    "gidpost_flags": {
-                        "GiDPostMode": "GiD_PostBinary",
-                        "WriteDeformedMeshFlag": "WriteDeformed",
-                        "WriteConditionsFlag": "WriteConditions",
-                        "MultiFileFlag": "SingleFile"
-                    },
-                },
-                "point_data_configuration": []
-            }
-        }
-    }
+    this.addOutput("Process", "process");
 
     this.properties = {
         "file_label": "time",
@@ -46,17 +26,33 @@ GiDIO.title = "GiDIO";
 GiDIO.desc = "Creates GiD IO";
 
 GiDIO.prototype.onExecute = function () {
-    tmp = this.settings
-    tmp["Parameters"]["model_part_name"] = this.getInputData(0);
-    tmp["Parameters"]["output_name"] = this.getInputData(1);
+    output = {
+        "python_module": "gid_output_process",
+        "kratos_module": "KratosMultiphysics",
+        "process_name": "GiDOutputProcess",
+        "help": "This process writes postprocessing files for GiD",
+        "Parameters": {
+            "postprocess_parameters": {
+                "result_file_configuration": {
+                    "gidpost_flags": {
+                        "GiDPostMode": "GiD_PostBinary",
+                        "WriteDeformedMeshFlag": "WriteDeformed",
+                        "WriteConditionsFlag": "WriteConditions",
+                        "MultiFileFlag": "SingleFile"
+                    },
+                },
+                "point_data_configuration": []
+            }
+        }
+    }
+    output["Parameters"]["model_part_name"] = this.getInputData(0);
+    output["Parameters"]["output_name"] = this.getInputData(1);
 
-    for(let item in this.properties )
-    {
-        console.log(item)
-        tmp["Parameters"][item] = this.properties[item]
+    for(let item in this.properties ) {
+        output["Parameters"][item] = this.properties[item];
     }
 
-    this.setOutputData(0, [tmp]);
+    this.setOutputData(0, output);
 };
 
 LiteGraph.registerNodeType("output_processes/GiDIO", GiDIO);

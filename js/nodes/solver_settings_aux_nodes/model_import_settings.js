@@ -16,7 +16,8 @@ class ModelImportSettings {
     onExecute()
     {
         this._value = Object.assign({}, this.properties);
-        this._value["input_type"] = this.input_type.value
+        this._value["input_filename"] = this.getInputData(0);
+        this._value["input_type"] = this.input_type.value;
 
         this.setOutputData(0, this._value);
     }
