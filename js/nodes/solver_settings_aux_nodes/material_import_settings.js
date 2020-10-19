@@ -1,10 +1,10 @@
 class MaterialImportSettings {
     constructor()
     {
-        this.addInput("Input filename", "string");
+        this.addInput("Materials filename", "string");
 
         this.properties = {
-            "input_filename" : ""
+            "materials_filename" : ""
         };
 
         this.addOutput("solver_settings", "map");
@@ -16,7 +16,7 @@ class MaterialImportSettings {
     {
         this._value = Object.assign({}, this.properties);
         if (this.getInputData(0) != undefined) {
-            this._value["input_filename"] = this.getInputData(0);
+            this._value["materials_filename"] = this.getInputData(0);
         }
 
         this.setOutputData(0, this._value);
