@@ -1,14 +1,13 @@
 class FluidMonolithicSolver {
     constructor() {
-        this.addInput("model_part_name", "string");
-        this.addInput("ProblemData", "map");
-        this.addInput("domain_size", "number");
-        this.addInput("volume_model_part_name", "string");
-        this.addInput("skin_parts", "array");
-        this.addInput("no_skin_parts", "array");
-        this.addInput("linear_solver_settings", "map");
-        this.addInput("model_import_settings", "map");
-        this.addInput("material_import_settings", "map");
+        this.addInput("model_import_settings", "map");      // 0
+        this.addInput("model_part_name", "string");         // 1
+        // this.addInput("ProblemData", "map");                // 2
+        this.addInput("volume_model_part_name", "string");  // 2
+        this.addInput("skin_parts", "array");               // 3
+        this.addInput("no_skin_parts", "array");            // 4
+        this.addInput("linear_solver_settings", "map");     // 5
+        this.addInput("material_import_settings", "map");   // 6
         this.addOutput("solver_settings", "map");
         this.properties = {
             "solver_type": "Monolithic",
@@ -38,31 +37,32 @@ class FluidMonolithicSolver {
             "linear_solver_settings": {
             }
         };
+        this.domain_size = this.addWidget("combo","Domain Size", "2", function(v){}, { values:["2","3"]} );
         this.size = this.computeSize();
     }
 
     onExecute() {
         this._value = Object.assign({}, this.properties);
         if (this.getInputData(0) != undefined) {
-            this._value["model_part_name"] = this.getInputData(0);
+            this._value["model_part_name"] = this.getInputData(1);
         }
-        this._value["domain_size"] = this.getInputData(2);
-        this._value["volume_model_part_name"] = this.getInputData(3);
-        console.log(this.getInputData(4))
-        this._value["skin_parts"] = this.getInputData(4);
-        this._value["no_skin_parts"] = this.getInputData(5);
-        this._value["linear_solver_settings"] = this.getInputData(6);
+        this._value["domain_size"] = this.domain_size.value;
+        this._value["volume_model_part_name"] = this.getInputData(2);
+
+        this._value["skin_parts"] = this.getInputData(3);
+        this._value["no_skin_parts"] = this.getInputData(4);
+        this._value["linear_solver_settings"] = this.getInputData(5);
         if (this.getInputData(7) == undefined) {
             // If the input is not provided, get the "problem_name" as mpda input file
             if (this.getInputData(1) != undefined) {
-                this._value["model_import_settings"]["input_filename"] = this.getInputData(1)["problem_name"];
+                this._value["model_import_settings"]["input_filename"] = this.getInputData(2)["problem_name"];
             }
             this._value["model_import_settings"]["input_type"] = "mdpa";
         } else {
             // Custom input provided
-            this._value["model_import_settings"] = this.getInputData(7);
+            this._value["model_import_settings"] = this.getInputData(0);
         }
-        this._value["material_import_settings"] = this.getInputData(8);
+        this._value["material_import_settings"] = this.getInputData(6);
 
         this.setOutputData(0, this._value);
     }
