@@ -24,8 +24,7 @@
         this.krylov_type = this.addWidget("combo","Krylov", "lgmres", function(v){}, { values:["gmres","bicgstab","cg","bicgstabl","lgmres","fgmres", "bicgstab_with_gmres_fallback","idrs"]} );
         this.addOutput("linear_solver_settings","map");
 
-        //this.size = this.computeSize();
-        this.size = [300, 150];
+        this.size = this.computeSize();
         this.serialize_widgets = true;
 
     }

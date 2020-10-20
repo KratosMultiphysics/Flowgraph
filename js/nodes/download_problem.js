@@ -28,6 +28,11 @@ class DownloadProblem {
         var that = this;
         var zip = new JSZip();
             zip.file("ProjectParameters.json", new Blob([str]));
+
+            Object.entries(problem_files["materials"]).forEach(([key, value]) => {
+                zip.file(value["name"]+".json", new Blob([JSON.stringify(value["data"])]));
+            });
+
             // var img = zip.folder("images");
             // img.file("smile.gif", imgData, {base64: true});
             zip.generateAsync({type:"blob"})
@@ -37,8 +42,8 @@ class DownloadProblem {
     }
 
     saveAs(file, name) {
-        var url = URL.createObjectURL(file);
-        var element = document.createElement("a");
+        let url = URL.createObjectURL(file);
+        let element = document.createElement("a");
 
         element.setAttribute('href', url);
         element.setAttribute('download', name);
