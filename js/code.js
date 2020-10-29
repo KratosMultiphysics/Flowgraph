@@ -62,6 +62,7 @@ LGraphCanvas.onMenuAdd = function(node, options, e, prev_menu, callback) {
 		if (values[i]) {
 			var name = values[i];
 			var name_route;
+			var acc_route = "";
 
 			if(name.indexOf("::") != -1)
 				name = name.split("::")[1];
@@ -72,57 +73,76 @@ LGraphCanvas.onMenuAdd = function(node, options, e, prev_menu, callback) {
 				name_route = name
 
 			if(Array.isArray(name_route)) {
+				acc_route += name_route[0];
 				if(entries_levels[name_route[0]] == undefined)
-					entries_levels[name_route[0]] = {}
-				entry_point = entries_levels[name_route[0]];
+					entries_levels[name_route[0]] = {value: acc_route, content: name_route[0], has_submenu: true, sub: {} }
+
+				entry_point = entries_levels[name_route[0]].sub;
 
 				for(var j = 1; j < name_route.length; j++) {
+					acc_route += "/"+name_route[j];
 					if(entry_point[name_route[j]] == undefined)
-						entry_point[name_route[j]] = {}
-					entry_point = entry_point[name_route[j]];
+						entry_point[name_route[j]] = {value: acc_route, content: name_route[j], has_submenu: true, sub: {} }
+					entry_point = entry_point[name_route[j]].sub;
 				}
 			} else {
 				if(entries_levels[name_route] == undefined)
-					entries_levels[name_route] = {}
+					entries_levels[name_route] = {value: values[i], content: name, has_submenu: true, sub: {} };
 			}
+		}
+	}
+	
+	var entries = []; // Object.values(entries_levels);
 
-			// entries_levels[name] = {value: values[i], content: name, has_submenu: true };
+	Object.entries(entries_levels).forEach(([key, value]) => {
+		entries.push(value);
+	});
+
+	// Show Initial submenu. Probably can be merged.
+	var menu = new LiteGraph.ContextMenu( entries, { event: e, callback: universal_clicked, parentMenu: prev_menu }, ref_window );
+
+	// Select callback depending on the entry attributes. Still not sure what "submenu" key does, but seems to have a special meaning
+	// that probably is worth investigating.
+	function universal_clicked(v, option, e) {
+		if(v.sub == undefined || v.sub.size == 0) {
+			// This is an endnode
+			console.log("End node")
+			inner_create(v, option, e);
+		} else {
+			// This is not
+			console.log("Intermediate node")
+			inner_clicked(v, option, e);
 		}
 	}
 
-	console.log(entries_levels)
-
-	// for (var i=0; i < entries_levels.length; i++) {
-	// 	if (values[i]) {
-	// 		var name = values[i];
-	// 		if(name.indexOf("::") != -1)
-	// 			name = name.split("::")[1];
-	// 		entries.push({ value: values[i], content: name, has_submenu: true });
-	// 	}
-	// }
-			
-	var entries = Object.values(entries_levels);
-
-	//show categories
-	var menu = new LiteGraph.ContextMenu( entries, { event: e, callback: inner_clicked, parentMenu: prev_menu }, ref_window );
-
+	// Handle tree clicks
 	function inner_clicked(v, option, e) {
 		var category = v.value;
+		console.log("Category:", category);
 		var node_types = LiteGraph.getNodeTypesInCategory( category, canvas.filter || graph.filter );
 		var values = [];
+		// Build the entries belonging to submenus
+		Object.entries(v.sub).forEach(([key, value]) => {
+			values.push(value);
+		});
+		// Build the entries belonging end nodes
 		for (var i=0; i < node_types.length; i++) {
 			if (!node_types[i].skip_list) {
 				values.push({
 					content: node_types[i].title,
-					value: node_types[i].type
+					value: node_types[i].type,
+					has_submenu: false
 				});
 			}
 		}
 
-		new LiteGraph.ContextMenu( values, { event: e, callback: inner_create, parentMenu: menu }, ref_window );
+		console.log("Creating menus: ", values);
+		var new_menu = new LiteGraph.ContextMenu( values, { event: e, callback: universal_clicked, parentMenu: menu }, ref_window );
+		menu = new_menu;
 		return false;
 	}
 
+	// Handle leave clicks
 	function inner_create(v, e) {
 		var first_event = prev_menu.getFirstEvent();
 		canvas.graph.beforeChange();
