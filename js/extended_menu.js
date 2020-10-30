@@ -95,7 +95,7 @@ LGraphCanvas.onMenuAdd = function(node, options, e, prev_menu, callback) {
 			prev = category_path.join("/");
 		}
 
-		new_menu = new LiteGraph.ContextMenu( values, { event: e, callback: universal_clicked, parentMenu: menu_level[prev] }, ref_window );
+		new_menu = new LiteGraph.ContextMenu( values, { event: e, callback: handle_menu_click, parentMenu: menu_level[prev] }, ref_window );
 		menu_level[category] = new_menu;
 		return false;
 	}
