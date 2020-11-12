@@ -1,6 +1,6 @@
     //********************************************************************/
     function AMGCLSolver() {
-        
+
         this.properties = {
             "preconditioner_type"            : "amg",
             "solver_type"                    : "AMGCL",
@@ -22,10 +22,9 @@
         this.coarsening_type = this.addWidget("combo","Coarsening", "aggregation", function(v){}, { values:["ruge_stuben","aggregation","smoothed_aggregation","smoothed_aggr_emin"]} );
         this.smoother_type = this.addWidget("combo","Smoother", "damped_jacobi", function(v){}, { values:["spai0","spai1","ilu0","ilut","iluk","damped_jacobi","gauss_seidel","chebyshev"]} );
         this.krylov_type = this.addWidget("combo","Krylov", "lgmres", function(v){}, { values:["gmres","bicgstab","cg","bicgstabl","lgmres","fgmres", "bicgstab_with_gmres_fallback","idrs"]} );
-        this.addOutput("solver_settings","array");
+        this.addOutput("linear_solver_settings","map");
 
-        //this.size = this.computeSize();
-        this.size = [300, 150];
+        this.size = this.computeSize();
         this.serialize_widgets = true;
 
     }
@@ -42,4 +41,4 @@
         this.setOutputData(0,  myoutput);
     };
 
-    LiteGraph.registerNodeType("linear_solver/AMGCLSolver", AMGCLSolver);
+    LiteGraph.registerNodeType("linear_solvers/AMGCL", AMGCLSolver);

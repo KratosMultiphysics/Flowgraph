@@ -18,11 +18,16 @@
 
     <script type="text/javascript" src="../external/jquery-1.6.2.min.js"></script>
     <script type="text/javascript" src="https://tamats.com/projects/sillyserver/src/sillyclient.js"></script>
-    <script type="text/javascript" src="js/libs/audiosynth.js"></script>
 
     <script type="text/javascript" src="../src/litegraph.js"></script>
     <script type="text/javascript" src="../src/litegraph-editor.js"></script>
+    
+    <script type="text/javascript" src="js/jszip.js"></script>
+    <script type="text/javascript" src="js/problem_manager.js"></script>
 
+    <script type="text/javascript" src="js/libs/audiosynth.js"></script>
+
+    <!-- TODO: Filter which ones of these could be useful for us -->
     <script type="text/javascript" src="../src/nodes/base.js"></script>
     <script type="text/javascript" src="../src/nodes/logic.js"></script>
     <script type="text/javascript" src="../src/nodes/events.js"></script>
@@ -36,22 +41,43 @@
     <script type="text/javascript" src="../src/nodes/audio.js"></script>
     <script type="text/javascript" src="../src/nodes/network.js"></script>
 
+    <script type="text/javascript" src="js/nodes/download_problem.js"></script>
+    <script type="text/javascript" src="js/nodes/models.js"></script>
     <script type="text/javascript" src="js/nodes/parsed_model_part.js"></script>
     <script type="text/javascript" src="js/nodes/input_list.js"></script>
     <script type="text/javascript" src="js/nodes/input_map.js"></script>
     <script type="text/javascript" src="js/nodes/output_view.js"></script>
-    <script type="text/javascript" src="js/nodes/linear_solver.js"></script>
-    <script type="text/javascript" src="js/nodes/solvers.js"></script>
-    <script type="text/javascript" src="js/nodes/parameters.js"></script>
-    <script type="text/javascript" src="js/nodes/postprocess.js"></script>
-    <script type="text/javascript" src="js/nodes/inlet_by_function.js"></script>
-    <script type="text/javascript" src="js/nodes/outlet_process.js"></script>
+    <script type="text/javascript" src="js/nodes/project_parameters.js"></script>
+    <script type="text/javascript" src="js/nodes/problem_data.js"></script>
 
-    <script type="text/javascript" src="js/nodes/process/process_list.js"></script>
-    <script type="text/javascript" src="js/nodes/process/process_parser.js"></script>
+    <!-- Postprocess -->
+    <script type="text/javascript" src="js/nodes/output_processes/gid_output.js"></script>
+
+    <!-- Solver settings for solvers  -->
+    <script type="text/javascript" src="js/nodes/solver_settings/fluid_monolithic_solver.js"></script>
+
+    <!-- Auxiliary nodes required by solver settings -->
+    <!-- Other nodes -->
+    <script type="text/javascript" src="js/nodes/solver_settings_aux_nodes/model_import_settings.js"></script>
+    <script type="text/javascript" src="js/nodes/solver_settings_aux_nodes/material_import_settings.js"></script>
+    <!-- Linear_solvers -->
+    <script type="text/javascript" src="js/nodes/solver_settings_aux_nodes/linear_solvers/amgcl.js"></script>
+
+    <!-- Materials -->
+    <script type="text/javascript" src="js/nodes/materials/materials_list.js"></script>
+    <script type="text/javascript" src="js/nodes/materials/material_newtonian.js"></script>
+    <script type="text/javascript" src="js/nodes/materials/material_writer.js"></script>
+
+    <!-- Processes nodes -->
+    <script type="text/javascript" src="js/nodes/processes/process_list.js"></script>
+    <script type="text/javascript" src="js/nodes/processes/process_parser.js"></script>
+    <script type="text/javascript" src="js/nodes/processes/inlet_by_function.js"></script>
+    <script type="text/javascript" src="js/nodes/processes/outlet_process.js"></script>
+    <script type="text/javascript" src="js/nodes/processes/no_slip_process.js"></script>
 
     <script type="text/javascript" src="js/demos.js"></script>
-	<script type="text/javascript" src="js/code.js"></script>
+    <script type="text/javascript" src="js/code.js"></script>
+    <script type="text/javascript" src="js/extended_menu.js"></script>
 
 </body>
 </html>

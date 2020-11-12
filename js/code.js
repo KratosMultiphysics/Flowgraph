@@ -1,5 +1,6 @@
 
 LiteGraph.node_images_path = "../nodes_data/";
+
 var editor = new LiteGraph.Editor("main");
 window.graphcanvas = editor.graphcanvas;
 window.graph = editor.graph;
@@ -44,5 +45,3 @@ elem.querySelector("#download").addEventListener("click",function(){
 	document.body.removeChild(element);
 	setTimeout( function(){ URL.revokeObjectURL( url ); }, 1000*60 ); //wait one minute to revoke url	
 });
-
-

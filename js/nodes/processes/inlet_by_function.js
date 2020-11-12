@@ -1,6 +1,6 @@
     function InletByFunction() {
         this.addInput("model_part","string");
-        this.addOutput("OutputList","map");
+        this.addOutput("Process","process");
 
         this.modulus = this.addWidget("string","f(x,y,z,t)=", "", function(v){} );
 
@@ -17,7 +17,7 @@
     InletByFunction.desc = "define inlet";
 
     InletByFunction.prototype.onExecute = function() {
-        output =     {
+        output = {
             "python_module" : "apply_inlet_process",
             "kratos_module" : "KratosMultiphysics.FluidDynamicsApplication"
         }
@@ -28,6 +28,6 @@
         this.setOutputData(0, output);
     };
 
-    LiteGraph.registerNodeType("parameters/InletByFunction", InletByFunction);
+    LiteGraph.registerNodeType("processes/InletByFunction", InletByFunction);
 
     console.log("InletByFunction node created"); //helps to debug

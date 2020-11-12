@@ -1,10 +1,10 @@
-//********************************************************************/    
-//********************************************************************/    
-//********************************************************************/    
+//********************************************************************/
+//********************************************************************/
+//********************************************************************/
 //********************************************************************/
 function OutletProcess() {
     this.addInput("model_part","string");
-    this.addOutput("Output","map");
+    this.addOutput("Process","process");
 
     this.properties = {
         "variable_name"      : "PRESSURE",
@@ -18,7 +18,7 @@ function OutletProcess() {
 }
 
 OutletProcess.title = "OutletProcess";
-OutletProcess.desc = "define inlet";
+OutletProcess.desc = "Define outlet";
 
 OutletProcess.prototype.onExecute = function() {
     output =     {
@@ -31,6 +31,6 @@ OutletProcess.prototype.onExecute = function() {
     this.setOutputData(0, output);
 };
 
-LiteGraph.registerNodeType("parameters/OutletProcess", OutletProcess);
+LiteGraph.registerNodeType("processes/OutletProcess", OutletProcess);
 
 console.log("OutletProcess created"); //helps to debug
