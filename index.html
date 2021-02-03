@@ -25,21 +25,19 @@
     <script type="text/javascript" src="js/jszip.js"></script>
     <script type="text/javascript" src="js/problem_manager.js"></script>
 
-    <script type="text/javascript" src="js/libs/audiosynth.js"></script>
-
     <!-- TODO: Filter which ones of these could be useful for us -->
     <script type="text/javascript" src="../src/nodes/base.js"></script>
-    <script type="text/javascript" src="../src/nodes/logic.js"></script>
-    <script type="text/javascript" src="../src/nodes/events.js"></script>
+    <!-- <script type="text/javascript" src="../src/nodes/logic.js"></script>
+    <script type="text/javascript" src="../src/nodes/events.js"></script> -->
     <script type="text/javascript" src="../src/nodes/math.js"></script>
     <script type="text/javascript" src="../src/nodes/math3d.js"></script>
-    <script type="text/javascript" src="../src/nodes/strings.js"></script>
+    <!-- <script type="text/javascript" src="../src/nodes/strings.js"></script>
     <script type="text/javascript" src="../src/nodes/interface.js"></script>
     <script type="text/javascript" src="../src/nodes/geometry.js"></script>
     <script type="text/javascript" src="../src/nodes/input.js"></script>
     <script type="text/javascript" src="../src/nodes/midi.js"></script>
     <script type="text/javascript" src="../src/nodes/audio.js"></script>
-    <script type="text/javascript" src="../src/nodes/network.js"></script>
+    <script type="text/javascript" src="../src/nodes/network.js"></script> -->
 
     <script type="text/javascript" src="js/nodes/download_problem.js"></script>
     <script type="text/javascript" src="js/nodes/models.js"></script>
@@ -54,12 +52,18 @@
     <script type="text/javascript" src="js/nodes/output_processes/gid_output.js"></script>
 
     <!-- Solver settings for solvers  -->
+    <script type="text/javascript" src="js/nodes/solver_settings/conjugate_heat_transfer_solver.js"></script>
     <script type="text/javascript" src="js/nodes/solver_settings/fluid_monolithic_solver.js"></script>
+    <script type="text/javascript" src="js/nodes/solver_settings/solid_domain_solver.js"></script>
+    <script type="text/javascript" src="js/nodes/solver_settings/thermal_transient_solver.js"></script>
+    <script type="text/javascript" src="js/nodes/solver_settings/thermally_coupled_solver.js"></script>
 
-    <!-- Auxiliary nodes required by solver settings -->
+    <!-- Solver settings configuration nodes-->
+
     <!-- Other nodes -->
     <script type="text/javascript" src="js/nodes/solver_settings_aux_nodes/model_import_settings.js"></script>
     <script type="text/javascript" src="js/nodes/solver_settings_aux_nodes/material_import_settings.js"></script>
+    
     <!-- Linear_solvers -->
     <script type="text/javascript" src="js/nodes/solver_settings_aux_nodes/linear_solvers/amgcl.js"></script>
 
