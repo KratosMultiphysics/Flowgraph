@@ -8,7 +8,7 @@ class ModelImportSettings {
             "input_filename" : ""
         }; // TODO: Add restart settings
 
-        this.addOutput("solver_settings", "map");
+        this.addOutput("solver_settings", "model_import_settings");
 
         this.size = this.computeSize();
     }

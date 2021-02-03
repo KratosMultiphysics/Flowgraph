@@ -7,7 +7,7 @@ class MaterialImportSettings {
             "materials_filename" : ""
         };
 
-        this.addOutput("solver_settings", "map");
+        this.addOutput("solver_settings", "material_import_setting");
 
         this.size = this.computeSize();
     }
