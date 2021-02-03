@@ -1,5 +1,6 @@
 class Models {
     constructor() {
+        this.widgets_up = true;
         this.comboWidget = this.addWidget("combo","ModelPart", "DEBUG", (v) => {this.buildOutputs(v)}, { 
             values:["DEBUG_0","DEBUG_1"]
         });
