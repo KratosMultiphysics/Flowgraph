@@ -1,5 +1,7 @@
-class ThermalTransientSolver {
+class ThermalTransientSolver extends BaseSolver {
     constructor() {
+        super();
+        
         this.addInput("model_part_name", "string");                             // 0
         this.addInput("model_import_settings", "model_import_settings");        // 1
         this.addInput("material_import_settings", "material_import_setting");   // 2
@@ -30,11 +32,17 @@ class ThermalTransientSolver {
 
         // Get the input
         this._value["model_part_name"] = this.getInputData(0);
-        this._value["model_import_settings"] = this.getInputData(1);
-        this._value["material_import_settings"] = this.getInputData(2);
+        
+        if (this.getInputData(1) != undefined) this._value["model_import_settings"] = this.getInputData(1);
+        if (this.getInputData(2) != undefined) this._value["material_import_settings"] = this.getInputData(2);
 
         // Get the output
         this.setOutputData(0, this._value);
+    }
+
+    onConnectionsChange() {
+        // Check if the up-stream node has change and update the override
+        this.handleUpStreamOverride('domain_size', 0);
     }
 }
 

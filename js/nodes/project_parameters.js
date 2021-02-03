@@ -1,7 +1,7 @@
 function ProjectParameters() {
     this.addInput("problem_data", "map");
     this.addInput("output_processes", "process_array");
-    this.addInput("solver_settings", "map");
+    this.addInput("solver_settings", "solver_settings");
     this.addInput("initial_conditions_process_list", "process_array");
     this.addInput("boundary_conditions_process_list", "process_array");
     this.addInput("gravity", "map");

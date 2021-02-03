@@ -1,5 +1,7 @@
-class SolidDomainSolver {
+class SolidDomainSolver extends BaseSolver {
     constructor() {
+        super();
+        
         this.addInput("solid_solver_settings", "solver_settings");        // 0
         this.addInput("thermal_solver_settings", "solver_settings");      // 1
 
@@ -34,6 +36,11 @@ class SolidDomainSolver {
 
         // Get the output
         this.setOutputData(0, this._value);
+    }
+
+    onConnectionsChange() {
+        // Check if the up-stream node has change and update the override
+        this.handleUpStreamOverride('domain_size', 0);
     }
 }
 

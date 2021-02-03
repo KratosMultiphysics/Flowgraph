@@ -1,5 +1,7 @@
-class ConjugateHeatTransferSolver {
+class ConjugateHeatTransferSolver extends BaseSolver {
     constructor() {
+        super();
+        
         this.addInput("fluid_domain_solver_settings", "solver_settings");       // 0
         this.addInput("solid_domain_solver_settings", "solver_settings");       // 1
         this.addInput("coupling_settings", "coupling_settings");                // 2
@@ -81,7 +83,10 @@ class ConjugateHeatTransferSolver {
         
         this.domain_size = this.addWidget("combo","Domain Size", "2", function(v){}, { values:["2","3"]} );
         this.echo_level = this.addWidget("combo","Echo Level", "0", function(v){}, { values:["0", "1", "2","3"]} );
+
         this.size = this.computeSize();
+
+        this.override_properties = ['domain_size'];    // Define which properties are being override to down-stream nodes
     }
 
     onExecute() {
@@ -90,12 +95,17 @@ class ConjugateHeatTransferSolver {
         this._value["domain_size"] = this.domain_size.value;
         this._value["echo_level"] = this.echo_level.value;
 
-        this._value["fluid_domain_solver_settings"] = this.getInputData(0);
-        this._value["solid_domain_solver_settings"] = this.getInputData(1);
-        this._value["coupling_settings"] = this.getInputData(2);
+        if (this.getInputData(0) != undefined) this._value["fluid_domain_solver_settings"] = this.getInputData(0);
+        if (this.getInputData(1) != undefined) this._value["solid_domain_solver_settings"] = this.getInputData(1);
+        if (this.getInputData(2) != undefined) this._value["coupling_settings"] = this.getInputData(2);
 
         // Get the output
         this.setOutputData(0, this._value);
+    }
+
+    onConnectionsChange() {
+        // Check if the up-stream node has change and update the override
+        this.handleUpStreamOverride('domain_size', 0);
     }
 }
 

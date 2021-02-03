@@ -1,5 +1,7 @@
-class FluidMonolithicSolver {
+class FluidMonolithicSolver extends BaseSolver {
     constructor() {
+        super();
+        
         this.addInput("model_import_settings", "model_import_settings");        // 0
         this.addInput("model_part_name", "string");                             // 1
         this.addInput("volume_model_part_name", "string");                      // 2
@@ -7,7 +9,8 @@ class FluidMonolithicSolver {
         this.addInput("no_skin_parts", "array");                                // 4
         this.addInput("linear_solver_settings", "solver_settings");             // 5
         this.addInput("material_import_settings", "material_import_setting");   // 6
-        this.addOutput("solver_settings", "solver_settings");
+
+        this.solver_settings = this.addOutput("solver_settings", "solver_settings");
 
         this.properties = {
             "solver_type": "Monolithic",
@@ -37,9 +40,11 @@ class FluidMonolithicSolver {
             "linear_solver_settings": {
             }
         };
-        
+
         this.domain_size = this.addWidget("combo","Domain Size", "2", function(v){}, { values:["2","3"]} );
         this.size = this.computeSize();
+
+        this.override_properties = ['domain_size'];    // Define which properties are being override to down-stream nodes
     }
 
     onExecute() {
@@ -67,6 +72,11 @@ class FluidMonolithicSolver {
 
         // Get the output
         this.setOutputData(0, this._value);
+    }
+
+    onConnectionsChange() {
+        // Check if the up-stream node has change and update the override
+        this.handleUpStreamOverride('domain_size', 0);
     }
 }
 
