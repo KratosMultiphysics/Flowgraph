@@ -1,14 +1,14 @@
 class FluidMonolithicSolver {
     constructor() {
-        this.addInput("model_import_settings", "map");      // 0
-        this.addInput("model_part_name", "string");         // 1
-        // this.addInput("ProblemData", "map");                // 2
-        this.addInput("volume_model_part_name", "string");  // 2
-        this.addInput("skin_parts", "array");               // 3
-        this.addInput("no_skin_parts", "array");            // 4
-        this.addInput("linear_solver_settings", "map");     // 5
-        this.addInput("material_import_settings", "map");   // 6
-        this.addOutput("solver_settings", "map");
+        this.addInput("model_import_settings", "model_import_settings");        // 0
+        this.addInput("model_part_name", "string");                             // 1
+        this.addInput("volume_model_part_name", "string");                      // 2
+        this.addInput("skin_parts", "array");                                   // 3
+        this.addInput("no_skin_parts", "array");                                // 4
+        this.addInput("linear_solver_settings", "solver_settings");             // 5
+        this.addInput("material_import_settings", "material_import_setting");   // 6
+        this.addOutput("solver_settings", "solver_settings");
+
         this.properties = {
             "solver_type": "Monolithic",
             "model_import_settings": {
@@ -37,6 +37,7 @@ class FluidMonolithicSolver {
             "linear_solver_settings": {
             }
         };
+        
         this.domain_size = this.addWidget("combo","Domain Size", "2", function(v){}, { values:["2","3"]} );
         this.size = this.computeSize();
     }
@@ -64,8 +65,7 @@ class FluidMonolithicSolver {
         }
         this._value["material_import_settings"] = this.getInputData(6);
 
-        // Get the 
-
+        // Get the output
         this.setOutputData(0, this._value);
     }
 }
