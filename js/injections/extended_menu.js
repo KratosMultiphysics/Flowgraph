@@ -1,4 +1,4 @@
-// Override the Litegrapgh menu generation
+// Override the default Litegrapgh menu generation
 LGraphCanvas.onMenuAdd = function(node, options, e, prev_menu, callback) {
 	var canvas = LGraphCanvas.active_canvas;
 	var ref_window = canvas.getCanvasWindow();

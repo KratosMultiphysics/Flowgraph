@@ -91,6 +91,9 @@ class ConjugateHeatTransferSolver extends BaseSolver {
 
     onExecute() {
         this._value = Object.assign({}, this.properties);
+        this._value.toToolTip = function() {
+            return JSON.stringify(this, null, 4);
+        }
 
         this.assignIfNeeded(this._value, "domain_size", this.domain_size.value);
         this._value["echo_level"] = this.echo_level.value;
