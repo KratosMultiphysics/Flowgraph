@@ -1,7 +1,7 @@
 class ThermallyCoupledSolver extends BaseSolver {
     constructor() {
         super();
-        
+
         this.addInput("fluid_solver_settings", "solver_settings");          // 0
         this.addInput("thermal_solver_settings", "solver_settings");        // 1
 
@@ -27,7 +27,7 @@ class ThermallyCoupledSolver extends BaseSolver {
         this._value = Object.assign({}, this.properties);
 
         // Get the input
-        this._value["domain_size"] = this.domain_size.value;
+        this.assignIfNeeded(this._value, "domain_size", this.domain_size.value);
         this._value["echo_level"] = this.echo_level.value;
 
         if (this.getInputData(0) != undefined) this._value["fluid_solver_settings"] = this.getInputData(0);

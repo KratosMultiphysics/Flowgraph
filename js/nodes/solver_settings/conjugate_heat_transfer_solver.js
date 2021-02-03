@@ -1,7 +1,7 @@
 class ConjugateHeatTransferSolver extends BaseSolver {
     constructor() {
         super();
-        
+
         this.addInput("fluid_domain_solver_settings", "solver_settings");       // 0
         this.addInput("solid_domain_solver_settings", "solver_settings");       // 1
         this.addInput("coupling_settings", "coupling_settings");                // 2
@@ -92,7 +92,7 @@ class ConjugateHeatTransferSolver extends BaseSolver {
     onExecute() {
         this._value = Object.assign({}, this.properties);
 
-        this._value["domain_size"] = this.domain_size.value;
+        this.assignIfNeeded(this._value, "domain_size", this.domain_size.value);
         this._value["echo_level"] = this.echo_level.value;
 
         if (this.getInputData(0) != undefined) this._value["fluid_domain_solver_settings"] = this.getInputData(0);

@@ -1,7 +1,7 @@
 class FluidMonolithicSolver extends BaseSolver {
     constructor() {
         super();
-        
+
         this.addInput("model_import_settings", "model_import_settings");        // 0
         this.addInput("model_part_name", "string");                             // 1
         this.addInput("volume_model_part_name", "string");                      // 2
@@ -52,12 +52,15 @@ class FluidMonolithicSolver extends BaseSolver {
         if (this.getInputData(0) != undefined) {
             this._value["model_part_name"] = this.getInputData(1);
         }
-        this._value["domain_size"] = this.domain_size.value;
+
+        this.assignIfNeeded(this._value, "domain_size", this.domain_size.value);
+
         this._value["volume_model_part_name"] = this.getInputData(2);
 
         this._value["skin_parts"] = this.getInputData(3);
         this._value["no_skin_parts"] = this.getInputData(4);
         this._value["linear_solver_settings"] = this.getInputData(5);
+
         if (this.getInputData(7) == undefined) {
             // If the input is not provided, get the "problem_name" as mpda input file
             if (this.getInputData(1) != undefined) {
@@ -68,6 +71,7 @@ class FluidMonolithicSolver extends BaseSolver {
             // Custom input provided
             this._value["model_import_settings"] = this.getInputData(0);
         }
+
         this._value["material_import_settings"] = this.getInputData(6);
 
         // Get the output
