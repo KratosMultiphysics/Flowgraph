@@ -56,6 +56,12 @@ class ParsedModelPart {
                     sub_mdpa_namepath = `${sub_mdpa_namepath}.${match[3]}`;
                     this.properties["submodelpart_list"].push(sub_mdpa_namepath);
                 }
+
+                if (match[0].includes("End")) {
+                    sub_mdpa_namepath = sub_mdpa_namepath.split(".");
+                    sub_mdpa_namepath.pop();
+                    sub_mdpa_namepath = sub_mdpa_namepath.join(".");
+                }
             }
 
             // Populate the outputs
