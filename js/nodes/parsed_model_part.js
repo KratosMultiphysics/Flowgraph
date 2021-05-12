@@ -4,6 +4,7 @@ class ParsedModelPart {
         this.input_manager.type = 'file';
         this.input_manager.addEventListener('change', this.onSelection.bind(this));
 
+        this.mp_name = this.addWidget("text","Name", "", function(v){}, {} );
         this.mp_select = this.addWidget("button", "Load Mdpa", "", function (value, widget, node) {
             node.input_manager.click();
         });
@@ -18,7 +19,7 @@ class ParsedModelPart {
 
     onExecute() {
         for (let i = 0; i < this.outputs.length; ++i) {
-            this.setOutputData(i, this.outputs[i].name);
+            this.setOutputData(i, this.mp_name.value+this.outputs[i].name);
         }
     }
 
@@ -47,7 +48,8 @@ class ParsedModelPart {
             this.properties["submodelpart_list"] = [];
 
             // Obtain the name of the ModelPart to get complete routes
-            let sub_mdpa_namepath = file.name.slice(0, -5);
+            let sub_mdpa_namepath = ""
+            this.mp_name.value = file.name.slice(0, -5);
 
             // Obtain the Submodelparts
             this.addOutput(sub_mdpa_namepath, "string");
