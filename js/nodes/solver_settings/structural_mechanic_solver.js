@@ -4,7 +4,7 @@ class StructuralMechanicSolver {
         this.addInput("material_import_settings", "map");   // 1
         this.addOutput("solver_settings", "map");
         this.properties = {
-            "solver_type"                        : "Static",
+            "solver_type"                        : "static",
             "model_part_name"                    : "Structure",
             "domain_size"                        : 2,
             "echo_level"                         : 0,
