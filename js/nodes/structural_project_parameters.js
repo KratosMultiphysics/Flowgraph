@@ -13,7 +13,7 @@ function StructuralProjectParameters() {
 }
 
 StructuralProjectParameters.title = "Structural Project Parameters";
-StructuralProjectParameters.desc = "create a Project Parmaters";
+StructuralProjectParameters.desc = "Create a Project Paramaters";
 
 StructuralProjectParameters.prototype.onExecute = function() {
     tmp = {};
