@@ -13,7 +13,11 @@ function StructuralProjectParameters() {
 }
 
 StructuralProjectParameters.title = "Structural Project Parameters";
+<<<<<<< HEAD
 StructuralProjectParameters.desc = "Create a Project Paramaters";
+=======
+StructuralProjectParameters.desc = "Create a Project Parmaters";
+>>>>>>> StructuralMechanicsWorkFlow
 
 StructuralProjectParameters.prototype.onExecute = function() {
     tmp = {};
