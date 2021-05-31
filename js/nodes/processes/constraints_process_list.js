@@ -1,4 +1,4 @@
-function ConstraintsProcessList () {
+function AssignVectorVariableProcess () {
     this.addInput("model_part_name","string");
     this.addInput("interval","process_array");
     this.addInput("constrained","process_array");
@@ -29,10 +29,10 @@ function ConstraintsProcessList () {
 }
 
 
-ConstraintsProcessList.title = "Constraints process list";
-ConstraintsProcessList.desc = "Node to specify a boundary process.";
+AssignVectorVariableProcess.title = "Constraints process list";
+AssignVectorVariableProcess.desc = "Node to specify a boundary process.";
 
-ConstraintsProcessList.prototype.onExecute = function() {
+AssignVectorVariableProcess.prototype.onExecute = function() {
 myoutput = this.properties
         // model_part_name
         if (this.getInputData(0) != undefined) {
@@ -67,6 +67,6 @@ myoutput["Parameters"]["variable_name"] = this.variable_name.value
 this.setOutputData(0,  myoutput);
 };
 
-LiteGraph.registerNodeType("processes/ConstraintsProcessList", ConstraintsProcessList );
+LiteGraph.registerNodeType("processes/ConstraintsProcessList", AssignVectorVariableProcess );
 
 console.log("ConstraintsProcessList node created"); //helps to debug
