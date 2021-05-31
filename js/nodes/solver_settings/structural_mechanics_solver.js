@@ -1,4 +1,4 @@
-class StructuralMechanicSolver {
+class StructuralMechanicsSolver {
     constructor() {
         this.addInput("model_import_settings", "map");      // 0
         this.addInput("material_import_settings", "map");   // 1
@@ -46,9 +46,9 @@ class StructuralMechanicSolver {
     }
 }
 
-StructuralMechanicSolver.title = "Structural mechanic solver";
-StructuralMechanicSolver.desc = "Properties for the structural mechanic solver";
+StructuralMechanicsSolver.title = "Structural mechanics solver";
+StructuralMechanicsSolver.desc = "Properties for the structural mechanics solver";
 
-LiteGraph.registerNodeType("solver_settings/StructuralMechanicSolver", StructuralMechanicSolver);
+LiteGraph.registerNodeType("solver_settings/StructuralMechanicsSolver", StructuralMechanicsSolver);
 
-console.log("StructuralMechanicSolver node created"); //helps to debug
+console.log("StructuralMechanicsSolver node created"); //helps to debug
