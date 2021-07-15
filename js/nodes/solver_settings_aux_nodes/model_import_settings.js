@@ -1,7 +1,7 @@
 class ModelImportSettings {
     constructor()
     {
-        this.input_filename = this.addWidget("text", "Input filename", "SWQ", function (v) { }, {});
+        this.input_filename = this.addWidget("text", "Input filename", "Hyper_Reduced_Model_Part", function (v) { }, {});
         this.input_type = this.addWidget("combo", "Input type", "mdpa", function (v) { }, { values: ["mdpa", "rest"] });
 
         this.properties = {
