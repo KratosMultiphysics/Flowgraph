@@ -4,13 +4,13 @@ function AssignScalarVariableToConditionsProcess() {
     this.addInput("interval","process_array");
 
     this.properties = {
-        "python_module" : "assign_scalar_variable_to_conditions_process",
-        "kratos_module" : "KratosMultiphysics",
+        "python_module" : "",
+        "kratos_module" : "",
         "Parameters"    : {
-            "model_part_name" : "Structure.COMPUTE_HROM.SurfacePressure3D_Pressure_on_surfaces_Auto4",
-            "variable_name"   : "POSITIVE_FACE_PRESSURE",
-            "value"           : "(-15000000*13) + t*15000000",
-            "interval"        : [0.0,"End"]
+            "model_part_name" : "",
+            "variable_name"   : "",
+            "value"           : "",
+            "interval"        : []
         }
         
     };
@@ -51,4 +51,4 @@ function AssignScalarVariableToConditionsProcess() {
         this.setOutputData(0,  myoutput);
     };
 
-    LiteGraph.registerNodeType("processes/LoadProcessListPressure", AssignScalarVariableToConditionsProcess);
+    LiteGraph.registerNodeType("processes/AssignScalarVariableToConditionsProcess", AssignScalarVariableToConditionsProcess);

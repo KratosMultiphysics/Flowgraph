@@ -6,15 +6,15 @@ function AssignVectorVariableProcess () {
 
     this.properties = {
         
-            "python_module" : "assign_vector_variable_process",
-            "kratos_module" : "KratosMultiphysics",
-            "process_name"  : "AssignVectorVariableProcess",
+            "python_module" : "",
+            "kratos_module" : "",
+            "process_name"  : "",
             "Parameters"    : {
-                "model_part_name" : "Structure.DISPLACEMENT_Displacement_Auto1",
-                "variable_name"   : "DISPLACEMENT",
-                "interval"        : [0.0,"End"],
-                "constrained"     : [true,true,true],
-                "value"           : [0.0,0.0,0.0]
+                "model_part_name" : "",
+                "variable_name"   : "",
+                "interval"        : [],
+                "constrained"     : [],
+                "value"           : []
             }
         };
         var that = this;
@@ -67,6 +67,6 @@ myoutput["Parameters"]["variable_name"] = this.variable_name.value
 this.setOutputData(0,  myoutput);
 };
 
-LiteGraph.registerNodeType("processes/ConstraintsProcessList", AssignVectorVariableProcess );
+LiteGraph.registerNodeType("processes/AssignVectorVariableProcess", AssignVectorVariableProcess );
 
 console.log("ConstraintsProcessList node created"); //helps to debug
