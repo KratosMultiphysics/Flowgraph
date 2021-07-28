@@ -27,7 +27,7 @@ function VTKStructural() {
         }
     }
     this.addOutput("Process", "process");
-    this.model_part_name = this.addWidget("text","ModelPartName", "Structure.VISUALIZE_HROM", function(v){}, {} );
+    this.model_part_name = this.addWidget("combo","ModelPartName", "Structure", function(v){}, {values:["Structure","Structure.VISUALIZE_HROM"]} );
     this.size = this.computeSize();
 }
 
