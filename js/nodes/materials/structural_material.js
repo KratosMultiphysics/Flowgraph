@@ -21,7 +21,7 @@ class StructuralMaterial {
         };
 
         this.properties_id = this.addWidget("combo","Properties_ID", 1, function(v){}, { values:[1, 2, 3, 4, 5]} );
-        this.name = this.addWidget("text","Name", "LinearElasticPlaneStress2DLaw", function(v){}, function(v){}, {} );
+        this.name = this.addWidget("combo","Name", "LinearElasticPlaneStress2DLaw", function(v){}, { values:["LinearElasticPlaneStress2DLaw","LinearElastic3DLaw"]} );
         this.DENSITY= this.addWidget("number","Density", 7850.0, function(v){}, {});
         this.YOUNG_MODULUS = this.addWidget("number","Young_Modulus", 206900000000.0, function(v){}, {});
         this.POISSON_RATIO = this.addWidget("number","Poisson_Ratio", 0.29, function(v){}, {});
