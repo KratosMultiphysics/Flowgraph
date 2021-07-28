@@ -6,6 +6,7 @@ function AssignScalarVariableToConditionsProcess() {
     this.properties = {
         "python_module" : "",
         "kratos_module" : "",
+        "process_name"  : "",
         "Parameters"    : {
             "model_part_name" : "",
             "variable_name"   : "",
