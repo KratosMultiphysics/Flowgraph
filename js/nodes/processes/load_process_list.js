@@ -5,10 +5,10 @@ function AssignVectorByDirectionToConditionProcess() {
     this.addInput("direction","process_array");
 
     this.properties = {
-        "python_module" : "",
-        "kratos_module" : "",
-        "check"         : "",
-        "process_name"  : "",
+        "python_module" : "assign_vector_by_direction_to_condition_process",
+        "kratos_module" : "KratosMultiphysics",
+        "check"         : "DirectorVectorNonZero direction",
+        "process_name"  : "AssignVectorByDirectionToConditionProcess",
         "Parameters"    : {
             "model_part_name" : "",
             "variable_name"   : "",
@@ -16,7 +16,7 @@ function AssignVectorByDirectionToConditionProcess() {
             "modulus"         : 100000.0,
             "direction"       : []
         }
-        
+
     };
 
         var that = this;

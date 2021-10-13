@@ -5,10 +5,10 @@ function AssignVectorVariableProcess () {
     this.addInput("value","process_array")
 
     this.properties = {
-        
-            "python_module" : "",
-            "kratos_module" : "",
-            "process_name"  : "",
+
+            "python_module" : "assign_vector_variable_process",
+            "kratos_module" : "KratosMultiphysics",
+            "process_name"  : "AssignVectorVariableProcess",
             "Parameters"    : {
                 "model_part_name" : "",
                 "variable_name"   : "",
@@ -25,7 +25,7 @@ function AssignVectorVariableProcess () {
 
         this.size = this.computeSize();
         this.serialize_widgets = true;
-        
+
 }
 
 
@@ -61,7 +61,7 @@ myoutput = this.properties
             myoutput["Parameters"]["value"] = this.properties["Parameters"]["value"]
         }
 
-        
+
 myoutput["Parameters"]["variable_name"] = this.variable_name.value
 
 this.setOutputData(0,  myoutput);
