@@ -8,7 +8,7 @@ class ParsedModelPart {
         this.mp_select = this.addWidget("button", "Load Mdpa", "", function (value, widget, node) {
             node.input_manager.click();
         });
-
+        this.file_name = "dummy_name"
         this.properties = {
             "submodelpart_list" : []
         };
@@ -18,9 +18,10 @@ class ParsedModelPart {
     }
 
     onExecute() {
-        for (let i = 0; i < this.outputs.length; ++i) {
+        for (let i = 0; i < this.outputs.length -1; ++i) {
             this.setOutputData(i, this.mp_name.value+this.outputs[i].name);
         }
+        this.setOutputData(this.outputs.length-1, this.file_name);
     }
 
     onSelection(e) {
@@ -50,6 +51,7 @@ class ParsedModelPart {
             // Obtain the name of the ModelPart to get complete routes
             let sub_mdpa_namepath = ""
             this.mp_name.value = file.name.slice(0, -5);
+            this.file_name = this.mp_name.value;
 
             // Obtain the Submodelparts
             this.addOutput(sub_mdpa_namepath, "string");
@@ -61,8 +63,8 @@ class ParsedModelPart {
 
                 if (match[0].includes("End")) {
                     sub_mdpa_namepath = sub_mdpa_namepath.split(".");
-                    sub_mdpa_namepath.pop();
-                    sub_mdpa_namepath = sub_mdpa_namepath.join(".");
+                    sub_mdpa_namepath.pop(); // I think this is doing nothing
+                    sub_mdpa_namepath = sub_mdpa_namepath.join(".");  // I think this is doing nothing
                 }
             }
 
@@ -77,6 +79,7 @@ class ParsedModelPart {
 
             this.updateProblemModelParts();
             this.updateModelNodes();
+            this.addOutput("File Name", "string")
         }
     }
 
