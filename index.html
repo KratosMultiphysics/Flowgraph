@@ -1,83 +1,91 @@
-<!-- Javi Agenjo (@tamat) on 31/9/2011 -->
 <!DOCTYPE html>
-<html><head>
-    <title>LiteGraph</title>
-	<!--<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">-->
-    <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
-    <meta content="utf-8" http-equiv="encoding">
+<html>
+    <head>
+        <title>Flowgraph</title>
+        <!--<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">-->
+        <meta http-equiv="X-UA-Compatible" content="chrome=1">
+        <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+        <meta content="utf-8" http-equiv="encoding">
 
-    <link rel="stylesheet" type="text/css" href="../css/litegraph.css">
-    <link rel="stylesheet" type="text/css" href="../css/litegraph-editor.css">
-    <link rel="stylesheet" type="text/css" href="style.css">
-    <link rel="stylesheet" type="text/css" href="css/kratos.css">
+        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+        <link rel="stylesheet" type="text/css" href="../css/litegraph.css">
+        <link rel="stylesheet" type="text/css" href="css/style.css">
+        <link rel="stylesheet" type="text/css" href="css/problemtype-editor.css">
+        <link rel="stylesheet" type="text/css" href="css/kratos.css">
 	</head>
-<body>
-	<div id="main">
-	</div>
 
-    <script type="text/javascript" src="../external/jquery-1.6.2.min.js"></script>
-    <script type="text/javascript" src="https://tamats.com/projects/sillyserver/src/sillyclient.js"></script>
+    <body>
+        <div style="display:none; font-family: Font Awesome 6 Free;">.</div>
+        <div id="main"></div>
 
-    <script type="text/javascript" src="../src/litegraph.js"></script>
-    <script type="text/javascript" src="../src/litegraph-editor.js"></script>
-    
-    <script type="text/javascript" src="js/jszip.js"></script>
-    <script type="text/javascript" src="js/problem_manager.js"></script>
+        <script type="text/javascript" src="../external/jquery-1.6.2.min.js"></script>
+        <script type="text/javascript" src="https://tamats.com/projects/sillyserver/src/sillyclient.js"></script>
 
-    <script type="text/javascript" src="js/libs/audiosynth.js"></script>
+        <script type="text/javascript" src="../src/litegraph.js"></script>
+        <script type="text/javascript" src="js/problemtype-editor.js"></script>
+        
+        <script type="text/javascript" src="js/jszip.js"></script>
+        <script type="text/javascript" src="js/problem_manager.js"></script>
 
-    <!-- TODO: Filter which ones of these could be useful for us -->
-    <script type="text/javascript" src="../src/nodes/base.js"></script>
-    <script type="text/javascript" src="../src/nodes/logic.js"></script>
-    <script type="text/javascript" src="../src/nodes/events.js"></script>
-    <script type="text/javascript" src="../src/nodes/math.js"></script>
-    <script type="text/javascript" src="../src/nodes/math3d.js"></script>
-    <script type="text/javascript" src="../src/nodes/strings.js"></script>
-    <script type="text/javascript" src="../src/nodes/interface.js"></script>
-    <script type="text/javascript" src="../src/nodes/geometry.js"></script>
-    <script type="text/javascript" src="../src/nodes/input.js"></script>
-    <script type="text/javascript" src="../src/nodes/midi.js"></script>
-    <script type="text/javascript" src="../src/nodes/audio.js"></script>
-    <script type="text/javascript" src="../src/nodes/network.js"></script>
+        <script type="text/javascript" src="js/libs/audiosynth.js"></script>
 
-    <script type="text/javascript" src="js/nodes/download_problem.js"></script>
-    <script type="text/javascript" src="js/nodes/models.js"></script>
-    <script type="text/javascript" src="js/nodes/parsed_model_part.js"></script>
-    <script type="text/javascript" src="js/nodes/input_list.js"></script>
-    <script type="text/javascript" src="js/nodes/input_map.js"></script>
-    <script type="text/javascript" src="js/nodes/output_view.js"></script>
-    <script type="text/javascript" src="js/nodes/project_parameters.js"></script>
-    <script type="text/javascript" src="js/nodes/problem_data.js"></script>
+        <!-- TODO: Filter which ones of these could be useful for us -->
+        <script type="text/javascript" src="../src/nodes/base.js"></script>
+        <script type="text/javascript" src="../src/nodes/logic.js"></script>
+        <script type="text/javascript" src="../src/nodes/events.js"></script>
+        <script type="text/javascript" src="../src/nodes/math.js"></script>
+        <script type="text/javascript" src="../src/nodes/math3d.js"></script>
+        <script type="text/javascript" src="../src/nodes/strings.js"></script>
+        <script type="text/javascript" src="../src/nodes/interface.js"></script>
+        <script type="text/javascript" src="../src/nodes/geometry.js"></script>
+        <script type="text/javascript" src="../src/nodes/input.js"></script>
+        <script type="text/javascript" src="../src/nodes/midi.js"></script>
+        <script type="text/javascript" src="../src/nodes/audio.js"></script>
+        <script type="text/javascript" src="../src/nodes/network.js"></script>
 
-    <!-- Postprocess -->
-    <script type="text/javascript" src="js/nodes/output_processes/gid_output.js"></script>
+        <script type="text/javascript" src="js/nodes/download_problem.js"></script>
+        <script type="text/javascript" src="js/nodes/models.js"></script>
+        <script type="text/javascript" src="js/nodes/parsed_model_part.js"></script>
+        <script type="text/javascript" src="js/nodes/input_list.js"></script>
+        <script type="text/javascript" src="js/nodes/input_map.js"></script>
+        <script type="text/javascript" src="js/nodes/output_view.js"></script>
+        <script type="text/javascript" src="js/nodes/project_parameters.js"></script>
+        <script type="text/javascript" src="js/nodes/problem_data.js"></script>
 
-    <!-- Solver settings for solvers  -->
-    <script type="text/javascript" src="js/nodes/solver_settings/fluid_monolithic_solver.js"></script>
+        <!-- Stages -->
+        <script type="text/javascript" src="js/nodes/stages/pre_process.js"></script>
+        <script type="text/javascript" src="js/nodes/stages/post_process.js"></script>
+        <script type="text/javascript" src="js/nodes/stages/modeler.js"></script>
+        <script type="text/javascript" src="js/nodes/stages/stage.js"></script>
 
-    <!-- Auxiliary nodes required by solver settings -->
-    <!-- Other nodes -->
-    <script type="text/javascript" src="js/nodes/solver_settings_aux_nodes/model_import_settings.js"></script>
-    <script type="text/javascript" src="js/nodes/solver_settings_aux_nodes/material_import_settings.js"></script>
-    <!-- Linear_solvers -->
-    <script type="text/javascript" src="js/nodes/solver_settings_aux_nodes/linear_solvers/amgcl.js"></script>
+        <!-- Postprocess -->
+        <script type="text/javascript" src="js/nodes/output_processes/gid_output.js"></script>
 
-    <!-- Materials -->
-    <script type="text/javascript" src="js/nodes/materials/materials_list.js"></script>
-    <script type="text/javascript" src="js/nodes/materials/material_newtonian.js"></script>
-    <script type="text/javascript" src="js/nodes/materials/material_writer.js"></script>
+        <!-- Solver settings for solvers  -->
+        <script type="text/javascript" src="js/nodes/solver_settings/fluid_monolithic_solver.js"></script>
 
-    <!-- Processes nodes -->
-    <script type="text/javascript" src="js/nodes/processes/process_list.js"></script>
-    <script type="text/javascript" src="js/nodes/processes/process_parser.js"></script>
-    <script type="text/javascript" src="js/nodes/processes/inlet_by_function.js"></script>
-    <script type="text/javascript" src="js/nodes/processes/outlet_process.js"></script>
-    <script type="text/javascript" src="js/nodes/processes/no_slip_process.js"></script>
+        <!-- Auxiliary nodes required by solver settings -->
+        <!-- Other nodes -->
+        <script type="text/javascript" src="js/nodes/solver_settings_aux_nodes/model_import_settings.js"></script>
+        <script type="text/javascript" src="js/nodes/solver_settings_aux_nodes/material_import_settings.js"></script>
+        <!-- Linear_solvers -->
+        <script type="text/javascript" src="js/nodes/solver_settings_aux_nodes/linear_solvers/amgcl.js"></script>
 
-    <script type="text/javascript" src="js/demos.js"></script>
-    <script type="text/javascript" src="js/code.js"></script>
-    <script type="text/javascript" src="js/extended_menu.js"></script>
+        <!-- Materials -->
+        <script type="text/javascript" src="js/nodes/materials/materials_list.js"></script>
+        <script type="text/javascript" src="js/nodes/materials/material_newtonian.js"></script>
+        <script type="text/javascript" src="js/nodes/materials/material_writer.js"></script>
 
-</body>
+        <!-- Processes nodes -->
+        <script type="text/javascript" src="js/nodes/processes/process_list.js"></script>
+        <script type="text/javascript" src="js/nodes/processes/process_parser.js"></script>
+        <script type="text/javascript" src="js/nodes/processes/inlet_by_function.js"></script>
+        <script type="text/javascript" src="js/nodes/processes/outlet_process.js"></script>
+        <script type="text/javascript" src="js/nodes/processes/no_slip_process.js"></script>
+
+        <script type="text/javascript" src="js/demos.js"></script>
+        <script type="text/javascript" src="js/code.js"></script>
+        <script type="text/javascript" src="js/extended_menu.js"></script>
+    </body>
 </html>

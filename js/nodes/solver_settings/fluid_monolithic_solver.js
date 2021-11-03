@@ -78,7 +78,7 @@ class FluidMonolithicSolver {
     }
 }
 
-FluidMonolithicSolver.title = "Fluid monolithic solver";
+FluidMonolithicSolver.title = "\uf085 Fluid monolithic solver";
 FluidMonolithicSolver.desc = "Properties for the monolthic fluid solver";
 
 LiteGraph.registerNodeType("solver_settings/FluidMonolithicSolver", FluidMonolithicSolver);

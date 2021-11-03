@@ -136,7 +136,7 @@ class ParsedModelPart {
     // }
 }
 
-ParsedModelPart.title = "ParsedModelPart";
+ParsedModelPart.title = "\uf6d1 ParsedModelPart";
 ParsedModelPart.desc = "Parses a ModelPart";
 
 LiteGraph.registerNodeType("model_part/ParsedModelPart", ParsedModelPart);
