@@ -1,13 +1,14 @@
 // Override the Litegrapgh menu generation
+
 LGraphCanvas.onMenuAdd = function(node, options, e, prev_menu, callback) {
 	var canvas = LGraphCanvas.active_canvas;
 	var ref_window = canvas.getCanvasWindow();
 	var graph = canvas.graph;
+
 	if(!graph)
 		return;
 
 	var values = LiteGraph.getNodeTypesCategories( canvas.filter || graph.filter );
-
 	var entries_levels = {};
 
 	for (var i=0; i < values.length; i++) {
@@ -28,6 +29,7 @@ LGraphCanvas.onMenuAdd = function(node, options, e, prev_menu, callback) {
 
 			if(Array.isArray(name_route)) {
 				acc_route += name_route[0];
+				
 				if(entries_levels[name_route[0]] == undefined)
 					entries_levels[name_route[0]] = {value: acc_route, content: name_route[0], has_submenu: true, sub: {} }
 
@@ -67,10 +69,8 @@ LGraphCanvas.onMenuAdd = function(node, options, e, prev_menu, callback) {
 
 	function handle_submenu(v, option, e) {
 		var category = v.value;
-		console.log("Category:", category);
 		var node_types = LiteGraph.getNodeTypesInCategory( category, canvas.filter || graph.filter );
 		var values = [];
-
 		var category_path = category.split("/");
 
 		// Build the entries belonging to submenus
@@ -97,6 +97,7 @@ LGraphCanvas.onMenuAdd = function(node, options, e, prev_menu, callback) {
 
 		new_menu = new LiteGraph.ContextMenu( values, { event: e, callback: handle_menu_click, parentMenu: menu_level[prev] }, ref_window );
 		menu_level[category] = new_menu;
+
 		return false;
 	}
 
