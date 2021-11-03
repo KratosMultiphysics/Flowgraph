@@ -1,6 +1,7 @@
 class ModelImportSettings {
     constructor()
     {
+        //this.input_filename = this.addWidget("text", "Input filename", "", function(v){}, {});
         this.addInput("Input filename", "string");
         this.input_type = this.addWidget("combo", "Input type", "mdpa", function (v) { }, { values: ["mdpa", "rest"] });
 
