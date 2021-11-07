@@ -1,3 +1,5 @@
+LiteGraph.NODE_DEFAULT_TITLE_FONT = "" + LiteGraph.NODE_TEXT_SIZE + "px Arial";
+
 var temp_vec2 = new Float32Array(2);
     
 /**
@@ -610,11 +612,13 @@ LGraphCanvas.prototype.drawNodeShape = function(
             if(low_quality) {
                 ctx.fillRect( title_height * 0.5 - box_size *0.5, title_height * -0.5 - box_size *0.5, box_size , box_size  );
             } else if (node.glyph) {
-                ctx.font = '900 '+14+'px "Font Awesome 5 Free"';
+                ctx.font = node.glyph.font || LiteGraph.NODE_DEFAULT_TITLE_FONT;
+                const offset_width = node.glyph.width || 0;
+                const offset_height = node.glyph.height || 0;
                 ctx.fillText(
                     node.glyph.shape,
-                    title_height * 0.5 - node.glyph.width / 2,
-                    title_height * -0.5 + node.glyph.height / 2
+                    title_height * 0.5 - offset_width / 2,
+                    title_height * -0.5 + offset_height / 2
                 );
             } else {
                 ctx.beginPath();

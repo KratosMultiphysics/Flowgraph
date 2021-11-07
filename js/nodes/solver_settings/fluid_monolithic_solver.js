@@ -2,7 +2,7 @@ class FluidMonolithicSolver {
     constructor() {
 
         // Add a identifier glyph
-        this.glyph = {shape: "\uf085", width: 16, height: 9};
+        this.glyph = {shape: '\uf085', font:'900 14px "Font Awesome 5 Free"', width: 16, height: 9};
 
         // List of inputs and outputs ("name", "type")
         this.addInput("model_import_settings", "map", {"glyph": "\uf6cf"});      // 0
