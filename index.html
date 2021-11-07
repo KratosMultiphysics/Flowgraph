@@ -2,11 +2,15 @@
 <html>
     <head>
         <title>Flowgraph</title>
+
         <!--<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">-->
         <meta http-equiv="X-UA-Compatible" content="chrome=1">
         <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
         <meta content="utf-8" http-equiv="encoding">
 
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;400;900&display=swap"> 
         <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 
         <link rel="stylesheet" type="text/css" href="../css/litegraph.css">
@@ -33,16 +37,11 @@
         <!-- TODO: Filter which ones of these could be useful for us -->
         <script type="text/javascript" src="../src/nodes/base.js"></script>
         <script type="text/javascript" src="../src/nodes/logic.js"></script>
-        <script type="text/javascript" src="../src/nodes/events.js"></script>
         <script type="text/javascript" src="../src/nodes/math.js"></script>
         <script type="text/javascript" src="../src/nodes/math3d.js"></script>
         <script type="text/javascript" src="../src/nodes/strings.js"></script>
         <script type="text/javascript" src="../src/nodes/interface.js"></script>
         <script type="text/javascript" src="../src/nodes/geometry.js"></script>
-        <script type="text/javascript" src="../src/nodes/input.js"></script>
-        <script type="text/javascript" src="../src/nodes/midi.js"></script>
-        <script type="text/javascript" src="../src/nodes/audio.js"></script>
-        <script type="text/javascript" src="../src/nodes/network.js"></script>
 
         <script type="text/javascript" src="js/nodes/download_problem.js"></script>
         <script type="text/javascript" src="js/nodes/models.js"></script>
@@ -86,6 +85,10 @@
 
         <script type="text/javascript" src="js/demos.js"></script>
         <script type="text/javascript" src="js/code.js"></script>
-        <script type="text/javascript" src="js/extended_menu.js"></script>
+
+        <!-- Mods to the base source code of litegraph.js. -->
+        <!-- Maybe ask to merge in the main lib when they are mature -->
+        <script type="text/javascript" src="js/injections/extended_menu.js"></script>
+        <script type="text/javascript" src="js/injections/glyphs.js"></script>
     </body>
 </html>
