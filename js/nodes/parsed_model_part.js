@@ -1,5 +1,9 @@
 class ParsedModelPart {
     constructor() {
+        // Identifier Glyph
+        this.glyph = {shape: '\uf6d1', font:'900 14px "Font Awesome 5 Free"', width: 16, height: 9};
+
+        // List of inputs and outputs ("name", "type")
         this.input_manager = document.createElement('input');
         this.input_manager.type = 'file';
         this.input_manager.addEventListener('change', this.onSelection.bind(this));
@@ -136,7 +140,7 @@ class ParsedModelPart {
     // }
 }
 
-ParsedModelPart.title = "\uf6d1 ParsedModelPart";
+ParsedModelPart.title = "ParsedModelPart";
 ParsedModelPart.desc = "Parses a ModelPart";
 
 LiteGraph.registerNodeType("model_part/ParsedModelPart", ParsedModelPart);

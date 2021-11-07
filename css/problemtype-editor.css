@@ -96,7 +96,7 @@ body, html {
 
 .litegraph-editor .tools-left {
     right: auto;
-    left: 4px;
+    padding: 6px;
 }
 
 .litegraph-editor .footer {
