@@ -206,12 +206,13 @@ LGraphCanvas.prototype.drawNode = function(node, ctx) {
                         ctx.rect(pos[0] - 4, pos[1] - 4, 8, 8 );
                     else // Custom shape based on font.
                         if (slot.glyph) {
-                            ctx.moveTo(pos[0] + 8, pos[1] + 0.5);
-                            ctx.font = '900 '+10+'px "Font Awesome 5 Free"';
+                            ctx.font = slot.glyph.font || LiteGraph.NODE_DEFAULT_TITLE_FONT;
+                            const offset_width = slot.glyph.width || 0;
+                            const offset_height = slot.glyph.height || 0;
                             ctx.fillText(
-                                slot.glyph,
-                                pos[0] - 4.5,
-                                pos[1] + 5
+                                slot.glyph.shape,
+                                pos[0] - offset_width / 2,
+                                pos[1] + offset_height / 2
                             );
                         } else {
                             ctx.arc(pos[0], pos[1], 4, 0, Math.PI * 2);
