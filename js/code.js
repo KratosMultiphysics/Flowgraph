@@ -46,7 +46,7 @@ document.querySelector("#save-graph").addEventListener("click",function(){
 	var element = document.createElement("a");
 	element.setAttribute('href', url);
 
-	var name = document.getElementById('download-name').value + '.json';
+	var name = 'graph.json';
 
 	element.setAttribute('download', name );
 	element.style.display = 'none';
@@ -57,11 +57,18 @@ document.querySelector("#save-graph").addEventListener("click",function(){
 });
 
 document.querySelector('#expt-group').addEventListener("click", function() {
-    var serialization_data = []
+    var serialization_data = {"nodes":[], "links":[]};
+    var nodes_id = [];
 
     for(var node in graphcanvas.selected_nodes) {
-        console.log(node)
-        serialization_data.push(graphcanvas.selected_nodes[node].serialize());
+        serialization_data["nodes"].push(graphcanvas.selected_nodes[node].serialize());
+        nodes_id.push(graphcanvas.selected_nodes[node].id);
+    };
+
+    for(var link in graph.links) {
+        if (nodes_id.includes(graph.links[link].origin_id) && nodes_id.includes(graph.links[link].target_id)) {
+            serialization_data["links"].push(graph.links[link].serialize());
+        }
     };
 
     var data = JSON.stringify(serialization_data);
@@ -77,15 +84,73 @@ document.querySelector('#expt-group').addEventListener("click", function() {
 });
 
 document.querySelector('#impt-group').addEventListener('change', (event) => {
+    const LINK_OBJECT_ID = 0;
+    const LINK_ORIGIN_ID = 1;
+    const LINK_TARGET_ID = 3;
+
 	const fileData = event.target.files;
     const reader = new FileReader();
     reader.onload = function(event) {
+        import_group = JSON.parse(event.target.result);
+
+        // Modify node and links id's as we cannot assume the same entities or other entities
+        // with the same id are used in the grapgh
+        var last_node_id = graph.last_node_id;
+        var last_link_id = graph.last_link_id;
+        var new_node_ids_map = {};
+        var new_link_ids_map = {};
+
+        // Nodes
+        for(var node in import_group["nodes"]) {
+            const old_id = import_group["nodes"][node]["id"]
+            const new_id = ++last_node_id;
+            new_node_ids_map[old_id] = new_id;
+            import_group["nodes"][node]["id"] = new_id;
+        }
+
+        for(var link in import_group["links"]) {
+            if (import_group["links"][link][LINK_ORIGIN_ID] in new_node_ids_map) {
+                import_group["links"][link][LINK_ORIGIN_ID] = new_node_ids_map[import_group["links"][link][LINK_ORIGIN_ID]];
+            }
+            if (import_group["links"][link][LINK_TARGET_ID] in new_node_ids_map) {
+                import_group["links"][link][LINK_TARGET_ID] = new_node_ids_map[import_group["links"][link][LINK_TARGET_ID]];
+            }
+        }
+
+        graph.last_node_id = last_node_id;
+        
+        // Links
+
+        for(var link in import_group["links"]) {
+            const old_id = import_group["links"][link][LINK_OBJECT_ID]
+            const new_id = ++last_link_id;
+            new_link_ids_map[old_id] = new_id;
+            import_group["links"][link][LINK_OBJECT_ID] = new_id;
+        }
+
+        for(var node in import_group["nodes"]) {
+            for(var input in import_group["nodes"][node]["inputs"]) {
+                if( import_group["nodes"][node]["inputs"][input]["link"] in new_link_ids_map) {
+                    import_group["nodes"][node]["inputs"][input]["link"] = new_link_ids_map[import_group["nodes"][node]["inputs"][input]["link"]];
+                }
+            }
+
+            for(var output in import_group["nodes"][node]["outputs"]) {
+                if( import_group["nodes"][node]["outputs"][output]["link"] in new_link_ids_map) {
+                    import_group["nodes"][node]["outputs"][output]["link"] = new_link_ids_map[import_group["nodes"][node]["output"][output]["link"]];
+                }
+            }
+        }
+
+        graph.last_link_id = last_link_id;
+
         const data = {
-            nodes: JSON.parse( event.target.result ),
+            nodes: import_group["nodes"],
+            links: import_group["links"],
             version: LiteGraph.VERSION
         };
 
-        graph.configure(data, true);
+        graph.configure_selection(data, true);
     };
     reader.readAsText(fileData[0]);
 });
