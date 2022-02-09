@@ -15,7 +15,7 @@
 
         var nodes = data.nodes;
 
-        //decode links info (they are very verbose)
+        // Decode links info (they are very verbose)
         if (data.links && data.links.constructor === Array) {
             var links = [];
             for (var i = 0; i < data.links.length; ++i) {
@@ -27,12 +27,12 @@
 				}
                 var link = new LiteGraph.LLink();
                 link.configure(link_data);
+                console.log(link)
                 this.links[link.id] = link;
             }
-            // data.links = links;
         }
 
-        //copy all stored fields
+        // Copy all stored fields
         for (var i in data) {
 			if(i == "nodes" || i == "groups" || i == "links") //links must be accepted
 				continue;
@@ -41,8 +41,7 @@
 
         var error = false;
 
-        //create nodes
-        // this._nodes = [];
+        // Create nodes
         if (nodes) {
             for (var i = 0, l = nodes.length; i < l; ++i) {
                 var n_info = nodes[i]; //stored info
