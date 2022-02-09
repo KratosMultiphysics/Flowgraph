@@ -136,8 +136,10 @@ document.querySelector('#impt-group').addEventListener('change', (event) => {
             }
 
             for(var output in import_group["nodes"][node]["outputs"]) {
-                if( import_group["nodes"][node]["outputs"][output]["link"] in new_link_ids_map) {
-                    import_group["nodes"][node]["outputs"][output]["link"] = new_link_ids_map[import_group["nodes"][node]["output"][output]["link"]];
+                for(var link in import_group["nodes"][node]["outputs"][output]["links"]) {
+                    if( import_group["nodes"][node]["outputs"][output]["links"][link] in new_link_ids_map) {
+                        import_group["nodes"][node]["outputs"][output]["links"][link] = new_link_ids_map[import_group["nodes"][node]["outputs"][output]["links"][link]];
+                    }
                 }
             }
         }
