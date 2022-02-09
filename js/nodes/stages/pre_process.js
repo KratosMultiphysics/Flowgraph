@@ -7,7 +7,7 @@ class StagePreProcess {
         this.addInput("Modeler", "modeler");
         this.addInput("Process List", "process_array");
         
-        this.addOutput("Pre Process", "stage_pre_process");
+        this.addOutput("Pre Process", "stage_pre");
     }
 
     onExecute() {

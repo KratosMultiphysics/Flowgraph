@@ -6,7 +6,7 @@ class StagePostProcess {
         // List of inputs and outputs ("name", "type")
         this.addInput("Process List", "process_array");
 
-        this.addOutput("Post Process", "stage_post_process");
+        this.addOutput("Post Process", "stage_post");
     }
 
     onExecute() {
