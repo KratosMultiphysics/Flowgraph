@@ -10,15 +10,13 @@ class AnalysisStage {
         this._name = this.addWidget("text","Stage Name", "", function(v){}, {} );
 
         // List of inputs and outputs ("name", "type")
-        this.addInput("Previous Stage",     "analysis_stage")       // 0
-        this.addInput("Pre",                "stage_pre");           // 1
-        this.addInput("Problem Data",       "problem_data");        // 2
-        this.addInput("Solver Settings",    "solver_settings");     // 3
-        this.addInput("Processes",          "process_list");        // 4
-        this.addInput("Output Processes",   "output_process_list"); // 5
-        this.addInput("Post",               "stage_post");          // 6
+        this.addInput("Pre",                "stage_flow")           // 0
+        this.addInput("Problem Data",       "problem_data");        // 1
+        this.addInput("Solver Settings",    "solver_settings");     // 2
+        this.addInput("Processes",          "process_list");        // 3
+        this.addInput("Output Processes",   "output_process_list"); // 4
 
-        this.addOutput("Stage",             "analysis_stage")       // 0
+        this.addOutput("Post",              "stage_flow")           // 0
 
         this.crop_title = 20;
         this.hover_tooltip = false;

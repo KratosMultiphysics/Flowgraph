@@ -28,6 +28,14 @@
 
         <script type="text/javascript" src="../src/litegraph.js"></script>
         <script type="text/javascript" src="js/problemtype-editor.js"></script>
+
+        <!-- Mods to the base source code of litegraph.js. -->
+        <!-- Needs to be done after importing litegraph AND before registering nodes -->
+        <!-- Maybe ask to merge in the main lib when they are mature -->
+        <script type="text/javascript" src="js/injections/selection_import.js"></script>
+        <script type="text/javascript" src="js/injections/extended_menu.js"></script>
+        <script type="text/javascript" src="js/injections/remove_widget.js"></script>
+        <script type="text/javascript" src="js/injections/glyphs.js"></script>
         
         <script type="text/javascript" src="js/jszip.js"></script>
         <script type="text/javascript" src="js/problem_manager.js"></script>
@@ -49,6 +57,7 @@
         <!-- Kratos -->
         <script type="text/javascript" src="js/nodes/download_problem.js"></script>
         <script type="text/javascript" src="js/nodes/models.js"></script>
+        <script type="text/javascript" src="js/nodes/model_inspector.js"></script>
         <script type="text/javascript" src="js/nodes/parsed_model_part.js"></script>
         <script type="text/javascript" src="js/nodes/input_list.js"></script>
         <script type="text/javascript" src="js/nodes/input_map.js"></script>
@@ -60,6 +69,7 @@
         <script type="text/javascript" src="js/nodes/stages/pre_process.js"></script>
         <script type="text/javascript" src="js/nodes/stages/post_process.js"></script>
         <script type="text/javascript" src="js/nodes/stages/modeler.js"></script>
+        <script type="text/javascript" src="js/nodes/stages/import_modeler.js"></script>
         <script type="text/javascript" src="js/nodes/stages/stage.js"></script>
         <script type="text/javascript" src="js/nodes/stages/fluid_stage.js"></script>
 
@@ -90,11 +100,5 @@
 
         <script type="text/javascript" src="js/demos.js"></script>
         <script type="text/javascript" src="js/code.js"></script>
-
-        <!-- Mods to the base source code of litegraph.js. -->
-        <!-- Maybe ask to merge in the main lib when they are mature -->
-        <script type="text/javascript" src="js/injections/selection_import.js"></script>
-        <script type="text/javascript" src="js/injections/extended_menu.js"></script>
-        <script type="text/javascript" src="js/injections/glyphs.js"></script>
     </body>
 </html>
