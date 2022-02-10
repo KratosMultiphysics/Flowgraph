@@ -10,4 +10,4 @@ FluidAnalysisStage.desc = "Select different ModelParts and access their submodel
 
 LiteGraph.registerNodeType("Stages/FluidAnalysisStage", FluidAnalysisStage);
 
-console.log("FluidAnalysisStage node created"); //helps to debug
+console.log("FluidAnalysisStage node created");

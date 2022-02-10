@@ -47,6 +47,7 @@ class FluidMonolithicSolver {
         this.domain_size = this.addWidget("combo","Domain Size", "2", function(v){}, { values:["2","3"]} );
 
         this.size = this.computeSize();
+        this.crop_title = 5;
     }
 
     onExecute() {

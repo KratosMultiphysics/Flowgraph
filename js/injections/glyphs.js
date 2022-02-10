@@ -214,6 +214,7 @@ LGraphCanvas.prototype.drawNode = function(node, ctx) {
                                 pos[0] - offset_width / 2,
                                 pos[1] + offset_height / 2
                             );
+                            ctx.font = LiteGraph.NODE_DEFAULT_TITLE_FONT;
                         } else {
                             ctx.arc(pos[0], pos[1], 4, 0, Math.PI * 2);
                         }
@@ -652,7 +653,7 @@ LGraphCanvas.prototype.drawNodeShape = function(
         }
         ctx.globalAlpha = old_alpha;
 
-        //title text
+        // Title text
         if (node.onDrawTitleText) {
             node.onDrawTitleText(
                 ctx,
@@ -679,6 +680,15 @@ LGraphCanvas.prototype.drawNodeShape = function(
                     var measure = ctx.measureText(title);
                     ctx.fillText(
                         title.substr(0,20), //avoid urls too long
+                        title_height,// + measure.width * 0.5,
+                        LiteGraph.NODE_TITLE_TEXT_Y - title_height
+                    );
+                    ctx.textAlign = "left";
+                } else if (node.crop_title) {
+                    ctx.textAlign = "left";
+                    var measure = ctx.measureText(title);
+                    ctx.fillText(
+                        title.substr(0,node.crop_title) + "...", //avoid urls too long
                         title_height,// + measure.width * 0.5,
                         LiteGraph.NODE_TITLE_TEXT_Y - title_height
                     );

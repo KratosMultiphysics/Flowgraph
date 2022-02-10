@@ -14,15 +14,67 @@ class AnalysisStage {
         this.addInput("Pre",                "stage_pre");           // 1
         this.addInput("Problem Data",       "problem_data");        // 2
         this.addInput("Solver Settings",    "solver_settings");     // 3
-        
-        // TODO: Add processes and output_processes
-        
-        this.addInput("Post",               "stage_post");          // 4
+        this.addInput("Processes",          "process_list");        // 4
+        this.addInput("Output Processes",   "output_process_list"); // 5
+        this.addInput("Post",               "stage_post");          // 6
 
         this.addOutput("Stage",             "analysis_stage")       // 0
+
+        this.crop_title = 20;
+        this.hover_tooltip = false;
+        // this.error_list = []
+        this.error_list = ["Error1", "Error2", "Error3", "Error4"];
+    }
+
+    onDrawTitle(ctx) {
+        if(this.error_list.length) {
+            ErrorHandler.drawErrorMark(ctx, this);
+        }
+    }
+
+    onMouseMove(e, pos, graph_canvas) {
+        if (pos[0] > this.size[0]-24 && 
+            pos[0] < this.size[0]-10 &&
+            pos[1] > LiteGraph.NODE_TITLE_TEXT_Y - LiteGraph.NODE_TITLE_HEIGHT - 13 &&
+            pos[1] < LiteGraph.NODE_TITLE_TEXT_Y - LiteGraph.NODE_TITLE_HEIGHT + 2) {
+            
+            this.hover_tooltip = true;
+        } else {
+            this.hover_tooltip = false;
+        }
+    }
+
+    onDrawBackground(ctx, node, canvas, graph_mouse) {
+        var title_height = LiteGraph.NODE_TITLE_HEIGHT;
+        var area = [0,0,0,0];
+        area[0] = 0; //x
+        area[1] = -title_height; //y
+        area[2] = this.size[0] + 1; //w
+        area[3] = this.size[1] + title_height; //h
+
+        console.log("ousize:", this.size);
+        ctx.strokeStyle = "#C44";
+        ctx.fillStyle = "#C44";
+        ctx.beginPath();
+        ctx.roundRect(
+            area[0] + 10,
+            area[1] + 10,
+            area[2] + 10,
+            area[3] + 10,
+            [this.round_radius] 
+        );
+        ctx.fill();
+    }
+
+    onDrawForeground(ctx, area) {
+        if(this.hover_tooltip && this.error_list.length) {
+            ErrorHandler.drawErrorTooltip(ctx, this);
+        }
     }
 
     onExecute() {
+        this.error_list = [];
+
         if(this.getInputData(0) == undefined) {
             this._value = {};
             this._value["execution_order"] = [];
@@ -45,10 +97,12 @@ class AnalysisStage {
                 "analysis_stage":       this._type,
                 "problem_data":         this.getInputData(2),
                 "solver_settings":      this.getInputData(3),
-                "stage_postprocess":    this.getInputData(4)
+                "processes":            this.getInputData(4),
+                "output_processes":     this.getInputData(5),
+                "stage_postprocess":    this.getInputData(6)
             }
         } else {
-            // TODO: How to report to the user that the stage is already added?
+            this.error_list.push("Stage '"+stage_name+"' already exists")
         }
         
         this.setOutputData(0, this._value);
@@ -63,4 +117,4 @@ AnalysisStage.desc = "Select different ModelParts and access their submodelparts
 
 LiteGraph.registerNodeType("Stages/AnalysisStage", AnalysisStage);
 
-console.log("AnalysisStage node created"); //helps to debug
+console.log("AnalysisStage node created");
