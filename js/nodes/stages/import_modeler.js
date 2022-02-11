@@ -40,6 +40,27 @@ class ImportMdpaModeler {
         this.readModelList(file);
     }
 
+    onConnectionsChange(type, slot, connected, link_info, input_info) {
+        if (type == LiteGraph.INPUT) {
+            this.onUpdateModel(link_info.id, connected);
+        }
+    }
+
+    onUpdateModel(link_id, connected) {
+        this.updateModelList(link_id, connected);
+
+        // If there are nodes upstream, trigger the execution of onUpdateModel.
+        for (let link_id in this.outputs[this.MODEL_OUTPUT].links) {
+            var link = this.outputs[this.MODEL_OUTPUT].links[link_id];
+            if (link != null) {
+                let upstream_node = this.graph.getNodeById(this.graph.links[link].target_id);
+                if (upstream_node.onUpdateModel) {
+                    upstream_node.onUpdateModel();
+                }
+            }
+        }
+    }
+
     /**
      * Get the list of model modelparts in the node
      */
@@ -50,8 +71,8 @@ class ImportMdpaModeler {
     /**
      * Update the node's model with the values downstream.
      */
-     updateModelList() {
-        if (this.inputs[this.MODEL_INPUT].link) {
+    updateModelList(link=this.inputs[this.MODEL_INPUT].link, connected) {
+        if (link && connected) {
             this._model = [...this.graph.getNodeById(this.graph.links[this.inputs[this.MODEL_INPUT].link].origin_id).getModelList()];
         } else {
             this._model = [];
@@ -116,29 +137,6 @@ class ImportMdpaModeler {
 
             // If there are nodes upstream, trigger the execution of onUpdateModel
             this.onUpdateModel();
-        }
-    }
-
-    onConnectionsChange(type, slot, connected, link_info, input_info) {
-        if (type == LiteGraph.INPUT) {
-            this.onUpdateModel();
-        }
-    }
-
-    onUpdateModel() {
-        this.updateModelList();
-
-        // If there are nodes upstream, trigger the execution of onUpdateModel.
-        for (let link_id in this.outputs[this.MODEL_OUTPUT].links) {
-            var link = this.outputs[this.MODEL_OUTPUT].links[link_id];
-            if (link != null) {
-                console.log("link:", link, this.graph.links[link].target_id);
-                let upstream_node = this.graph.getNodeById(this.graph.links[link].target_id);
-                console.log(upstream_node.id);
-                if (upstream_node.onUpdateModel) {
-                    upstream_node.onUpdateModel();
-                }
-            }
         }
     }
 }

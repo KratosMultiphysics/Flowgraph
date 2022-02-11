@@ -21,8 +21,7 @@ class ModelInspector {
 
     onConnectionsChange(type, slot, connected, link_info, input_info) {
         if (type == LiteGraph.INPUT) {
-            this.onUpdateModel();
-            this.updateModelOuputs();
+            this.onUpdateModel(link_info.id, connected);
         } else {
             // Remove unconnected nodes
             for (let i = 0; i < this.outputs.length; i++) {
@@ -51,8 +50,9 @@ class ModelInspector {
     /**
      * Updates the value of the node's model.
      */
-    onUpdateModel() {
-        this.updateModelList();
+    onUpdateModel(link_id, connected) {
+        this.updateModelList(link_id, connected);
+        this.updateModelOuputs();
 
         // If there are nodes upstream, trigger the execution of onUpdateModel.
         for (let link_id in this.outputs[this.MODEL_OUTPUT].links) {
@@ -69,8 +69,8 @@ class ModelInspector {
     /**
      * Update the node's model with the values downstream.
      */
-    updateModelList() {
-        if (this.inputs[this.MODEL_INPUT].link) {
+    updateModelList(link=this.inputs[this.MODEL_INPUT].link, connected) {
+        if (link && connected) {
             this._model = [...this.graph.getNodeById(this.graph.links[this.inputs[this.MODEL_INPUT].link].origin_id).getModelList()];
         } else {
             this._model = [];
