@@ -1,8 +1,13 @@
 class ModelInspector {
     constructor() {
+        // Model
         this.MODEL_INPUT  = 0;
         this.MODEL_OUTPUT = 0;
 
+        this._model = [];
+        this._model_operations = [];
+
+        // List of inputs and outputs ("name", "type")
         this.addInput("Model", 0);
 
         this.addOutput("value", 0);
@@ -14,15 +19,52 @@ class ModelInspector {
             values:[]
         }));
 
-        this._model = [];
-
         this.output_type = "";
     }
 
+    /** Model */
+    /**
+     * Executed on connection change.
+     * This function can get extended my ModelNode.
+     * @param {*} type 
+     * @param {*} slot 
+     * @param {*} connected 
+     * @param {*} link_info 
+     * @param {*} input_info 
+     */
     onConnectionsChange(type, slot, connected, link_info, input_info) {
-        if (type == LiteGraph.INPUT) {
-            this.onUpdateModel(link_info.id, connected);
-        } else {
+        this.updateNodeOutputSlots(type)
+    }
+
+    /**
+     * Updates the value of the node's model.
+     * This function can get extended my ModelNode.
+     */
+    onUpdateModel(link_id, connected) {
+        this.updateModelOuputs();
+    }
+
+    /** Internal */
+    /** 
+     * Populates the node widgets with the name of the modelparts available
+     * in the input's model, if exists. 
+     */
+    updateModelOuputs() {
+        for (let widget in this._output_slector_map) {
+            this._output_slector_map[widget].options.values = [];
+            if(this._model) {
+                this._output_slector_map[widget].options.values = this._model;
+                this._output_slector_map[widget].value = this._model[0];
+            }
+        }
+    }
+
+    /**
+     * Updates the list outputs on the node
+     * @param {connection type} type 
+     */
+    updateNodeOutputSlots(type) {
+        if (type == LiteGraph.OUTPUT) {
             // Remove unconnected nodes
             for (let i = 0; i < this.outputs.length; i++) {
                 if (!this.isOutputConnected(i)) {
@@ -46,78 +88,11 @@ class ModelInspector {
             this.size = this.computeSize();
         }
     }
-
-    /**
-     * Updates the value of the node's model.
-     */
-    onUpdateModel(link_id, connected) {
-        this.updateModelList(link_id, connected);
-        this.updateModelOuputs();
-
-        // If there are nodes upstream, trigger the execution of onUpdateModel.
-        for (let link_id in this.outputs[this.MODEL_OUTPUT].links) {
-            var link = this.outputs[this.MODEL_OUTPUT].links[link_id];
-            if (link != null) {
-                let upstream_node = this.graph.getNodeById(this.graph.links[link].target_id);
-                if (upstream_node.onUpdateModel) {
-                    upstream_node.onUpdateModel();
-                }
-            }
-        }
-    }
-
-    /**
-     * Update the node's model with the values downstream.
-     */
-    updateModelList(link=this.inputs[this.MODEL_INPUT].link, connected) {
-        if (link && connected) {
-            this._model = [...this.graph.getNodeById(this.graph.links[this.inputs[this.MODEL_INPUT].link].origin_id).getModelList()];
-        } else {
-            this._model = [];
-        }
-
-        for (let op_id in this._model_operations) {
-            switch(this._model_operations[op_id].code) {
-                case "add":
-                    this._model.push(this._model_operations[op_id].data);
-                    break;
-                case "rem":
-                    // To be implemented
-                    break;
-                default:
-                    // Do nothing
-                    break;
-              } 
-        }
-
-        this._model = [...new Set(this._model)];
-    }
-
-    /**
-     * Get the list of model modelparts in the node
-     */
-    getModelList() {
-        return this._model;
-    }
-
-    /** 
-     * Populates the node widgets with the name of the modelparts available
-     * in the input's model, if exists. 
-     */
-    updateModelOuputs() {
-        for (let widget in this._output_slector_map) {
-            this._output_slector_map[widget].options.values = [];
-            if(this._model) {
-                this._output_slector_map[widget].options.values = this._model;
-                this._output_slector_map[widget].value = this._model[0];
-            }
-        }
-    }
 }
 
 ModelInspector.title = "Model Inspector";
 ModelInspector.desc = "Select different ModelParts and access their submodelparts directly";
 
-LiteGraph.registerNodeType("model_part/Model Inspector", ModelInspector);
+LiteGraph.registerNodeType("model_part/Model Inspector", ModelManager.registerNodeType(ModelInspector));
 
 console.log("ModelInspector node created"); //helps to debug

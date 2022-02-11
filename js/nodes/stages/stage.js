@@ -20,8 +20,8 @@ class AnalysisStage {
 
         this.crop_title = 20;
         this.hover_tooltip = false;
-        // this.error_list = []
-        this.error_list = ["Error1", "Error2", "Error3", "Error4"];
+        this.error_list = []
+        // this.error_list = ["Error1", "Error2", "Error3", "Error4"];
     }
 
     onDrawTitle(ctx) {
@@ -40,28 +40,6 @@ class AnalysisStage {
         } else {
             this.hover_tooltip = false;
         }
-    }
-
-    onDrawBackground(ctx, node, canvas, graph_mouse) {
-        var title_height = LiteGraph.NODE_TITLE_HEIGHT;
-        var area = [0,0,0,0];
-        area[0] = 0; //x
-        area[1] = -title_height; //y
-        area[2] = this.size[0] + 1; //w
-        area[3] = this.size[1] + title_height; //h
-
-        console.log("ousize:", this.size);
-        ctx.strokeStyle = "#C44";
-        ctx.fillStyle = "#C44";
-        ctx.beginPath();
-        ctx.roundRect(
-            area[0] + 10,
-            area[1] + 10,
-            area[2] + 10,
-            area[3] + 10,
-            [this.round_radius] 
-        );
-        ctx.fill();
     }
 
     onDrawForeground(ctx, area) {
