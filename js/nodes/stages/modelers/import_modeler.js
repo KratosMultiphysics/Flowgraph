@@ -4,14 +4,11 @@ class ImportMdpaModeler {
         this.MODEL_INPUT  = 0;
         this.MODEL_OUTPUT = 0;
 
-        this._model = [];
-        this._model_operations = [];
-
         // Identifier Glyph
         this.glyph = {shape: '\uf6cf', font:'900 14px "Font Awesome 5 Free"', width: 16, height: 9};
 
         // List of inputs and outputs ("name", "type")
-        this.addInput("Stage", "stage_flow");
+        this.addInput("Stage", "stage_modeler");
 
         // List Manager
         this.input_manager = document.createElement('input');
@@ -23,7 +20,7 @@ class ImportMdpaModeler {
             node.input_manager.click();
         });
 
-        this.addOutput("Modeler", "stage_flow");
+        this.addOutput("Modeler", "stage_modeler");
 
         this.size = this.computeSize();
         this.serialize_widgets = true;

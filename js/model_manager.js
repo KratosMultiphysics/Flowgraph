@@ -7,10 +7,10 @@ class ModelNode {
      * @param {*} link_info 
      * @param {*} input_info 
      */
-    onConnectionsChange(type, slot, connected, link_info, input_info) {
+    _beforeConnectionsChange(type, slot, connected, link_info, input_info) {
         if (type == LiteGraph.INPUT) {
             if(link_info) {
-                this.onUpdateModel(link_info.id, connected);
+                this._beforeUpdateModel(link_info.id, connected);
             } else {
                 console.log("Warning: Calling oConnectionsChange with no link info")
             }
@@ -19,13 +19,41 @@ class ModelNode {
 
     /**
      * 
+     * @param {*} type 
+     * @param {*} slot 
+     * @param {*} connected 
+     * @param {*} link_info 
+     * @param {*} input_info 
+     */
+    _afterConnectionsChange(type, slot, connected, link_info, input_info) {
+        if (type == LiteGraph.INPUT) {
+            if(link_info) {
+                if (this._onUpdateModel) {
+                    this._onUpdateModel(link_info.id, connected);
+                }
+                this._afterUpdateModel(link_info.id, connected);
+            } else {
+                console.log("Warning: Calling oConnectionsChange with no link info")
+            }
+        }
+    }
+
+    /**
+     * Get the model list from the nodes downstream.
      * @param {*} link_id 
      * @param {*} connected 
      */
-    onUpdateModel(link_id, connected) {
-        this.updateModelList(link_id, connected);
+    _beforeUpdateModel() {
+        this._getDownstreamModelList();
+    }
 
-        // If there are nodes upstream, trigger the execution of onUpdateModel.
+    /**
+     * Propagate the changes to nodes upstream.
+     * @param {*} link_id 
+     * @param {*} connected 
+     */
+    _afterUpdateModel() {
+        this._setUpstreamModelList();
         for (let link_id in this.outputs[this.MODEL_OUTPUT].links) {
             var link = this.outputs[this.MODEL_OUTPUT].links[link_id];
             if (link != null) {
@@ -38,37 +66,53 @@ class ModelNode {
     }
 
     /**
-     * Get the list of model modelparts in the node
+     * 
+     * @param {*} link 
+     * @param {*} connected 
      */
-    getModelList() {
-        return this._model;
+    _getDownstreamModelList(link=this.inputs[this.MODEL_INPUT].link, connected=true){
+        if (link && connected) {
+            this._in_model = [...this.graph.getNodeById(this.graph.links[this.inputs[this.MODEL_INPUT].link].origin_id).getModelList()];
+        } else {
+            this._in_model = [];
+        }
+
+        this._out_model = [...this._in_model];
     }
 
     /**
      * Update the node's model with the values downstream.
      */
-    updateModelList(link=this.inputs[this.MODEL_INPUT].link, connected) {
-        if (link && connected) {
-            this._model = [...this.graph.getNodeById(this.graph.links[this.inputs[this.MODEL_INPUT].link].origin_id).getModelList()];
-        } else {
-            this._model = [];
-        }
-
+    _setUpstreamModelList() {
+        this._out_model = [...this._in_model];
         for (let op_id in this._model_operations) {
             switch(this._model_operations[op_id].code) {
                 case "add":
-                    this._model.push(this._model_operations[op_id].data);
+                    this._out_model.push(this._model_operations[op_id].data);
                     break;
                 case "rem":
-                    // To be implemented
+                    let index = this._out_model.indexOf(this._model_operations[op_id].data);
+                    if (index !== -1) {
+                        this._out_model.splice(index, 1);
+                    }
                     break;
                 default:
-                    // Do nothing
                     break;
               } 
         }
 
-        this._model = [...new Set(this._model)];
+        this._out_model = [...new Set(this._out_model)];
+    }
+
+    /**
+     * Get the list of model modelparts in the node
+     */
+    getModelList() {
+        return this._out_model;
+    }
+
+    triggerUpstreamUpdate() {
+        this._afterUpdateModel();
     }
 }
 
@@ -85,29 +129,58 @@ class ModelManager {
         // Extend class
         if (node_type.prototype) {
 
-            // onCconnectionChange
-            if(!node_type.prototype.onConnectionsChange) {
-                node_type.prototype.onConnectionsChange = ModelNode.prototype.onConnectionsChange;
-            } else {
-                node_type.prototype._onConnectionsChange = node_type.prototype.onConnectionsChange;
-                node_type.prototype._onConnectionsChangeModel = ModelNode.prototype.onConnectionsChange;
-                node_type.prototype.onConnectionsChange = function() {
-                    this._onConnectionsChangeModel.apply(this, arguments);
-                    this._onConnectionsChange.apply(this, arguments);
-                }
+            ///////////////
+            // Internal  //
+            ///////////////
+
+            // add types
+            node_type.prototype._in_model = [];
+            node_type.prototype._out_model = [];
+            node_type.prototype._model_operations = [];
+
+            // _onCconnectionChange
+            node_type.prototype._onConnectionsChange = node_type.prototype.onConnectionsChange;
+            node_type.prototype._beforeConnectionsChange = ModelNode.prototype._beforeConnectionsChange;
+            node_type.prototype._afterConnectionsChangeModel = ModelNode.prototype._afterConnectionsChange;
+            node_type.prototype.onConnectionsChange = function() {
+                // First process the connection change, then apply the node code.
+                    this._beforeConnectionsChange.apply(this, arguments);
+                    if(node_type.prototype._onConnectionsChange) {
+                        this._onConnectionsChange.apply(this, arguments);
+                    }
+                    this._afterConnectionsChangeModel.apply(this, arguments);
             }
 
-            // onUpdateModel
-            if(!node_type.prototype.onUpdateModel) {
-                node_type.prototype.onUpdateModel = ModelNode.prototype.onUpdateModel;
-            } else {
-                node_type.prototype._onUpdateModel = node_type.prototype.onUpdateModel;
-                node_type.prototype._onUpdateModelModel = ModelNode.prototype.onUpdateModel;
-                node_type.prototype.onUpdateModel = function() {
-                    this._onUpdateModelModel.apply(this, arguments);
+            // _onUpdateModel
+            node_type.prototype._onUpdateModel = node_type.prototype.onUpdateModel;
+            node_type.prototype._beforeUpdateModel = ModelNode.prototype._beforeUpdateModel;
+            node_type.prototype._afterUpdateModel = ModelNode.prototype._afterUpdateModel;
+            node_type.prototype.onUpdateModel = function() {
+                // First apply the node code, then propagate the update.
+                this._beforeUpdateModel.apply(this, arguments);
+                if (node_type.prototype._onUpdateModel) {
                     this._onUpdateModel.apply(this, arguments);
                 }
+                this._afterUpdateModel.apply(this, arguments);
             }
+
+            // _getDownstreamModelList
+            if(!node_type.prototype._getDownstreamModelList) {
+                node_type.prototype._getDownstreamModelList = ModelNode.prototype._getDownstreamModelList;
+            } else {
+                console.log("Warning: ModelNode still does not suport extending _getDownstreamModelList");
+            }
+
+            // _setUpstreamModelList
+            if(!node_type.prototype._setUpstreamModelList) {
+                node_type.prototype._setUpstreamModelList = ModelNode.prototype._setUpstreamModelList;
+            } else {
+                console.log("Warning: ModelNode still does not suport extending _setUpstreamModelList");
+            }
+
+            ///////////////
+            // Interface //
+            ///////////////
 
             // getModelList
             if(!node_type.prototype.getModelList) {
@@ -116,11 +189,11 @@ class ModelManager {
                 console.log("Warning: ModelNode still does not suport extending getModelList");
             }
 
-            // updateModelList
-            if(!node_type.prototype.updateModelList) {
-                node_type.prototype.updateModelList = ModelNode.prototype.updateModelList;
+            // triggerUpstreamUpdate
+            if(!node_type.prototype.triggerUpstreamUpdate) {
+                node_type.prototype.triggerUpstreamUpdate = ModelNode.prototype.triggerUpstreamUpdate;
             } else {
-                console.log("Warning: ModelNode still does not suport extending updateModelList");
+                console.log("Warning: ModelNode still does not suport extending triggerUpstreamUpdate");
             }
         }
 

@@ -1,5 +1,9 @@
 class AnalysisStage {
     constructor() {
+        // Model
+        this.MODEL_INPUT  = 0;
+        this.MODEL_OUTPUT = 0;
+
         // Identifier Glyph
         this.glyph = {shape: '\uf121', font:'900 14px "Font Awesome 5 Free"', width: 16, height: 9};
 
@@ -91,6 +95,6 @@ class AnalysisStage {
 AnalysisStage.title = "AnalysisStage";
 AnalysisStage.desc = "Select different ModelParts and access their submodelparts directly";
 
-LiteGraph.registerNodeType("Stages/AnalysisStage", AnalysisStage);
+LiteGraph.registerNodeType("Stages/AnalysisStage", ModelManager.registerNodeType(AnalysisStage));
 
 console.log("AnalysisStage node created");

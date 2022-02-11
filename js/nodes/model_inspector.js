@@ -4,9 +4,6 @@ class ModelInspector {
         this.MODEL_INPUT  = 0;
         this.MODEL_OUTPUT = 0;
 
-        this._model = [];
-        this._model_operations = [];
-
         // List of inputs and outputs ("name", "type")
         this.addInput("Model", 0);
 
@@ -50,11 +47,25 @@ class ModelInspector {
      * in the input's model, if exists. 
      */
     updateModelOuputs() {
+        console.log("Executing updateModelOuputs")
         for (let widget in this._output_slector_map) {
             this._output_slector_map[widget].options.values = [];
-            if(this._model) {
-                this._output_slector_map[widget].options.values = this._model;
-                this._output_slector_map[widget].value = this._model[0];
+            let model_values = this.getModelList();
+            if(model_values) {
+                let old_value = this._output_slector_map[widget].value;
+                
+                this._output_slector_map[widget].options.values = model_values;
+                this._output_slector_map[widget].value = model_values[0];
+
+                if (old_value) {
+                    let index = this._output_slector_map[widget].options.values.indexOf(old_value);
+                    if (index != -1) {
+                        this._output_slector_map[widget].value = old_value;
+                    }
+                }
+            } else {
+                this._output_slector_map[widget].options.values = [];
+                this._output_slector_map[widget].value = "";
             }
         }
     }
@@ -80,7 +91,7 @@ class ModelInspector {
             if (this.outputs.length <= 0 || this.isOutputConnected(this.outputs.length - 1)) {
                 this.addOutput("value", 0);
                 this._output_slector_map.push(this.addWidget("combo","ModelPart", "DEBUG", null, { 
-                    values:this._model
+                    values:this.getModelList()
                 }));
             }
 
