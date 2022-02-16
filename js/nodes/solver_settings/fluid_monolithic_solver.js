@@ -1,8 +1,10 @@
 class FluidMonolithicSolver {
     constructor() {
+        // Identifier Glyph
+        this.glyph = {shape: '\uf085', font:'900 14px "Font Awesome 5 Free"', width: 16, height: 9};
 
         // List of inputs and outputs ("name", "type")
-        this.addInput("model_import_settings", "map");      // 0
+        this.addInput("model_import_settings", "map", {"glyph": {shape:"\uf6cf", font:'900 10px "Font Awesome 5 Free"', width:9, height:10}}); // 0
         this.addInput("model_part_name", "string");         // 1
         this.addInput("volume_model_part_name", "string");  // 2
         this.addInput("skin_parts", "array");               // 3
@@ -10,7 +12,7 @@ class FluidMonolithicSolver {
         this.addInput("linear_solver_settings", "map");     // 5
         this.addInput("material_import_settings", "map");   // 6
         
-        this.addOutput("solver_settings", "map");
+        this.addOutput("solver_settings", "solver_settings");
 
         // List of properties
         this.properties = {
@@ -45,6 +47,7 @@ class FluidMonolithicSolver {
         this.domain_size = this.addWidget("combo","Domain Size", "2", function(v){}, { values:["2","3"]} );
 
         this.size = this.computeSize();
+        this.crop_title = 5;
     }
 
     onExecute() {
