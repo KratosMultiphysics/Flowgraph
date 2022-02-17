@@ -76,12 +76,19 @@ class DeleteModeler {
         this._output_slector_map = [];
 
         for (let index in model_list) {
-            this._output_slector_map.push(this.addWidget("combo", model_list[index], "Keep", (v) => {console.log("hola?"); this.onUpdateDropdown();}, { 
+            this._output_slector_map.push(this.addWidget("combo", model_list[index], "Keep", (v) => {this.onUpdateDropdown();}, { 
                 values:["Keep", "Delete"]
             }));
         }
 
         this.size = this.computeSize();
+    }
+
+    /**
+     * Discard the input of the node, we only interested in the remove operations.
+     */
+    getModelInitialOutputOperationsList() {
+        return [];
     }
 }
 

@@ -47,7 +47,6 @@ class ModelInspector {
      * in the input's model, if exists. 
      */
     updateModelOuputs() {
-        console.log("Executing updateModelOuputs")
         for (let widget in this._output_slector_map) {
             this._output_slector_map[widget].options.values = [];
             let model_values = this.getModelList();

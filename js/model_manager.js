@@ -70,45 +70,80 @@ class ModelNode {
      * @param {*} link 
      * @param {*} connected 
      */
-    _getDownstreamModelList(link=this.inputs[this.MODEL_INPUT].link, connected=true){
-        if (link && connected) {
-            this._in_model = [...this.graph.getNodeById(this.graph.links[this.inputs[this.MODEL_INPUT].link].origin_id).getModelList()];
-        } else {
-            this._in_model = [];
+    _getDownstreamModelList() {
+        this._in_model_operations = [];
+
+        for(let input_id in this.inputs) {
+            if (this.graph.links[this.inputs[input_id].link]) {
+                if (this.graph.getNodeById(this.graph.links[this.inputs[input_id].link].origin_id).getModelOutputOperationsList) {
+                    this._in_model_operations = this._in_model_operations.concat(this.graph.getNodeById(this.graph.links[this.inputs[input_id].link].origin_id).getModelOutputOperationsList());
+                }
+            }
         }
 
-        this._out_model = [...this._in_model];
+        this._model = [];
+        
+        // Build the corrent list of models avialiable in the node
+        for (let op_id in this._in_model_operations) {
+            switch(this._in_model_operations[op_id].code) {
+                case "add":
+                    this._model.push(this._in_model_operations[op_id].data);
+                    break;
+                case "rem":
+                    let index = this._model.indexOf(this._in_model_operations[op_id].data);
+                    if (index !== -1) {
+                        this._model.splice(index, 1);
+                    }
+                    break;
+                default:
+                    break;
+            } 
+        }
+
+        this._model = [...new Set(this._model)];
     }
 
     /**
      * Update the node's model with the values downstream.
      */
     _setUpstreamModelList() {
-        this._out_model = [...this._in_model];
+        this._out_model_operations = this.getModelInitialOutputOperationsList();
+
+        // Add the operations calculated by the node.
         for (let op_id in this._model_operations) {
-            switch(this._model_operations[op_id].code) {
-                case "add":
-                    this._out_model.push(this._model_operations[op_id].data);
-                    break;
-                case "rem":
-                    let index = this._out_model.indexOf(this._model_operations[op_id].data);
-                    if (index !== -1) {
-                        this._out_model.splice(index, 1);
-                    }
-                    break;
-                default:
-                    break;
-              } 
+            this._out_model_operations.push(this._model_operations[op_id])
         }
 
-        this._out_model = [...new Set(this._out_model)];
+        this._out_model_operations = [...new Set(this._out_model_operations)];
     }
 
     /**
      * Get the list of model modelparts in the node
      */
     getModelList() {
-        return this._out_model;
+        return this._model;
+    }
+
+    /**
+     * Get the list of model operations at the exit of the node
+     */
+    getModelInitialOutputOperationsList() {
+        let initial_operations = [];
+
+        // Unless overwritten, the model is the same as the input model
+        // after executing the operations downstream.
+        for (let md_id in this._model) {
+            initial_operations.push({"code":"add", "data":this._model[md_id]});
+        }
+
+        return initial_operations;
+    }
+
+    /**
+     * Get the list of model operations at the exit of the node
+     */
+    getModelOutputOperationsList() {
+        return this._out_model_operations;
     }
 
     triggerUpstreamUpdate() {
@@ -134,9 +169,11 @@ class ModelManager {
             ///////////////
 
             // add types
-            node_type.prototype._in_model = [];
-            node_type.prototype._out_model = [];
+            node_type.prototype._model = [];
+
             node_type.prototype._model_operations = [];
+            node_type.prototype._in_model_operations = [];
+            node_type.prototype._out_model_operations = [];
 
             // _onCconnectionChange
             node_type.prototype._onConnectionsChange = node_type.prototype.onConnectionsChange;
@@ -144,11 +181,11 @@ class ModelManager {
             node_type.prototype._afterConnectionsChangeModel = ModelNode.prototype._afterConnectionsChange;
             node_type.prototype.onConnectionsChange = function() {
                 // First process the connection change, then apply the node code.
-                    this._beforeConnectionsChange.apply(this, arguments);
-                    if(node_type.prototype._onConnectionsChange) {
-                        this._onConnectionsChange.apply(this, arguments);
-                    }
-                    this._afterConnectionsChangeModel.apply(this, arguments);
+                this._beforeConnectionsChange.apply(this, arguments);
+                if(node_type.prototype._onConnectionsChange) {
+                    this._onConnectionsChange.apply(this, arguments);
+                }
+                this._afterConnectionsChangeModel.apply(this, arguments);
             }
 
             // _onUpdateModel
@@ -187,6 +224,18 @@ class ModelManager {
                 node_type.prototype.getModelList = ModelNode.prototype.getModelList;
             } else {
                 console.log("Warning: ModelNode still does not suport extending getModelList");
+            }
+
+            // getModelOutputOperationsList
+            if(!node_type.prototype.getModelOutputOperationsList) {
+                node_type.prototype.getModelOutputOperationsList = ModelNode.prototype.getModelOutputOperationsList;
+            } else {
+                console.log("Warning: ModelNode still does not suport extending getModelOutputOperationsList");
+            }
+
+            // getModelInitialOutputOperationsList
+            if(!node_type.prototype.getModelInitialOutputOperationsList) {
+                node_type.prototype.getModelInitialOutputOperationsList = ModelNode.prototype.getModelInitialOutputOperationsList;
             }
 
             // triggerUpstreamUpdate
