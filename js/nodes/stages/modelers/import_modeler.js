@@ -15,7 +15,10 @@ class ImportMdpaModeler {
         this.input_manager.type = 'file';
         this.input_manager.addEventListener('change', this.onSelection.bind(this));
 
-        this.mp_name = this.addWidget("text","Name", "", function(v){}, {} );
+        let node = this;
+        this.mp_name = this.addWidget("text","Name", "", function(v){
+            node.updateModelPartList(v);
+        }, {} );
         this.mp_select = this.addWidget("button", "Load Mdpa", "", function (value, widget, node) {
             node.input_manager.click();
         });
@@ -53,34 +56,40 @@ class ImportMdpaModeler {
 
     onReaderLoad(file) {
         return ({ target: { result } }) => {
-            const mdpa_subs_re = /.*((Begin SubModelPart) ([a-zA-Z0-9_]+))|(End SubModelPart$)/gm;
-            const sub_mdpa = result.matchAll(mdpa_subs_re);
+            this.result = result;
+            this.updateModelPartList("MainModelPart");
+        }
+    }
 
-            // Remove existing model operations.
-            this._model_operations = [];
+    updateModelPartList(v) {
+        this.mdpa_subs_re = /.*((Begin SubModelPart) ([a-zA-Z0-9_]+))|(End SubModelPart$)/gm;
+        this.sub_mdpa = this.result.matchAll(this.mdpa_subs_re);
 
-            // Obtain the name of the ModelPart to get complete routes.
-            let sub_mdpa_namepath = ""
-            this.mp_name.value = file.name.slice(0, -5);
+        // Remove existing model operations.
+        this._model_operations = [];
 
-            // Obtain the Submodelparts
-            for (const match of sub_mdpa) {
-                if (match[0].includes("Begin")) {
-                    sub_mdpa_namepath = `${sub_mdpa_namepath}.${match[3]}`;
-                    this._model_operations.push({code:"add", data:sub_mdpa_namepath});
-                }
+        // Obtain the name of the ModelPart to get complete routes.
+        let sub_mdpa_namepath = ""
+        this.mp_name.value = v; // file.name.slice(0, -5);
 
-                if (match[0].includes("End")) {
-                    sub_mdpa_namepath = sub_mdpa_namepath.split(".");
-                    sub_mdpa_namepath.pop();
-                    sub_mdpa_namepath = sub_mdpa_namepath.join(".");
-                }
+        // Obtain the Submodelparts
+        console.log(this.mdpa_subs_re)
+        for (const match of this.sub_mdpa) {
+            if (match[0].includes("Begin")) {
+                sub_mdpa_namepath = `${sub_mdpa_namepath}.${match[3]}`;
+                this._model_operations.push({ code: "add", data: v+sub_mdpa_namepath });
             }
 
-            // If there are nodes upstream, trigger the execution of onUpdateModel
-            // I can call this because I will extend the class.
-            this.onUpdateModel();
+            if (match[0].includes("End")) {
+                sub_mdpa_namepath = sub_mdpa_namepath.split(".");
+                sub_mdpa_namepath.pop();
+                sub_mdpa_namepath = sub_mdpa_namepath.join(".");
+            }
         }
+
+        // If there are nodes upstream, trigger the execution of onUpdateModel
+        // I can call this because I will extend the class.
+        this.onUpdateModel();
     }
 }
 
