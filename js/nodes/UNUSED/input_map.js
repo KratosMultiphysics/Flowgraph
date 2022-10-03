@@ -1,16 +1,7 @@
-class InputList {
+class InputMap {
     constructor() {
-        this.input_type = 0;
-        this.output_type = "array";
-    }
-
-    onAdded() {
-        this.buildConnections();
-    }
-
-    buildConnections() {
-        this.addInput("In0", this.input_type, "");
-        this.addOutput("array", this.output_type);
+        this.addInput("In0", "key-value", "");
+        this.addOutput("map", "map");
         this.addOutput("size", "number");
         this.size = this.computeSize();
         this.serialize_widgets = true;
@@ -26,12 +17,11 @@ class InputList {
     }
 
     onExecute() {
-        if (!this._value) {
-            this._value = new Array();
-        }
+        this._value = new Map();
+        
         this._value.length = this.inputs.length - 1;
         for (let i = 0; i < this.inputs.length - 1; ++i) {
-            this._value[i] = this.getInputData(i);
+            this._value[this.getInputData(i)['key']] = this.getInputData(i)['value'];
         }
         
         this.setOutputData(0, this._value);
@@ -54,7 +44,7 @@ class InputList {
 
         // If all nodes are connected, or there are no nodes, add one.
         if (this.inputs.length <= 0 || this.isInputConnected(this.inputs.length - 1)) {
-            this.addInput("In" + (this.getOutputData(1)), this.input_type, "");
+            this.addInput("In" + (this.getOutputData(1)), "key-value", "");
             this.incSize(1, 1);
         }
 
@@ -63,11 +53,9 @@ class InputList {
     }
 }
 
-InputList.title = "List";
-InputList.desc = "Merges several elements into an array";
+InputMap.title = "Map";
+InputMap.desc = "Merges several parameter into a map";
 
-LiteGraph.registerNodeType("TOOLS/List", InputList);
+LiteGraph.registerNodeType("UNUSED/Map", InputMap);
 
-console.log("InputList node created"); //helps to debug
-
-// export default InputList;
+console.log("InputMap node created"); //helps to debug
