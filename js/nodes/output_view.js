@@ -35,6 +35,6 @@ class OutputView {
 OutputView.title = "Output View";
 OutputView.desc = "View of an Output";
 
-LiteGraph.registerNodeType("model_part/OutputView", OutputView);
+LiteGraph.registerNodeType("IO/OutputView", OutputView);
 
 console.log("OutputView node created"); //helps to debug
