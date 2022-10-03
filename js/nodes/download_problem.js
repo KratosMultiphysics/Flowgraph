@@ -77,4 +77,4 @@ class DownloadProblem {
 DownloadProblem.title = "Download Problem";
 DownloadProblem.desc = "Download all the files of the problem";
 
-LiteGraph.registerNodeType("basic/DownloadProblem", DownloadProblem);
+LiteGraph.registerNodeType("IO/DownloadProblem", DownloadProblem);

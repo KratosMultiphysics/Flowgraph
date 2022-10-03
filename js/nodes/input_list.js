@@ -66,7 +66,7 @@ class InputList {
 InputList.title = "List";
 InputList.desc = "Merges several elements into an array";
 
-LiteGraph.registerNodeType("parameters/List", InputList);
+LiteGraph.registerNodeType("TOOLS/List", InputList);
 
 console.log("InputList node created"); //helps to debug
 
