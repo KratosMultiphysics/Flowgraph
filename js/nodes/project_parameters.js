@@ -6,7 +6,7 @@ function ProjectParameters() {
     this.addInput("boundary_conditions_process_list", "process_array");  //3
     this.addInput("auxiliar_process_list", "process_array");  //4
     this.addInput("gravity", "map");  //5
-    this.addInput("output_processes", "array");  //6
+    this.addInput("output_processes", "process_array");  //6
 
     this.addOutput("project_parameters","map");
     this.size = this.computeSize();
