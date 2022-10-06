@@ -25,6 +25,6 @@ class NoSlipProcess {
 NoSlipProcess.title = "No-slip process";
 NoSlipProcess.desc = "Node to specify a no-slip boundary process.";
 
-LiteGraph.registerNodeType("processes/NoSlipProcess", NoSlipProcess);
+LiteGraph.registerNodeType("PROCESSES/No-Slip Process", NoSlipProcess);
 
 console.log("NoSlipProcess node created"); //helps to debug

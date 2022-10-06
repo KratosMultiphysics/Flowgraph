@@ -87,6 +87,6 @@ class ImportMdpaModeler {
 ImportMdpaModeler.title = "Import Mdpa Modeler";
 ImportMdpaModeler.desc  = "This modeler loads a Mpda file and makes its modelparts avaliable";
 
-LiteGraph.registerNodeType("Stages/Modelers/Import Mdpa", ModelManager.registerNodeType(ImportMdpaModeler));
+LiteGraph.registerNodeType("STAGES/MODELERS/Import Mdpa", ModelManager.registerNodeType(ImportMdpaModeler));
 
 console.log("ImportMdpaModeler node created"); //helps to debug

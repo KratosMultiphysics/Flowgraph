@@ -37,7 +37,7 @@ class DownloadProblem {
             // img.file("smile.gif", imgData, {base64: true});
             zip.generateAsync({type:"blob"})
             .then(function(content) {
-                that.saveAs(content, "problem.zip");
+                that.saveAs(content, "case.zip");
         });
     }
 
@@ -74,7 +74,7 @@ class DownloadProblem {
     }
 }
 
-DownloadProblem.title = "Download Problem";
-DownloadProblem.desc = "Download all the files of the problem";
+DownloadProblem.title = "Export case files";
+DownloadProblem.desc = "Export the files of the case";
 
 LiteGraph.registerNodeType("IO/DownloadProblem", DownloadProblem);

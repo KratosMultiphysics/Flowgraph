@@ -88,6 +88,6 @@ class DeleteModeler {
 DeleteModeler.title = "Delete Modeler";
 DeleteModeler.desc = "Select different ModelParts and access their submodelparts directly";
 
-LiteGraph.registerNodeType("Stages/Modelers/Delete Modeler", ModelManager.registerNodeType(DeleteModeler));
+LiteGraph.registerNodeType("STAGES/MODELERS/Delete Modeler", ModelManager.registerNodeType(DeleteModeler));
 
 console.log("DeleteModeler node created"); //helps to debug

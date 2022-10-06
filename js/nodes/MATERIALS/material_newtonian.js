@@ -65,6 +65,6 @@ class MaterialNewtonian {
 MaterialNewtonian.title = "Newtonian material";
 MaterialNewtonian.desc = "Node to specify a Newtonian fluid material.";
 
-LiteGraph.registerNodeType("materials/Newtonian", MaterialNewtonian);
+LiteGraph.registerNodeType("MATERIALS/Newtonian", MaterialNewtonian);
 
 console.log("MaterialNewtonian node created"); //helps to debug

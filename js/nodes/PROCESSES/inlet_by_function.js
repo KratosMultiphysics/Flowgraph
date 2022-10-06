@@ -13,7 +13,7 @@
         this.serialize_widgets = true;
     }
 
-    InletByFunction.title = "InletByFunction";
+    InletByFunction.title = "Inlet By Function";
     InletByFunction.desc = "define inlet";
 
     InletByFunction.prototype.onExecute = function() {
@@ -28,6 +28,6 @@
         this.setOutputData(0, output);
     };
 
-    LiteGraph.registerNodeType("processes/InletByFunction", InletByFunction);
+    LiteGraph.registerNodeType("PROCESSES/InletByFunction", InletByFunction);
 
     console.log("InletByFunction node created"); //helps to debug

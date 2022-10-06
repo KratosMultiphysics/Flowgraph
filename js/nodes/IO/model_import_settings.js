@@ -26,6 +26,6 @@ class ModelImportSettings {
 ModelImportSettings.title = "Model import settings";
 ModelImportSettings.desc = "Node to specify the model import settings of a solver.";
 
-LiteGraph.registerNodeType("solver_settings_aux_nodes/ModelImportSettings", ModelImportSettings);
+LiteGraph.registerNodeType("IO/ModelImportSettings", ModelImportSettings);
 
 console.log("ModelImportSettings node created"); //helps to debug

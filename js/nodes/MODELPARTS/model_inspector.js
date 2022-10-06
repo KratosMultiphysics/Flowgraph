@@ -104,6 +104,6 @@ class ModelInspector {
 ModelInspector.title = "Model Inspector";
 ModelInspector.desc = "Select different ModelParts and access their submodelparts directly";
 
-LiteGraph.registerNodeType("model_part/Model Inspector", ModelManager.registerNodeType(ModelInspector));
+LiteGraph.registerNodeType("MODELPARTS/Model Inspector", ModelManager.registerNodeType(ModelInspector));
 
 console.log("ModelInspector node created"); //helps to debug

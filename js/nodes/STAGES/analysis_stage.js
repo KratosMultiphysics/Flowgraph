@@ -92,9 +92,9 @@ class AnalysisStage {
     }
 }
 
-AnalysisStage.title = "AnalysisStage";
+AnalysisStage.title = "Analysis stage";
 AnalysisStage.desc = "Select different ModelParts and access their submodelparts directly";
 
-LiteGraph.registerNodeType("Stages/AnalysisStage", ModelManager.registerNodeType(AnalysisStage));
+LiteGraph.registerNodeType("STAGES/AnalysisStage", ModelManager.registerNodeType(AnalysisStage));
 
 console.log("AnalysisStage node created");

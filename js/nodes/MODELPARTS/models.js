@@ -45,6 +45,6 @@ class Models {
 Models.title = "Models";
 Models.desc = "Select different ModelParts and access their submodelparts directly";
 
-LiteGraph.registerNodeType("model_part/Models", Models);
+LiteGraph.registerNodeType("MODELPARTS/Models", Models);
 
 console.log("Models node created"); //helps to debug

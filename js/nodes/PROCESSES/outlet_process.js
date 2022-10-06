@@ -1,7 +1,3 @@
-//********************************************************************/
-//********************************************************************/
-//********************************************************************/
-//********************************************************************/
 function OutletProcess() {
     this.addInput("model_part","string");
     this.addOutput("Process","process");
@@ -17,7 +13,7 @@ function OutletProcess() {
     this.serialize_widgets = true;
 }
 
-OutletProcess.title = "OutletProcess";
+OutletProcess.title = "Outlet Process";
 OutletProcess.desc = "Define outlet";
 
 OutletProcess.prototype.onExecute = function() {
@@ -31,6 +27,6 @@ OutletProcess.prototype.onExecute = function() {
     this.setOutputData(0, output);
 };
 
-LiteGraph.registerNodeType("processes/OutletProcess", OutletProcess);
+LiteGraph.registerNodeType("PROCESSES/OutletProcess", OutletProcess);
 
 console.log("OutletProcess created"); //helps to debug

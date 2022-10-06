@@ -14,9 +14,9 @@ class MaterialWriter {
     }
 }
 
-MaterialWriter.title = "Material Writer";
+MaterialWriter.title = "Material writer";
 MaterialWriter.desc = "Node to write materials file.";
 
-LiteGraph.registerNodeType("materials/Material Writer", MaterialWriter);
+LiteGraph.registerNodeType("MATERIALS/Material Writer", MaterialWriter);
 
 console.log("Material Writer node created"); //helps to debug

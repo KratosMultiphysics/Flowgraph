@@ -7,10 +7,10 @@ class MultiStage extends InputList{
     }
 };
 
-MultiStage.title = "MultiStage";
+MultiStage.title = "Multistage";
 MultiStage.desc = "Creates a MultiStage object from several Stages";
 
-LiteGraph.registerNodeType("Stages/multi_stage", MultiStage);
+LiteGraph.registerNodeType("STAGES/multi_stage", MultiStage);
 
 console.log("MultiStage node created");
 

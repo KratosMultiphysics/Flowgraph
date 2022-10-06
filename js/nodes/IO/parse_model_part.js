@@ -140,9 +140,9 @@ class ParsedModelPart {
     // }
 }
 
-ParsedModelPart.title = "ParsedModelPart";
+ParsedModelPart.title = "Parse Model Part";
 ParsedModelPart.desc = "Parses a ModelPart";
 
-LiteGraph.registerNodeType("IO/ParsedModelPart", ParsedModelPart);
+LiteGraph.registerNodeType("IO/Parse Model Part", ParsedModelPart);
 
 console.log("ParsedModelPart node created"); //helps to debug
