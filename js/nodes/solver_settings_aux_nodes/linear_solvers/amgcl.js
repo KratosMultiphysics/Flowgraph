@@ -29,7 +29,7 @@
 
     }
 
-    AMGCLSolver.title = "AMGCLSolver";
+    AMGCLSolver.title = "AMGCL Solver";
     AMGCLSolver.desc = "trying to add a new node";
 
     AMGCLSolver.prototype.onExecute = function() {
@@ -41,4 +41,4 @@
         this.setOutputData(0,  myoutput);
     };
 
-    LiteGraph.registerNodeType("linear_solvers/AMGCL", AMGCLSolver);
+    LiteGraph.registerNodeType("LINEAR SOLVERS/AMGCL", AMGCLSolver);
