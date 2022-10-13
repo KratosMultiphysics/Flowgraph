@@ -3,6 +3,89 @@ from pathlib import Path
 import ast
 import json
 from pprint import pprint
+from lxml import etree, html
+
+
+def update_index(paths):
+    root = html.parse("index.template.html")
+    body = root.find(".//body")
+
+    comm = etree.Comment("Automatically parsed processnodes")
+    comm.tail = "\n    "
+    body.append(comm)
+    for path in paths:
+        script = etree.Element("script")
+        script.attrib["type"] = "text/javascript"
+        script.attrib["src"] = f"{path}"
+        script.tail = "\n    "
+        body.append(script)
+
+    index_str = html.tostring(root, pretty_print=True)
+
+    with open("index.html", "wb") as f:
+        f.write(index_str)
+
+
+def create_process_node(path, descr, iparams, oparams):
+
+    name = p.stem  # apply_inlet_process
+    title = " ".join(name.split("_")).title()  # Apply Inlet Process
+    fname = "".join(title.split())  # ApplyInletProcess
+    group = path.parents[0].name
+    if "KratosMultiphysics" in group:
+        module = group
+    else:
+        module = f"{path.parents[1].name}.{group}"
+    props = json.dumps(oparams, indent=4)
+    fprops = "\n    ".join(props.split("\n"))
+
+    # Write funtion definition
+    lines = f'function {fname}() {{' + '\n'
+    for mp in iparams:
+        lines += f'    this.addInput("{mp}", "string");' + '\n'
+    lines += '    this.addOutput("Process", "process");' + '\n'
+    lines += f"    this.properties = {fprops}" + '\n'
+    lines += '    this.size = this.computeSize();' + '\n'
+    lines += '};' + '\n'
+    lines += '\n'
+
+    # Write "onExecute"
+    lines += f'{fname}.prototype.onExecute = function() {{' + '\n'
+    lines += '    output = {' + '\n'
+    lines += f'        "python_module": "{name}",' + '\n'
+    lines += f'        "kratos_module": "{module}"' + '\n'
+    lines += '    }' + '\n'
+    lines += '    output["Parameters"] = this.properties' + '\n'
+    for i, mp in enumerate(iparams):
+        lines += f'    output["Parameters"]["{mp}"] = this.getInputData({i})' + '\n'
+    lines += '    this.setOutputData(0, output);' + '\n'
+    lines += '};' + '\n'
+    lines += '\n'
+
+    # Write title, description, registration, ...
+    lines += f'{fname}.title = "{title}";' + '\n'
+    lines += '\n'
+    lines += f'{fname}.desc = "{descr}";' + '\n'
+    lines += '\n'
+    lines += f'LiteGraph.registerNodeType("PROCESSES/{group}/{title}", {fname});\n'
+
+    return lines
+
+
+def get_node_params(params):
+    descr = params.pop("help", "N/A")
+    ip = []
+    op = {}
+    for k, v in params.items():
+        # heuristics for the processing of parameters
+        # . remove obsolete params
+        if "computing_model_part_name" in k:
+            continue
+        if "model_part" in k:
+            ip.append(k)
+        else:
+            op[k] = v
+    return descr, ip, op
 
 
 def get_children_by_type(node, ntype):
@@ -13,12 +96,14 @@ def get_children_by_type(node, ntype):
             children.append(n)
     return children
 
+
 def get_child_by_type_and_name(nodes, ctype, name):
     #  return the requested node (by name)
     for node in ast.iter_child_nodes(nodes):
         if isinstance(node, ctype):
             if name in node.name:
                 return node
+
 
 def get_default_params_from_process(code):
     # HEURISTICA:
@@ -46,7 +131,7 @@ def get_default_params_from_process(code):
                 defaults = n.args[0].id
         except:
             pass
-    #print(f"Found default settings name: {defaults}")
+    # print(f"Found default settings name: {defaults}")
 
     # PARSE:
     # default_settings = KratosMultiphysics.Parameters("""{...}""")
@@ -65,8 +150,7 @@ def get_default_params_from_process(code):
     #                     Constant(value='{...}')],
     #                 keywords=[]))],
     #     type_ignores=[])
-      
-    assign_nodes = []
+
     for node in get_children_by_type(init_node, ast.Assign):
         try:
             if defaults in node.targets[0].id:
@@ -75,37 +159,61 @@ def get_default_params_from_process(code):
             return "{}"
 
 
-BASE = [x for x in os.getenv('PYTHONPATH').split(":") if "Kratos/bin" in x][0]
-PATHS = (Path(BASE) / "KratosMultiphysics").glob("**/*_process.py")
+if __name__ == "__main__":
+    BASE = [x for x in os.getenv("PYTHONPATH").split(":") if "Kratos/bin" in x][0]
+    PATHS = (Path(BASE) / "KratosMultiphysics").glob("**/*_process.py")
 
-DATA = []
-for p in PATHS:
-    print(f"DEBUG: -----> {p}:")
-    print(p.name)
-    code = p.read_text()
-    dparams = get_default_params_from_process(code)
-    print(dparams)
-    params = json.loads(get_default_params_from_process(code))
-    #try:
-    #    dparams = get_default_params_from_process(code)
-    #    print(dparams)
-    #    params = json.loads(get_default_params_from_process(code))
-    #except:
-    #    print(p)
-    #    break
-    description = params.pop("help", "N/A")
+    notparsed = []
+    parsed = []
+    for p in PATHS:
 
-    process_data = {
-            "group": p.parents[0].name,
-            "name": " ".join(p.stem.split("_")[:-1]),
-            "description": description,
-            "parameters": params,
-            }
-    
-    DATA.append(process_data)
-    pprint(process_data)
-    print()
-    #break
+        # Files to skip
+        if "python_process.py" in p.name:
+            continue
 
-#pprint(DATA)
+        #DEBUG:
+        if "boussinesq" not in p.name:
+            #continue
+            pass
 
+        code = p.read_text()
+        try:
+            params = json.loads(get_default_params_from_process(p.read_text()))
+            if not params:
+                notparsed.append(p)
+                print(f"NOT PARSED: {p.parents[0].name} {p.name}")
+                continue
+            descr, i_params, o_params = get_node_params(params)
+
+            # DEBUG
+            if len(o_params) == 0:
+                print("DEBUG:")
+                pprint(get_default_params_from_process(p.read_text()))
+                stop
+
+            node_code = create_process_node(p, descr, i_params, o_params)
+            opath = Path(f"js/nodes/PROCESSES/{p.parents[0].name}")
+            opath.mkdir(parents=True, exist_ok=True)
+            ppath = opath/f"{p.stem}.js"
+            ppath.write_text(node_code)
+            parsed.append(str(ppath))
+
+
+        # DEBUG
+        except(AttributeError, IndexError):
+            notparsed.append(p)
+            print(f"NOT PARSED except: {p.parents[0].name} {p.name}")
+
+    # update index.html with parsed processes
+    lines = "\n        <!-- Processes nodes -->\n"
+    for p in parsed:
+        lines += f'        <script type="text/javascript" src="{p}"></script>\n'
+    print(lines)
+
+    # write file with not-parsed processes
+    line = ""
+    for p in notparsed:
+        line += f"{str(p.parents[0].name)} {str(p.name)}\n"
+    Path("not-parsed.dat").write_text(line)
+
+    update_index(parsed)
