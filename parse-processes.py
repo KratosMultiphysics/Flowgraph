@@ -6,11 +6,37 @@ from pprint import pprint
 from lxml import etree, html
 
 
+def get_processes_path(basepath):
+    return basepath.glob("**/*_process.py")
+
+
+def get_output_processes_path(basepath):
+    output_processes = [
+        "csv_points_output_process.py",
+        "gid_output_process.py",
+        "json_output_process.py",
+        "line_output_process.py",
+        "multiple_points_output_process.py",
+        "point_output_process.py",
+        "tikz_output_process.py",
+        "unv_output_process.py",
+        "vtk_output_process.py",
+        "FluidDynamicsApplication/cfl_output_process.py",
+        "FluidDynamicsApplication/compute_body_fitted_drag_process.py",
+        "FluidDynamicsApplication/compute_drag_process.py",
+        "FluidDynamicsApplication/compute_embedded_drag_process.py",
+        "FluidDynamicsApplication/compute_pressure_coefficient_process.py",
+        "FluidDynamicsApplication/flow_output_process.py",
+        "FluidDynamicsApplication/response_function_output_process.py",
+        "StructuralMechanicsApplication/eigen_solution_input_process.py",
+    ]
+    return (basepath / x for x in output_processes)
+
+
 def update_index(paths):
     root = html.parse("index.template.html")
     body = root.find(".//body")
-
-    comm = etree.Comment("Automatically parsed process nodes")
+    comm = etree.Comment(f"Automatically parsed processes and output-processes nodes")
     comm.tail = "\n    "
     body.append(comm)
     for path in paths:
@@ -19,16 +45,13 @@ def update_index(paths):
         script.attrib["src"] = f"{path}"
         script.tail = "\n    "
         body.append(script)
-
     index_str = html.tostring(root, pretty_print=True)
-
     with open("index.html", "wb") as f:
         f.write(index_str)
 
 
-def create_process_node(path, descr, iparams, oparams):
-
-    name = p.stem  # apply_inlet_process
+def create_process_node(path, processtype, descr, iparams, oparams):
+    name = path.stem  # apply_inlet_process
     title = " ".join(name.split("_")).title()  # Apply Inlet Process
     fname = "".join(title.split())  # ApplyInletProcess
     group = path.parents[0].name
@@ -38,36 +61,38 @@ def create_process_node(path, descr, iparams, oparams):
         module = f"{path.parents[1].name}.{group}"
     props = json.dumps(oparams, indent=4)
     fprops = "\n    ".join(props.split("\n"))
+    processlabel = "".join(" ".join(processtype.split("_")).title().split())
+
 
     # Write funtion definition
-    lines = f'function {fname}() {{' + '\n'
+    lines = f"function {fname}() {{" + "\n"
     for mp in iparams:
-        lines += f'    this.addInput("{mp}", "string");' + '\n'
-    lines += '    this.addOutput("Process", "process");' + '\n'
-    lines += f"    this.properties = {fprops}" + '\n'
-    lines += '    this.size = this.computeSize();' + '\n'
-    lines += '};' + '\n'
-    lines += '\n'
+        lines += f'    this.addInput("{mp}", "string");' + "\n"
+    lines += f'    this.addOutput("{processlabel}", "{processtype}");' + "\n"
+    lines += f"    this.properties = {fprops}" + "\n"
+    lines += "    this.size = this.computeSize();" + "\n"
+    lines += "};" + "\n"
+    lines += "\n"
 
     # Write "onExecute"
-    lines += f'{fname}.prototype.onExecute = function() {{' + '\n'
-    lines += '    output = {' + '\n'
-    lines += f'        "python_module": "{name}",' + '\n'
-    lines += f'        "kratos_module": "{module}"' + '\n'
-    lines += '    }' + '\n'
-    lines += '    output["Parameters"] = this.properties' + '\n'
+    lines += f"{fname}.prototype.onExecute = function() {{" + "\n"
+    lines += "    output = {" + "\n"
+    lines += f'        "python_module": "{name}",' + "\n"
+    lines += f'        "kratos_module": "{module}"' + "\n"
+    lines += "    }" + "\n"
+    lines += '    output["Parameters"] = this.properties' + "\n"
     for i, mp in enumerate(iparams):
-        lines += f'    output["Parameters"]["{mp}"] = this.getInputData({i})' + '\n'
-    lines += '    this.setOutputData(0, output);' + '\n'
-    lines += '};' + '\n'
-    lines += '\n'
+        lines += f'    output["Parameters"]["{mp}"] = this.getInputData({i})' + "\n"
+    lines += "    this.setOutputData(0, output);" + "\n"
+    lines += "};" + "\n"
+    lines += "\n"
 
     # Write title, description, registration, ...
-    lines += f'{fname}.title = "{title}";' + '\n'
-    lines += '\n'
-    lines += f'{fname}.desc = "{descr}";' + '\n'
-    lines += '\n'
-    lines += f'LiteGraph.registerNodeType("PROCESSES/{group}/{title}", {fname});\n'
+    lines += f'{fname}.title = "{title}";' + "\n"
+    lines += "\n"
+    lines += f'{fname}.desc = "{descr}";' + "\n"
+    lines += "\n"
+    lines += f'LiteGraph.registerNodeType("{processtype.upper()}/{group}/{title}", {fname});\n'
 
     return lines
 
@@ -118,9 +143,9 @@ def get_default_params_from_process(code):
     class_name = node.value.func.id
     node = get_child_by_type_and_name(main_node, ast.ClassDef, class_name)
     init_node = get_child_by_type_and_name(node, ast.FunctionDef, "__init__")
-    #print(f"Found init: {init_node.name}")
+    # print(f"Found init: {init_node.name}")
     varname = init_node.args.args[-1].arg
-    #print(f"Found variable name: {varname}")
+    # print(f"Found variable name: {varname}")
 
     call_nodes = []
     for node in get_children_by_type(init_node, ast.Expr):
@@ -139,7 +164,7 @@ def get_default_params_from_process(code):
     # Module(
     #     body=[
     #         Assign(
-    #             targets=[
+    #             targets=[P
     #                 Name(id='default_settings', ctx=Store())],
     #             value=Call(
     #                 func=Attribute(
@@ -158,23 +183,14 @@ def get_default_params_from_process(code):
         except:
             return "{}"
 
-
-if __name__ == "__main__":
-    BASE = [x for x in os.getenv("PYTHONPATH").split(":") if "Kratos/bin" in x][0]
-    PATHS = (Path(BASE) / "KratosMultiphysics").glob("**/*_process.py")
-
+def parse_processes(paths, processtype):
     notparsed = []
     parsed = []
-    for p in PATHS:
+    for p in sorted(paths):
 
         # Files to skip
         if "python_process.py" in p.name:
             continue
-
-        #DEBUG:
-        if "boussinesq" not in p.name:
-            #continue
-            pass
 
         code = p.read_text()
         try:
@@ -185,35 +201,43 @@ if __name__ == "__main__":
                 continue
             descr, i_params, o_params = get_node_params(params)
 
-            # DEBUG
-            if len(o_params) == 0:
-                print("DEBUG:")
-                pprint(get_default_params_from_process(p.read_text()))
-                stop
-
-            node_code = create_process_node(p, descr, i_params, o_params)
-            opath = Path(f"js/nodes/PROCESSES/{p.parents[0].name}")
+            node_code = create_process_node(p, processtype, descr, i_params, o_params)
+            opath = Path(f"js/nodes/{processtype.upper()}/{p.parents[0].name}")
             opath.mkdir(parents=True, exist_ok=True)
-            ppath = opath/f"{p.stem}.js"
+            ppath = opath / f"{p.stem}.js"
             ppath.write_text(node_code)
             parsed.append(str(ppath))
 
-
         # DEBUG
-        except(AttributeError, IndexError):
+        except (AttributeError, IndexError):
             notparsed.append(p)
             print(f"NOT PARSED except: {p.parents[0].name} {p.name}")
+    return parsed, notparsed
 
-    # update index.html with parsed processes
-    lines = "\n        <!-- Processes nodes -->\n"
-    for p in parsed:
-        lines += f'        <script type="text/javascript" src="{p}"></script>\n'
-    print(lines)
 
-    # write file with not-parsed processes
+if __name__ == "__main__":
+    kpath = [Path(x) for x in os.getenv("PYTHONPATH").split(":") if "Kratos/bin" in x]
+    bpath = kpath[0] / "KratosMultiphysics"
+
+    p_aproc = set(get_processes_path(bpath))
+    p_oproc = set(get_output_processes_path(bpath))
+    p_pproc = p_aproc.difference(p_oproc)
+
+    gnotparsed = []
+    gparsed = []
+    parsed, notparsed = parse_processes(p_pproc, "process")
+    gparsed.extend(parsed)
+    gnotparsed.extend(notparsed)
+    parsed, notparsed = parse_processes(p_oproc, "output_process")
+    gparsed.extend(parsed)
+    gnotparsed.extend(notparsed)
+
+
+    update_index(gparsed)
+
+    # DEBUG: write file with not-parsed processes
     line = ""
-    for p in notparsed:
+    for p in gnotparsed:
         line += f"{str(p.parents[0].name)} {str(p.name)}\n"
     Path("not-parsed.dat").write_text(line)
 
-    update_index(parsed)

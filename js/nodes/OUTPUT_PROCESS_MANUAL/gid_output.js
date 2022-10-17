@@ -1,12 +1,7 @@
-
-//********************************************************************/
-//********************************************************************/
-//********************************************************************/
-//********************************************************************/
 function GiDIO() {
     this.addInput("ModelPart", "string");
     this.addInput("OutputName", "string");
-    this.addOutput("Process", "process");
+    this.addOutput("Output Process", "output_process");
 
     this.properties = {
         "file_label": "time",
@@ -22,7 +17,7 @@ function GiDIO() {
     this.size = this.computeSize();
 }
 
-GiDIO.title = "GiDIO";
+GiDIO.title = "GiD";
 GiDIO.desc = "Creates GiD IO";
 
 GiDIO.prototype.onExecute = function () {
@@ -55,6 +50,6 @@ GiDIO.prototype.onExecute = function () {
     this.setOutputData(0, output);
 };
 
-LiteGraph.registerNodeType("PROCESSES/GiDIO", GiDIO);
+LiteGraph.registerNodeType("OUTPUT PROCESSES/GiDIO", GiDIO);
 
 console.log("GiDIO node created"); //helps to debug
