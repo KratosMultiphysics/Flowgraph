@@ -12,7 +12,7 @@ class FluidMonolithicSolver {
         this.addInput("linear_solver_settings", "map");     // 5
         this.addInput("material_import_settings", "map");   // 6
         
-        this.addOutput("solver_settings", "solver_settings");
+        this.addOutput("Solver", "solver_settings");
 
         // List of properties
         this.properties = {

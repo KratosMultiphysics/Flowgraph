@@ -1,21 +1,21 @@
 function ProblemData() {
 
     this.properties = {
-        "problem_name"  : "riccardo",
+        "problem_name"  : "Name",
         "parallel_type" : "OpenMP",
         "echo_level"    : 0,
         "start_time"    : 0.0,
         "end_time"      : 45
     }
 
-    this.addOutput("problem_data","map");
+    this.addOutput("General","problem_data");
 //    this.addOutput("problem_name","string");
 //    this.addOutput("start_time","number");
 //    this.addOutput("end_time","number");
     this.size = this.computeSize();
 }
 
-ProblemData.title = "Problem Data";
+ProblemData.title = "General Settings";
 ProblemData.desc = "Create a problem_data";
 
 ProblemData.prototype.onExecute = function() {
@@ -25,6 +25,6 @@ ProblemData.prototype.onExecute = function() {
 //    this.setOutputData(3, this.properties["end_time"]);
 };
 
-LiteGraph.registerNodeType("PROJECT PARAMETERS/Problem Data", ProblemData);
+LiteGraph.registerNodeType("PROJECT PARAMETERS/1", ProblemData);
 
 console.log("ProblemData node created"); //helps to debug
