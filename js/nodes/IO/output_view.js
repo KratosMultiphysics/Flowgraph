@@ -32,9 +32,7 @@ class OutputView {
     }
 }
 
-OutputView.title = "Output View";
-OutputView.desc = "View of an Output";
+OutputView.title = "JSON Viewer";
+OutputView.desc = "JSON Vienwer";
 
-LiteGraph.registerNodeType("IO/OutputView", OutputView);
-
-console.log("OutputView node created"); //helps to debug
+LiteGraph.registerNodeType("IO/JSONView", OutputView);
