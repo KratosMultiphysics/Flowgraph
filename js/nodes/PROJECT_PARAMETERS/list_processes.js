@@ -10,7 +10,7 @@ class ProcessList extends InputList{
 ProcessList.title = "List of processes";
 ProcessList.desc = "Merges several processes into an array";
 
-LiteGraph.registerNodeType("IO/process list", ProcessList);
+LiteGraph.registerNodeType("PROJECT PARAMETERS/LIST of Processes", ProcessList);
 
 console.log("Process List node created"); //helps to debug
 

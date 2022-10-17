@@ -84,6 +84,6 @@ class FluidMonolithicSolver {
 FluidMonolithicSolver.title = "Fluid monolithic solver";
 FluidMonolithicSolver.desc = "Properties for the monolthic fluid solver";
 
-LiteGraph.registerNodeType("SOLVERS/FluidMonolithicSolver", FluidMonolithicSolver);
+LiteGraph.registerNodeType("PROJECT PARAMETERS/SOLVERS/Fluid Monolithic Solver", FluidMonolithicSolver);
 
 console.log("FluidMonolithicSolver node created"); //helps to debug

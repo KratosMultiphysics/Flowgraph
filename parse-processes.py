@@ -10,7 +10,7 @@ def update_index(paths):
     root = html.parse("index.template.html")
     body = root.find(".//body")
 
-    comm = etree.Comment("Automatically parsed processnodes")
+    comm = etree.Comment("Automatically parsed process nodes")
     comm.tail = "\n    "
     body.append(comm)
     for path in paths:

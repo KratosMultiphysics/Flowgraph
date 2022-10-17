@@ -25,6 +25,6 @@ ProblemData.prototype.onExecute = function() {
 //    this.setOutputData(3, this.properties["end_time"]);
 };
 
-LiteGraph.registerNodeType("PARAMETERS/ProblemData", ProblemData);
+LiteGraph.registerNodeType("PROJECT PARAMETERS/Problem Data", ProblemData);
 
 console.log("ProblemData node created"); //helps to debug

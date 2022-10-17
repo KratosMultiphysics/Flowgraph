@@ -31,6 +31,6 @@ ProjectParameters.prototype.onExecute = function() {
     this.setOutputData(0, tmp);
 };
 
-LiteGraph.registerNodeType("PARAMETERS/ProjectParameters", ProjectParameters);
+LiteGraph.registerNodeType("PROJECT PARAMETERS/ProjectParameters", ProjectParameters);
 
 console.log("ProjectParameters node created"); //helps to debug
