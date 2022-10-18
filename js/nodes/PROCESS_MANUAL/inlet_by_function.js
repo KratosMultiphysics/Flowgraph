@@ -28,6 +28,6 @@
         this.setOutputData(0, output);
     };
 
-    LiteGraph.registerNodeType("PROCESSES/InletByFunction", InletByFunction);
+    LiteGraph.registerNodeType("PROCESS/InletByFunction", InletByFunction);
 
     console.log("InletByFunction node created"); //helps to debug

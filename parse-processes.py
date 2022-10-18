@@ -192,9 +192,12 @@ def parse_processes(paths, processtype):
         if "python_process.py" in p.name:
             continue
 
-        code = p.read_text()
         try:
-            params = json.loads(get_default_params_from_process(p.read_text()))
+            code = p.read_text()
+        except (FileNotFoundError):
+            continue
+        try:
+            params = json.loads(get_default_params_from_process(code))
             if not params:
                 notparsed.append(p)
                 print(f"NOT PARSED: {p.parents[0].name} {p.name}")

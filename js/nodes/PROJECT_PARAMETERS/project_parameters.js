@@ -10,7 +10,7 @@ function ProjectParameters() {
     this.size = this.computeSize();
 }
 
-ProjectParameters.title = "PROJECT PARAMETERS";
+ProjectParameters.title = "*ProjectParameters*";
 ProjectParameters.desc = "Main Project-Parameters level. Start here.";
 
 ProjectParameters.prototype.onExecute = function() {

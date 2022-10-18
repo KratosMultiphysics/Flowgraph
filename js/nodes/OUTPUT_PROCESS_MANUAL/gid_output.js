@@ -50,6 +50,6 @@ GiDIO.prototype.onExecute = function () {
     this.setOutputData(0, output);
 };
 
-LiteGraph.registerNodeType("OUTPUT PROCESSES/GiDIO", GiDIO);
+LiteGraph.registerNodeType("OUTPUT PROCESS/GiD", GiDIO);
 
 console.log("GiDIO node created"); //helps to debug

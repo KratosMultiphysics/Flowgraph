@@ -93,7 +93,7 @@ Object.entries(processes).forEach(([key, value]) => {
     processClass.title = titleCaseProcess(`${key}`);
     processClass.desc = `${value['help']}`;
 
-    LiteGraph.registerNodeType(`PROCESSES/${key}`, processClass);
+    LiteGraph.registerNodeType(`PROCESS/${key}`, processClass);
 
     console.log(`${key} created`); //helps to debug
 })

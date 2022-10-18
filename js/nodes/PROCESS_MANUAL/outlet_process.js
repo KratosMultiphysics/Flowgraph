@@ -27,6 +27,6 @@ OutletProcess.prototype.onExecute = function() {
     this.setOutputData(0, output);
 };
 
-LiteGraph.registerNodeType("PROCESSES/OutletProcess", OutletProcess);
+LiteGraph.registerNodeType("PROCESS/OutletProcess", OutletProcess);
 
 console.log("OutletProcess created"); //helps to debug
