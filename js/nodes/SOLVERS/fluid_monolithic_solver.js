@@ -6,9 +6,9 @@ class FluidMonolithicSolver {
         // List of inputs and outputs ("name", "type")
         this.addInput("model_import_settings", "map", {"glyph": {shape:"\uf6cf", font:'900 10px "Font Awesome 5 Free"', width:9, height:10}}); // 0
         this.addInput("model_part_name", "string");         // 1
-        this.addInput("volume_model_part_name", "string");  // 2
-        this.addInput("skin_parts", "array");               // 3
-        this.addInput("no_skin_parts", "array");            // 4
+        this.addInput("volume_model_part_name", "submodelpart");  // 2
+        this.addInput("skin_parts", "submodelparts");               // 3
+        this.addInput("no_skin_parts", "submodelparts");            // 4
         this.addInput("linear_solver_settings", "map");     // 5
         this.addInput("material_import_settings", "map");   // 6
         
@@ -85,5 +85,3 @@ FluidMonolithicSolver.title = "Fluid monolithic solver";
 FluidMonolithicSolver.desc = "Properties for the monolthic fluid solver";
 
 LiteGraph.registerNodeType("PROJECT PARAMETERS/Solvers/Fluid Monolithic Solver", FluidMonolithicSolver);
-
-console.log("FluidMonolithicSolver node created"); //helps to debug

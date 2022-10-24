@@ -48,7 +48,6 @@ class OutputProcessesList {
                 this.removeInput(i);
             }
             if (i < this.inputs.length) {
-                //this.inputs[i].name = "Process " + (i);
                 this.inputs[i].name = "Output Process";
             }
         }
@@ -66,6 +65,6 @@ class OutputProcessesList {
 }
 
 OutputProcessesList.title = "Output Processes List";
-OutputProcessesList.desc = "Merges several processes into a list";
+OutputProcessesList.desc = "Merges several output processes into a list";
 
 LiteGraph.registerNodeType("PROJECT PARAMETERS/OutputProcessesList", OutputProcessesList);

@@ -1,7 +1,7 @@
 class ProcessesList {
     constructor() {
-        this.input_type = "Process";
-        this.output_type = "Processes";
+        this.input_type = "process";
+        this.output_type = "processes";
     }
 
     onAdded() {
@@ -48,7 +48,6 @@ class ProcessesList {
                 this.removeInput(i);
             }
             if (i < this.inputs.length) {
-                //this.inputs[i].name = "Process " + (i);
                 this.inputs[i].name = "Process";
             }
         }

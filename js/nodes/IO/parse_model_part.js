@@ -22,10 +22,10 @@ class ParsedModelPart {
     }
 
     onExecute() {
-	const model_settings = '{"input_type": "mdpa", "input_file": ' + this.mp_name.value.split('.')[0] + '}' 
+	const model_settings = {"input_type": "mdpa", "input_file": this.mp_name.value.split('.')[0]} 
 	this.setOutputData(0, model_settings);
-        for (let i = 0; i < this.outputs.length; ++i) {
-            this.setOutputData(i+1, this.outputs[i+1].name);
+        for (let i = 1; i < this.outputs.length; ++i) {
+            this.setOutputData(i, this.outputs[i].name);
         }
     }
 
@@ -80,9 +80,9 @@ class ParsedModelPart {
 
 		
             // Create outputs
-            this.addOutput("MDPA name", "string");
+            this.addOutput("MDPA", "modelpart_settings");
             for (const submodelpart of this.properties["submodelpart_list"]) {
-                this.addOutput(submodelpart, "string");
+                this.addOutput(submodelpart, "submodelpart");
             }
 
 	    // TODO: for later
