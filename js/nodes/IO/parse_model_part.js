@@ -8,8 +8,8 @@ class ParsedModelPart {
         this.input_manager.type = 'file';
         this.input_manager.addEventListener('change', this.onSelection.bind(this));
 
-        this.mp_name = this.addWidget("text","Name", "", function(v){}, {} );
-        this.mp_select = this.addWidget("button", "Load Mdpa", "", function (value, widget, node) {
+        this.mp_name = this.addWidget("text", "Name", "", function(v){}, {} );
+        this.addWidget("button", "Open...", "", function (value, widget, node) {
             node.input_manager.click();
         });
 
@@ -22,8 +22,10 @@ class ParsedModelPart {
     }
 
     onExecute() {
+	const model_settings = '{"input_type": "mdpa", "input_file": ' + this.mp_name.value.split('.')[0] + '}' 
+	this.setOutputData(0, model_settings);
         for (let i = 0; i < this.outputs.length; ++i) {
-            this.setOutputData(i, this.mp_name.value+this.outputs[i].name);
+            this.setOutputData(i+1, this.outputs[i+1].name);
         }
     }
 
@@ -45,21 +47,26 @@ class ParsedModelPart {
 
     onReaderLoad(file) {
         return ({ target: { result } }) => {
-            const mdpa_subs_re = /.*((Begin SubModelPart) ([a-zA-Z0-9_]+))|(End SubModelPart$)/gm;
+            const mdpa_subs_re = /.*((Begin SubModelPart) ([a-zA-Z0-9_-]+))|(End SubModelPart$)/gm;
             const sub_mdpa = result.matchAll(mdpa_subs_re);
 
             // Remove existing outputs
             this.properties["submodelpart_list"] = [];
+            while (this.outputs != undefined && this.outputs.length != 0) {
+                this.removeOutput(0);
+            }
 
             // Obtain the name of the ModelPart to get complete routes
+            this.mp_name.value = file.name;
             let sub_mdpa_namepath = ""
-            this.mp_name.value = file.name.slice(0, -5);
+
 
             // Obtain the Submodelparts
-            this.addOutput(sub_mdpa_namepath, "string");
+            //this.addOutput(sub_mdpa_namepath, "string");
             for (const match of sub_mdpa) {
                 if (match[0].includes("Begin")) {
-                    sub_mdpa_namepath = `${sub_mdpa_namepath}.${match[3]}`;
+                    sub_mdpa_namepath = `${match[3]}`;
+                    //sub_mdpa_namepath = `${sub_mdpa_namepath}.${match[3]}`;
                     this.properties["submodelpart_list"].push(sub_mdpa_namepath);
                 }
 
@@ -70,46 +77,46 @@ class ParsedModelPart {
                 }
             }
 
-            // Populate the outputs
-            while (this.outputs != undefined && this.outputs.length != 0) {
-                this.removeOutput(0);
-            }
 
+		
+            // Create outputs
+            this.addOutput("MDPA name", "string");
             for (const submodelpart of this.properties["submodelpart_list"]) {
                 this.addOutput(submodelpart, "string");
             }
 
-            this.updateProblemModelParts();
-            this.updateModelNodes();
+	    // TODO: for later
+            //this.updateProblemModelParts();
+            //this.updateModelNodes();
         }
     }
 
-    updateProblemModelParts() {
-        // Need to restore the list of submodelparts in the main model node.
-        problem_modelparts[this.id] = []
+    //updateProblemModelParts() {
+    //    // Need to restore the list of submodelparts in the main model node.
+    //    problem_modelparts[this.id] = []
 
-        for (const submodelpart of this.properties["submodelpart_list"]) {
-            problem_modelparts[this.id].push(submodelpart);
-        }
-    }
+    //    for (const submodelpart of this.properties["submodelpart_list"]) {
+    //        problem_modelparts[this.id].push(submodelpart);
+    //    }
+    //}
 
-    updateModelNodes() {
-        // Update the combos of all the Models nodes in the workspace
-        for (const modelNode of Object.keys(model_nodes)) {
-            model_nodes[modelNode].updateCombos();
-        }
-    }
+    //updateModelNodes() {
+    //    // Update the combos of all the Models nodes in the workspace
+    //    for (const modelNode of Object.keys(model_nodes)) {
+    //        model_nodes[modelNode].updateCombos();
+    //    }
+    //}
 
-    onAdded() {
-        this.updateProblemModelParts();
-        this.updateModelNodes();
-    }
+    //onAdded() {
+    //    this.updateProblemModelParts();
+    //    this.updateModelNodes();
+    //}
 
-    onRemoved() {
-        // Unregister
-        delete problem_modelparts[this.id];
-        this.updateModelNodes();
-    }
+    //onRemoved() {
+    //    // Unregister
+    //    delete problem_modelparts[this.id];
+    //    this.updateModelNodes();
+    //}
 
     // onReaderLoad(file) {
     //     return ({ target: { result } }) => {
