@@ -28,9 +28,9 @@ class FluidMonolithicSolver {
         this.ivolmp = iidx++;
         this.addInput("Volume submodelpart", "submodelpart");
         this.iskinmp = iidx++;
-        this.addInput("Skin submodelparts", "submodelparts");
+        this.addInput("Skin submodelparts", "list-submodelpart");
         this.inskinmp = iidx++;
-        this.addInput("NonSkin submodelparts", "submodelparts");
+        this.addInput("NonSkin submodelparts", "list-submodelpart");
         this.ilinsol = iidx++;
         this.addInput("Linear solver", "map");
         this.imat = iidx++;
@@ -100,8 +100,8 @@ class FluidMonolithicSolver {
 
 	idx = this.iskinmp;
         if (this.getInputData(idx) != undefined) {
-        //val = this.getInputData(this.iskinmp);
-        //this._value["skin_parts"] = val;
+            val = this.getInputData(idx);
+            this._value["skin_parts"] = val;
 	}
 
 	idx = this.inskinmp;

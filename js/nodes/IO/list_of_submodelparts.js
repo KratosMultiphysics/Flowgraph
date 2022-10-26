@@ -1,7 +1,7 @@
-class SubmodelpartsList {
+class ListSubMP {
     constructor() {
         this.input_type = "submodelpart";
-        this.output_type = "submodelparts";
+        this.output_type = "list-submodelpart";
     }
 
     onAdded() {
@@ -9,7 +9,7 @@ class SubmodelpartsList {
     }
 
     buildConnections() {
-        this.addInput("Submodelpart", this.input_type);
+        this.addInput("", this.input_type);
         this.addOutput("Submodelparts", this.output_type);
         this.size = this.computeSize();
         this.serialize_widgets = true;
@@ -30,7 +30,7 @@ class SubmodelpartsList {
         }
         this._value.length = this.inputs.length - 1;
         for (let i = 0; i < this.inputs.length - 1; ++i) {
-            this._value[i] = this.getInputData(i);
+            this._value[i] = this.getInputData(i)["smp_name"];
         }
         
         this.setOutputData(0, this._value);
@@ -47,14 +47,13 @@ class SubmodelpartsList {
                 this.removeInput(i);
             }
             if (i < this.inputs.length) {
-                this.inputs[i].name = "Submodelpart";
+                this.inputs[i].name = "";
             }
         }
 
         // If all nodes are connected, or there are no nodes, add one.
         if (this.inputs.length <= 0 || this.isInputConnected(this.inputs.length - 1)) {
-            //this.addInput("Process " + (this.getOutputData(1)), this.input_type, "");
-            this.addInput("Submodelpart" , this.input_type);
+            this.addInput("" , this.input_type);
             this.incSize(1, 1);
         }
 
@@ -63,7 +62,7 @@ class SubmodelpartsList {
     }
 }
 
-SubmodelpartsList.title = "Submodelparts List";
-SubmodelpartsList.desc = "Merges several submodelparts into a list";
+ListSubMP.title = "List of Submodelparts";
+ListSubMP.desc = "Merges several submodelparts into a list";
 
-LiteGraph.registerNodeType("IO/SubmodelpartsList", SubmodelpartsList);
+LiteGraph.registerNodeType("IO/ListSubMP", ListSubMP);
