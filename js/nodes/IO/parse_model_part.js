@@ -2,7 +2,6 @@ class ParseModelPart {
     constructor() {
 	// node settings
         this.glyph = {shape: '\uf6d1', font:'900 14px "Font Awesome 5 Free"', width: 16, height: 9};
-        //this.size = this.computeSize();
         this.serialize_widgets = true;
 
         this.input_manager = document.createElement('input');
@@ -17,8 +16,7 @@ class ParseModelPart {
     }
 
     onExecute() {
-	//const settings = {"mp_name":this.mpname.value, {"input_type": "mdpa", "input_file": this.filename.split('.')[0]}}
-	const out = {"mp_name": this.mpname.value, "mp_settings": {"input_type": "mdpa", "input_file": this.filename.split('.')[0]}}
+	const out = {"mp_name": this.mpname.value, "mp_settings": {"input_type": "mdpa", "input_file": this.filename.split('.')[0]}, "dim": this.dim}
 	this.setOutputData(0, out);
         for (let i = 1; i < this.outputs.length; ++i) {
 	    const out = {"mp_name": this.mpname.value, "smp_name": this.outputs[i].name}
@@ -50,13 +48,16 @@ class ParseModelPart {
                 this.removeOutput(0);
             }
 
-            // Obtain the name of the ModelPart to get complete routes
+            // Obtain mdpa filename
             this.filename = file.name;
-            let sub_mdpa_namepath = "";
+
+            // Parse and compute dimension of the points
+	    // TODO: implement parsing
+	    this.dim = 3
 
 
             // Obtain the Submodelparts
-            //this.addOutput(sub_mdpa_namepath, "string");
+            let sub_mdpa_namepath = "";
             for (const match of sub_mdpa) {
                 if (match[0].includes("Begin")) {
                     sub_mdpa_namepath = `${match[3]}`;

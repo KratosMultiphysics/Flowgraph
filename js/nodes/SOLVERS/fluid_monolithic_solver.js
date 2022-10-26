@@ -35,7 +35,7 @@ class FluidMonolithicSolver {
         this.addInput("Linear solver", "map");
         this.imat = iidx++;
         this.addInput("Materials", "materials_settings");
-        this.itim = iidx++;
+        this.itime = iidx++;
         this.addInput("Time stepping", "map");
 
         // set outputs
@@ -49,6 +49,7 @@ class FluidMonolithicSolver {
             "solver_type": "Monolithic",
             "model_import_settings": {},
             "model_part_name": "",
+	    "domain_size": -1,
             "echo_level": 0,
             "compute_reactions": false,
             "maximum_iterations": 10,
@@ -71,7 +72,10 @@ class FluidMonolithicSolver {
             "reform_dofs_at_each_step": false,
             "linear_solver_settings": {}
         };
-        //this.domain_size = this.addWidget("combo", "Domain Size", "2", function(v) {}, { values: ["2", "3"] });
+	
+        this.echo_level = this.addWidget("combo", "Echo level", "0", function(v) {}, { values: ["0", "1", "2", "3"] });
+        this.compute_reactions = this.addWidget("combo", "Compute reactions", false, function(v) {}, { values: [false, true] });
+        this.reform_dofs_at_each_step = this.addWidget("combo", "Reform DOFs", false, function(v) {}, { values: [false, true] });
     }
 
     onExecute() {
@@ -83,6 +87,12 @@ class FluidMonolithicSolver {
         if (this.getInputData(idx) != undefined) {
 	    val = this.getInputData(idx)["mp_name"];
             this._value["model_part_name"] = val;
+	}
+
+	idx = this.imod;
+        if (this.getInputData(idx) != undefined) {
+	    val = this.getInputData(idx)["dim"];
+            this._value["domain_size"] =  val;
 	}
 
 	idx = this.imod;
@@ -116,7 +126,15 @@ class FluidMonolithicSolver {
             this._value["linear_solver_settings"] = val;
 	}
 
-        //this._value["domain_size"] = this.domain_size.val;
+	idx = this.itime;
+        if (this.getInputData(idx) != undefined) {
+            val = this.getInputData(idx);
+            this._value["time_stepping"] = val;
+	}
+
+        this._value["echo_level"] = this.echo_level.value;
+        this._value["compute_reactions"] = this.compute_reactions.value;
+        this._value["reform_dofs_at_each_step"] = this.reform_dofs_at_each_step.value;
 
         this.setOutputData(this.osolver, this._value);
     }
