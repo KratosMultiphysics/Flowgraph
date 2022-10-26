@@ -32,7 +32,7 @@ class ListSubMP {
         for (let i = 0; i < this.inputs.length - 1; ++i) {
             this._value[i] = this.getInputData(i)["smp_name"];
         }
-        
+
         this.setOutputData(0, this._value);
     }
 
@@ -53,7 +53,7 @@ class ListSubMP {
 
         // If all nodes are connected, or there are no nodes, add one.
         if (this.inputs.length <= 0 || this.isInputConnected(this.inputs.length - 1)) {
-            this.addInput("" , this.input_type);
+            this.addInput("", this.input_type);
             this.incSize(1, 1);
         }
 

@@ -1,25 +1,40 @@
 class ParseModelPart {
     constructor() {
-	// node settings
-        this.glyph = {shape: '\uf6d1', font:'900 14px "Font Awesome 5 Free"', width: 16, height: 9};
+        // node settings
+        this.glyph = {
+            shape: '\uf6d1',
+            font: '900 14px "Font Awesome 5 Free"',
+            width: 16,
+            height: 9
+        };
         this.serialize_widgets = true;
 
         this.input_manager = document.createElement('input');
         this.input_manager.type = 'file';
         this.input_manager.addEventListener('change', this.onSelection.bind(this));
-        this.addWidget("button", "Open...", "", function (value, widget, node) {
+        this.addWidget("button", "Open...", "", function(value, widget, node) {
             node.input_manager.click();
         });
         this.properties = {
-            "submodelpart_list" : []
+            "submodelpart_list": []
         };
     }
 
     onExecute() {
-	const out = {"mp_name": this.mpname.value, "mp_settings": {"input_type": "mdpa", "input_file": this.filename.split('.')[0]}, "dim": this.dim}
-	this.setOutputData(0, out);
+        const out = {
+            "mp_name": this.mpname.value,
+            "mp_settings": {
+                "input_type": "mdpa",
+                "input_file": this.filename.split('.')[0]
+            },
+            "dim": this.dim
+        }
+        this.setOutputData(0, out);
         for (let i = 1; i < this.outputs.length; ++i) {
-	    const out = {"mp_name": this.mpname.value, "smp_name": this.outputs[i].name}
+            const out = {
+                "mp_name": this.mpname.value,
+                "smp_name": this.outputs[i].name
+            }
             this.setOutputData(i, out);
         }
     }
@@ -30,7 +45,7 @@ class ParseModelPart {
             return;
         }
 
-        this.mpname = this.addWidget("text", "Modelpart", "mymodel", function(v){}, {} );
+        this.mpname = this.addWidget("text", "Modelpart", "mymodel", function(v) {}, {});
         const reader = new FileReader();
 
         reader.onload = this.onReaderLoad(file);
@@ -38,7 +53,11 @@ class ParseModelPart {
     };
 
     onReaderLoad(file) {
-        return ({ target: { result } }) => {
+        return ({
+            target: {
+                result
+            }
+        }) => {
             const mdpa_subs_re = /.*((Begin SubModelPart) ([a-zA-Z0-9_-]+))|(End SubModelPart$)/gm;
             const sub_mdpa = result.matchAll(mdpa_subs_re);
 
@@ -52,8 +71,8 @@ class ParseModelPart {
             this.filename = file.name;
 
             // Parse and compute dimension of the points
-	    // TODO: implement parsing
-	    this.dim = 3
+            // TODO: implement parsing
+            this.dim = 3
 
 
             // Obtain the Submodelparts
@@ -73,14 +92,14 @@ class ParseModelPart {
             }
 
 
-		
+
             // Create outputs
             this.addOutput("Modelpart Settings", "modelpart_settings");
             for (const submodelpart of this.properties["submodelpart_list"]) {
                 this.addOutput(submodelpart, "submodelpart");
             }
 
-	    // TODO: for later
+            // TODO: for later
             //this.updateProblemModelParts();
             //this.updateModelNodes();
         }

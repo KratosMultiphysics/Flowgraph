@@ -33,7 +33,7 @@ class OutputProcessesList {
         for (let i = 0; i < this.inputs.length - 1; ++i) {
             this._value[i] = this.getInputData(i);
         }
-        
+
         this.setOutputData(0, this._value);
     }
 
@@ -55,7 +55,7 @@ class OutputProcessesList {
         // If all nodes are connected, or there are no nodes, add one.
         if (this.inputs.length <= 0 || this.isInputConnected(this.inputs.length - 1)) {
             //this.addInput("Process " + (this.getOutputData(1)), this.input_type, "");
-            this.addInput("Output Process" , this.input_type);
+            this.addInput("Output Process", this.input_type);
             this.incSize(1, 1);
         }
 

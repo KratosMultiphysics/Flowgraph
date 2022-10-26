@@ -49,7 +49,7 @@ class FluidMonolithicSolver {
             "solver_type": "Monolithic",
             "model_import_settings": {},
             "model_part_name": "",
-	    "domain_size": -1,
+            "domain_size": -1,
             "echo_level": 0,
             "compute_reactions": false,
             "maximum_iterations": 10,
@@ -72,65 +72,71 @@ class FluidMonolithicSolver {
             "reform_dofs_at_each_step": false,
             "linear_solver_settings": {}
         };
-	
-        this.echo_level = this.addWidget("combo", "Echo level", "0", function(v) {}, { values: ["0", "1", "2", "3"] });
-        this.compute_reactions = this.addWidget("combo", "Compute reactions", false, function(v) {}, { values: [false, true] });
-        this.reform_dofs_at_each_step = this.addWidget("combo", "Reform DOFs", false, function(v) {}, { values: [false, true] });
+
+        this.echo_level = this.addWidget("combo", "Echo level", "0", function(v) {}, {
+            values: ["0", "1", "2", "3"]
+        });
+        this.compute_reactions = this.addWidget("combo", "Compute reactions", false, function(v) {}, {
+            values: [false, true]
+        });
+        this.reform_dofs_at_each_step = this.addWidget("combo", "Reform DOFs", false, function(v) {}, {
+            values: [false, true]
+        });
     }
 
     onExecute() {
         this._value = Object.assign({}, this.properties);
-	let val;
-	let idx;
+        let val;
+        let idx;
 
-	idx = this.imod;
+        idx = this.imod;
         if (this.getInputData(idx) != undefined) {
-	    val = this.getInputData(idx)["mp_name"];
+            val = this.getInputData(idx)["mp_name"];
             this._value["model_part_name"] = val;
-	}
+        }
 
-	idx = this.imod;
+        idx = this.imod;
         if (this.getInputData(idx) != undefined) {
-	    val = this.getInputData(idx)["dim"];
-            this._value["domain_size"] =  val;
-	}
+            val = this.getInputData(idx)["dim"];
+            this._value["domain_size"] = val;
+        }
 
-	idx = this.imod;
+        idx = this.imod;
         if (this.getInputData(idx) != undefined) {
-	    val = this.getInputData(idx)["mp_settings"];
-            this._value["model_import_settings"] =  val;
-	}
+            val = this.getInputData(idx)["mp_settings"];
+            this._value["model_import_settings"] = val;
+        }
 
-	idx = this.ivolmp;
+        idx = this.ivolmp;
         if (this.getInputData(idx) != undefined) {
-        val = this.getInputData(idx)["smp_name"];
-        val = this.getInputData(idx)["mp_name"] + "." + this.getInputData(idx)["smp_name"];
-        this._value["volume_model_part_name"] = val;
-	}
+            val = this.getInputData(idx)["smp_name"];
+            val = this.getInputData(idx)["mp_name"] + "." + this.getInputData(idx)["smp_name"];
+            this._value["volume_model_part_name"] = val;
+        }
 
-	idx = this.iskinmp;
+        idx = this.iskinmp;
         if (this.getInputData(idx) != undefined) {
             val = this.getInputData(idx);
             this._value["skin_parts"] = val;
-	}
+        }
 
-	idx = this.inskinmp;
+        idx = this.inskinmp;
         if (this.getInputData(idx) != undefined) {
-	    val = this.getInputData(idx);
-	    this._value["no_skin_parts"] = val;
-	}
+            val = this.getInputData(idx);
+            this._value["no_skin_parts"] = val;
+        }
 
-	idx = this.ilinsol;
+        idx = this.ilinsol;
         if (this.getInputData(idx) != undefined) {
             val = this.getInputData(idx);
             this._value["linear_solver_settings"] = val;
-	}
+        }
 
-	idx = this.itime;
+        idx = this.itime;
         if (this.getInputData(idx) != undefined) {
             val = this.getInputData(idx);
             this._value["time_stepping"] = val;
-	}
+        }
 
         this._value["echo_level"] = this.echo_level.value;
         this._value["compute_reactions"] = this.compute_reactions.value;
