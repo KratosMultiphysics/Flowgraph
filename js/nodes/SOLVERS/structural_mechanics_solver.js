@@ -84,6 +84,6 @@ class StructuralMechanicsSolver {
 StructuralMechanicsSolver.title = "Structural mechanics solver";
 StructuralMechanicsSolver.desc = "Properties for the structural mechanics solver";
 
-LiteGraph.registerNodeType("PROJECT PARAMETERS/Solvers/Structural Mechanics Solver", StructuralMechanicsSolver);
+LiteGraph.registerNodeType("SOLVERS/Structural Mechanics Solver", StructuralMechanicsSolver);
 
 console.log("StructuralMechanicsSolver node created"); //helps to debug

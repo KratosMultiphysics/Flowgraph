@@ -64,7 +64,7 @@ class OutputProcessesList {
     }
 }
 
-OutputProcessesList.title = "Output Processes List";
+OutputProcessesList.title = "List of Output Processes";
 OutputProcessesList.desc = "Merges several output processes into a list";
 
-LiteGraph.registerNodeType("PROJECT PARAMETERS/OutputProcessesList", OutputProcessesList);
+LiteGraph.registerNodeType("IO/OutputProcessesList", OutputProcessesList);

@@ -64,7 +64,7 @@ class ProcessesList {
     }
 }
 
-ProcessesList.title = "Processes List";
+ProcessesList.title = "List of Processes";
 ProcessesList.desc = "Merges several processes into a list";
 
-LiteGraph.registerNodeType("PROJECT PARAMETERS/ProcessesList", ProcessesList);
+LiteGraph.registerNodeType("IO/ProcessesList", ProcessesList);
