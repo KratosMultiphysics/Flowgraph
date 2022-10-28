@@ -36,7 +36,7 @@ class FluidMonolithicSolver {
         this.imat = iidx++;
         this.addInput("Materials", "materials_settings");
         this.itime = iidx++;
-        this.addInput("Time stepping", "map");
+        this.addInput("Time stepping", "time");
 
         // set outputs
 
@@ -60,10 +60,7 @@ class FluidMonolithicSolver {
             "volume_model_part_name": "",
             "skin_parts": [],
             "no_skin_parts": [],
-            "time_stepping": {
-                "automatic_time_step": false,
-                "time_step": 0.1
-            },
+            "time_stepping": {},
             "formulation": {
                 "element_type": "vms",
                 "use_orthogonal_subscales": false,
