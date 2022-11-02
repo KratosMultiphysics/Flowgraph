@@ -1,4 +1,4 @@
-class FluidMonolithicSolver {
+class FluidSolver {
 
     constructor() {
 
@@ -37,6 +37,8 @@ class FluidMonolithicSolver {
         this.addInput("Materials", "materials_settings");
         this.itime = iidx++;
         this.addInput("Time stepping", "time");
+        this.iformulation = iidx++;
+        this.addInput("Formulation", "formulation");
 
         // set outputs
 
@@ -45,30 +47,37 @@ class FluidMonolithicSolver {
         this.addOutput("Solver", "solver_settings");
 
         // properties
+
         this.properties = {
-            "solver_type": "Monolithic",
+            "solver_type": "",
+            "echo_level": -1,
+            "compute_reactions": false,
+            "reform_dofs_at_each_step": false,
+
+            "maximum_iterations": -1,
+            "relative_velocity_tolerance": -1,
+            "absolute_velocity_tolerance": -1,
+            "relative_pressure_tolerance": -1,
+            "absolute_pressure_tolerance": -1,
+
+            "domain_size": -1,
             "model_import_settings": {},
             "model_part_name": "",
-            "domain_size": -1,
-            "echo_level": 0,
-            "compute_reactions": false,
-            "maximum_iterations": 10,
-            "relative_velocity_tolerance": 1e-3,
-            "absolute_velocity_tolerance": 1e-5,
-            "relative_pressure_tolerance": 1e-3,
-            "absolute_pressure_tolerance": 1e-5,
             "volume_model_part_name": "",
             "skin_parts": [],
             "no_skin_parts": [],
+
+            "material_import_settings": {},
+
+            "linear_solver_settings": {},
             "time_stepping": {},
-            "formulation": {
-                "element_type": "vms",
-                "use_orthogonal_subscales": false,
-                "dynamic_tau": 1.0
-            },
-            "reform_dofs_at_each_step": false,
-            "linear_solver_settings": {}
+            "formulation": {}
         };
+            //"formulation": {
+            //    "element_type": "vms",
+            //    "use_orthogonal_subscales": false,
+            //    "dynamic_tau": 1.0
+            //},
 
         this.echo_level = this.addWidget("combo", "Echo level", "0", function(v) {}, {
             values: ["0", "1", "2", "3"]
@@ -78,6 +87,21 @@ class FluidMonolithicSolver {
         });
         this.reform_dofs_at_each_step = this.addWidget("combo", "Reform DOFs", false, function(v) {}, {
             values: [false, true]
+        });
+        this.maximum_iterations = this.addWidget("number", "Maximum iterations", "10", function(v) {}, {
+		min: 1, max: 100, step: 1
+        });
+        this.relative_velocity_tolerance = this.addWidget("combo", "Velocity REL tol ", "1e-3", function(v) {}, {
+            values: ["1", "1e-1", "1e-2", "1e-3", "1e-4", "1e-5", "1e-6",]
+        });
+        this.absolute_velocity_tolerance = this.addWidget("combo", "Velocity ABS tol", "1e-5", function(v) {}, {
+            values: ["1", "1e-1", "1e-2", "1e-3", "1e-4", "1e-5", "1e-6",]
+        });
+        this.relative_pressure_tolerance = this.addWidget("combo", "Pressure REL tol", "1e-3", function(v) {}, {
+            values: ["1", "1e-1", "1e-2", "1e-3", "1e-4", "1e-5", "1e-6",]
+        });
+        this.absolute_pressure_tolerance = this.addWidget("combo", "Pressure ABS tol", "1e-5", function(v) {}, {
+            values: ["1", "1e-1", "1e-2", "1e-3", "1e-4", "1e-5", "1e-6",]
         });
     }
 
@@ -135,15 +159,34 @@ class FluidMonolithicSolver {
             this._value["time_stepping"] = val;
         }
 
+        idx = this.imat;
+        if (this.getInputData(idx) != undefined) {
+            val = this.getInputData(idx);
+            this._value["material_import_settings"] = val;
+        }
+
+        idx = this.iformulation;
+        if (this.getInputData(idx) != undefined) {
+            val = this.getInputData(idx)["type"];
+            this._value["solver_type"] = val;
+            val = this.getInputData(idx)["formulation"];
+            this._value["formulation"] = val;
+        }
+
         this._value["echo_level"] = this.echo_level.value;
         this._value["compute_reactions"] = this.compute_reactions.value;
         this._value["reform_dofs_at_each_step"] = this.reform_dofs_at_each_step.value;
+        this._value["maximum_iterations"] = this.maximum_iterations.value;
+        this._value["relative_velocity_tolerance"] = this.relative_velocity_tolerance.value;
+        this._value["absolute_velocity_tolerance"] = this.absolute_velocity_tolerance.value;
+        this._value["relative_pressure_tolerance"] = this.relative_pressure_tolerance.value;
+        this._value["absolute_pressure_tolerance"] = this.absolute_pressure_tolerance.value;
 
         this.setOutputData(this.osolver, this._value);
     }
 }
 
-FluidMonolithicSolver.title = "Fluid monolithic solver";
-FluidMonolithicSolver.desc = "Properties for the monolthic fluid solver";
+FluidSolver.title = "Fluid solver";
+FluidSolver.desc = "Properties for the fluid solver";
 
-LiteGraph.registerNodeType("SOLVERS/Fluid Monolithic Solver", FluidMonolithicSolver);
+LiteGraph.registerNodeType("SOLVERS/Fluid Solver", FluidSolver);
