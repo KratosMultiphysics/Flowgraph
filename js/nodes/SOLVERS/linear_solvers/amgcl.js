@@ -1,5 +1,5 @@
-    //********************************************************************/
     function AMGCLSolver() {
+	this.size = this.computeSize();
 
         this.properties = {
             "preconditioner_type"            : "amg",
@@ -29,8 +29,8 @@
 
     }
 
-    AMGCLSolver.title = "AMGCL Solver";
-    AMGCLSolver.desc = "trying to add a new node";
+    AMGCLSolver.title = "AMGCL";
+    AMGCLSolver.desc = "Description for AMGCL";
 
     AMGCLSolver.prototype.onExecute = function() {
         myoutput = this.properties
@@ -41,4 +41,4 @@
         this.setOutputData(0,  myoutput);
     };
 
-    LiteGraph.registerNodeType("LINEAR SOLVERS/AMGCL", AMGCLSolver);
+    LiteGraph.registerNodeType("SOLVERS/Linear Solvers/AMGCL", AMGCLSolver);

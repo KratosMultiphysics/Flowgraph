@@ -22,4 +22,4 @@ TimeStepping.prototype.onExecute = function() {
 //    this.setOutputData(3, this.properties["end_time"]);
 };
 
-LiteGraph.registerNodeType("UTILITIES/TimeStepping", TimeStepping);
+LiteGraph.registerNodeType("SOLVERS/TimeStepping", TimeStepping);
