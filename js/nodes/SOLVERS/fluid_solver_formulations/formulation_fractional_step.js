@@ -5,9 +5,9 @@ function FractionalStepFormulation() {
         this.output = {
             "type": "FrationalStep",
             "formulation": {
-                "element_type": "",
-                "use_orthogonal_subscales": -1,
-                "dynamic_tau": -1
+                "fract_step_coeff_0": "",
+                "fract_step_coeff_1": "",
+                "fract_step_coeff_1": "",
             }
         }
 
@@ -28,11 +28,11 @@ function FractionalStepFormulation() {
 
 }
 
-MonolithicFormulation.prototype.onExecute = function() {
+FractionalStepFormulation.prototype.onExecute = function() {
 
-        this.output["formulation"]["element_type"] = this.element_type.value;
-        this.output["formulation"]["use_orthogonal_subscales"] = this.use_subscale.value;
-        this.output["formulation"]["dynamic_tau"] = this.dynamic_tau.value;
+        this.output["formulation"]["fract_step_coeff_0"] = this.element_type.value;
+        this.output["formulation"]["fract_step_coeff_1"] = this.use_subscale.value;
+        this.output["formulation"]["fract_step_coeff_2"] = this.dynamic_tau.value;
 
         this.setOutputData(0, this.output);
 }
