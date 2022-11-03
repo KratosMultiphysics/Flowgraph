@@ -7,6 +7,8 @@ class ParseMaterialsFile {
             width: 16,
             height: 9
         };
+        this.size = this.computeSize();
+        this.serialize_widgets = true;
 
         this.input_manager = document.createElement('input');
         this.input_manager.type = 'file';
@@ -17,19 +19,20 @@ class ParseMaterialsFile {
             node.input_manager.click();
         });
 
-        this.properties = {
-            "materials_list": []
-        };
+        //this.properties = {
+        //    "materials_list": []
+        //};
 
-        this.size = this.computeSize();
-        this.serialize_widgets = true;
+	    // Output counter
+	    this.ocount = 0;
     }
 
     onExecute() {
         const settings = {
             "materials_filename": this.filename.value
         }
-        this.setOutputData(0, settings);
+        //this.setOutputData(0, settings);
+        this.setOutputData(0, this.properties);
         //for (let i = 1; i < this.outputs.length; ++i) {
         //    this.setOutputData(i, this.mp_name.value+this.outputs[i].name);
         //}
@@ -53,39 +56,30 @@ class ParseMaterialsFile {
         }) => {
 
             // Remove existing outputs
-            this.properties["materials_list"] = [];
-            while (this.outputs != undefined && this.outputs.length != 0) {
-                this.removeOutput(0);
+            for (let i = 0; i < this.ocount; ++i) {
+                this.removeOutput(i);
             }
 
             // Set the name of the materials filename
             this.filename.value = file.name;
-	
-            // Parse and get materials
-            //const mdpa_subs_re = /.*((Begin SubModelPart) ([a-zA-Z0-9_]+))|(End SubModelPart$)/gm;
-            //const sub_mdpa = result.matchAll(mdpa_subs_re);
-            //for (const match of sub_mdpa) {
-            //    if (match[0].includes("Begin")) {
-            //        sub_mdpa_namepath = `${sub_mdpa_namepath}.${match[3]}`;
-            //        this.properties["materials_list"].push(sub_mdpa_namepath);
-            //    }
+            this.properties = [];
+	    this.addOutput("MATERIALS", "materials_settings");
+	    this.ocount++;
+	    
 
-            //    if (match[0].includes("End")) {
-            //        sub_mdpa_namepath = sub_mdpa_namepath.split(".");
-            //        sub_mdpa_namepath.pop();
-            //        sub_mdpa_namepath = sub_mdpa_namepath.join(".");
-            //    }
-            //}
+            // Get materials and create outputs
+            for (const prop of JSON.parse(result)["properties"]) {
+                this.properties.push(prop);
 
-            // Create outputs
-            this.addOutput("MATERIALS", "materials_settings")
-            //for (const submodelpart of this.properties["materials_list"]) {
-            //    this.addOutput(submodelpart, "string");
-            //}
-
-            // TODO: left for later
-            //this.updateProblemModelParts();
-            //this.updateModelNodes();
+                let name =
+                    prop["model_part_name"].split(".")[0] +
+                    " - " +
+                    prop["model_part_name"].split(".")[1] +
+                    " - id: " +
+                    prop["properties_id"];
+                this.addOutput(name, 0);
+	    this.ocount++;
+            }
         }
     }
 
