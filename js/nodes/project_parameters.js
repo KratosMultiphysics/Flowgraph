@@ -114,7 +114,7 @@ class ProjectParameters {
     }
 }
 
-ProjectParameters.title = "Project Parameters (WIP: reset input  when connections change)";
+ProjectParameters.title = "Project Parameters";
 ProjectParameters.desc = "Main Project-Parameters level. Start here.";
 
 LiteGraph.registerNodeType("START HERE/ProjectParameters", ProjectParameters);

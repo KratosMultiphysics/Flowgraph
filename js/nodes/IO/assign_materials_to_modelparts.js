@@ -22,6 +22,8 @@ class AssignMaterialsToModelParts {
         //this.ocount = 2;
 
         this.addInput("Model properties", "model_properties");
+        this.addInput("Model properties1", "model_properties");
+        this.addInput("Model properties2", "model_properties");
         //this.icount = 1;
     }
 
@@ -46,9 +48,17 @@ class AssignMaterialsToModelParts {
 
     onConnectInput() {
 
+        // TODO: Logics to implement:
+        //   when connecting to input 0,
+        //       delete the other inputs
+        //       generate one input for each submodelpart 
+        //  when connecting to other inputs, dont change anything
+        //  
+
         // Remove existing inputs but first
-        for (let i = 1; i < this.inputs.length; ++i) {
-            this.removeInput(i);
+    if this.getInputDataType(0)
+        for (let i = 0; i < this.inputs.length; ++i) {
+            this.removeInput(1);
         }
         // Remove existing outputs but first two
         for (let i = 2; i < this.outputs.length; ++i) {
@@ -57,7 +67,7 @@ class AssignMaterialsToModelParts {
 
         // Get data from MP slot (list)
         const data = this.getInputData(this.findInputSlot("Model properties"));
-	    console.log(data)
+	    console.log(data);
         if (data != undefined) {
             for (const mp of data["submodelparts"]) {
                 this.addInput("mat for " + mp, 0);

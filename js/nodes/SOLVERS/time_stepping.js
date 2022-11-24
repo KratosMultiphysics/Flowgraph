@@ -1,25 +1,33 @@
 function TimeStepping() {
 
-    this.properties = {
+    this.output = {
         "automatic_time_step": false,
-        "time_step": 0.1,
+        "time_step": -1,
+        "time_step_table": [[0.1, 0.1],[0.2, 0.2]]
     }
 
-    this.addOutput("Time stepping","time");
-//    this.addOutput("problem_name","string");
-//    this.addOutput("start_time","number");
-//    this.addOutput("end_time","number");
+    this.automatic_time_step = this.addWidget("combo", "Automatic stepping", "false",
+        function(v) {}, {
+            values: ["false", "true"]
+        });
+    this.time_step = this.addWidget("number", "Time step", 0.1,
+        function(v) {}, {
+            min: 0, max: 100,
+        });
+
+    this.addOutput("Time stepping", "time");
     this.size = this.computeSize();
 }
 
-TimeStepping.title = "Time Stepping";
-TimeStepping.desc = "Set time stepping";
-
 TimeStepping.prototype.onExecute = function() {
-    this.setOutputData(0, this.properties);
-//    this.setOutputData(1, this.properties["problem_name"]);
-//    this.setOutputData(2, this.properties["start_time"]);
-//    this.setOutputData(3, this.properties["end_time"]);
+
+    this.output["automatic_time_step"] = this.automatic_time_step.value;
+    this.output["time_step"] = this.time_step.value;
+    //this.output["time_step_table"] = this.time_step_table.value;
+
+    this.setOutputData(0, this.output);
 };
 
+TimeStepping.title = "Time Stepping";
+TimeStepping.desc = "Set time stepping";
 LiteGraph.registerNodeType("SOLVERS/TimeStepping", TimeStepping);
