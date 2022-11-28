@@ -1,7 +1,5 @@
 class ListSubMP {
     constructor() {
-        this.input_type = "submodelpart";
-        this.output_type = "list-submodelpart";
     }
 
     onAdded() {
@@ -9,8 +7,8 @@ class ListSubMP {
     }
 
     buildConnections() {
-        this.addInput("", this.input_type);
-        this.addOutput("Submodelparts", this.output_type);
+        this.addInput("", "modelpart");
+        this.addOutput("Submodelparts", "modelparts");
         this.size = this.computeSize();
         this.serialize_widgets = true;
         this.setSize(1, 0);

@@ -3,10 +3,10 @@ function TimeStepping() {
     this.output = {
         "automatic_time_step": false,
         "time_step": -1,
-        "time_step_table": [[0.1, 0.1],[0.2, 0.2]]
+        //"time_step_table": [[0.1, 0.1],[0.2, 0.2]]
     }
 
-    this.automatic_time_step = this.addWidget("combo", "Automatic stepping", "false",
+    this.automatic_time_step = this.addWidget("combo", "Auto stepping", "false",
         function(v) {}, {
             values: ["false", "true"]
         });

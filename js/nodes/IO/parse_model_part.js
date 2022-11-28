@@ -1,4 +1,4 @@
-class ParseModelPartSubmodelparts {
+class ParseModelPart {
 
     constructor() {
         // Node settings
@@ -110,6 +110,6 @@ class ParseModelPartSubmodelparts {
     }
 }
 
-ParseModelPartSubmodelparts.title = "Parse MODELPARTS w SMP file";
-ParseModelPartSubmodelparts.desc = "Parses a ModelPart";
-LiteGraph.registerNodeType("IO/Parse Model Part with submodelparts", ParseModelPartSubmodelparts);
+ParseModelPart.title = "Parse MDPA file";
+ParseModelPart.desc = "Parses a Modelpars (.mdpa) file";
+LiteGraph.registerNodeType("IO/Parse Modelpart", ParseModelPart);

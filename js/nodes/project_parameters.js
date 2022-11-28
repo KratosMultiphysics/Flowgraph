@@ -49,9 +49,9 @@ class ProjectParameters {
             function(v) {}, {
                 values: ["OpenMP", "MPI", ]
             });
-        this.echo_level = this.addWidget("combo", "Echo level", "0",
+        this.echo_level = this.addWidget("combo", "Echo level", 0,
             function(v) {}, {
-                values: ["0", "1", "2", "3"]
+                values: [0, 1, 2, 3]
             });
         this.start_time = this.addWidget("number", "Start time", 0,
             function(v) {}, {

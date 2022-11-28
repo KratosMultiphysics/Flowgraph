@@ -26,15 +26,15 @@ class FluidSolver {
             //}
         });
         this.ivolmp = iidx++;
-        this.addInput("Volume submodelpart", "submodelpart");
+        this.addInput("Volume submodelpart", "modelpart");
         this.iskinmp = iidx++;
-        this.addInput("Skin submodelparts", "list-submodelpart");
+        this.addInput("Skin submodelparts", "modelparts");
         this.inskinmp = iidx++;
-        this.addInput("NonSkin submodelparts", "list-submodelpart");
+        this.addInput("NonSkin submodelparts", "modelparts");
         this.ilinsol = iidx++;
         this.addInput("Linear solver", "map");
         this.imat = iidx++;
-        this.addInput("Materials", "materials_settings");
+        this.addInput("Materials settings", "materials_settings");
         this.itime = iidx++;
         this.addInput("Time stepping", "time");
         this.iformulation = iidx++;
@@ -52,7 +52,6 @@ class FluidSolver {
             "solver_type": "",
             "echo_level": -1,
             "compute_reactions": false,
-            "reform_dofs_at_each_step": false,
 
             "maximum_iterations": -1,
             "relative_velocity_tolerance": -1,
@@ -79,29 +78,26 @@ class FluidSolver {
             //    "dynamic_tau": 1.0
             //},
 
-        this.echo_level = this.addWidget("combo", "Echo level", "0", function(v) {}, {
-            values: ["0", "1", "2", "3"]
+        this.echo_level = this.addWidget("combo", "Echo level", 0, function(v) {}, {
+            values: [0, 1, 2, 3]
         });
         this.compute_reactions = this.addWidget("combo", "Compute reactions", false, function(v) {}, {
             values: [false, true]
         });
-        this.reform_dofs_at_each_step = this.addWidget("combo", "Reform DOFs", false, function(v) {}, {
-            values: [false, true]
-        });
-        this.maximum_iterations = this.addWidget("number", "Maximum iterations", "10", function(v) {}, {
+        this.maximum_iterations = this.addWidget("number", "Maximum iterations", 10, function(v) {}, {
 		min: 1, max: 100, step: 1
         });
-        this.relative_velocity_tolerance = this.addWidget("combo", "Velocity REL tol ", "1e-3", function(v) {}, {
-            values: ["1", "1e-1", "1e-2", "1e-3", "1e-4", "1e-5", "1e-6",]
+        this.relative_velocity_tolerance = this.addWidget("combo", "Velocity REL tol ", 1e-3, function(v) {}, {
+            values: [1, 1e-1, 1e-2, 1e-3, 1e-4, 1e-5, 1e-6,]
         });
-        this.absolute_velocity_tolerance = this.addWidget("combo", "Velocity ABS tol", "1e-5", function(v) {}, {
-            values: ["1", "1e-1", "1e-2", "1e-3", "1e-4", "1e-5", "1e-6",]
+        this.absolute_velocity_tolerance = this.addWidget("combo", "Velocity ABS tol", 1e-5, function(v) {}, {
+            values: [1, 1e-1, 1e-2, 1e-3, 1e-4, 1e-5, 1e-6,]
         });
-        this.relative_pressure_tolerance = this.addWidget("combo", "Pressure REL tol", "1e-3", function(v) {}, {
-            values: ["1", "1e-1", "1e-2", "1e-3", "1e-4", "1e-5", "1e-6",]
+        this.relative_pressure_tolerance = this.addWidget("combo", "Pressure REL tol", 1e-3, function(v) {}, {
+            values: [1, 1e-1, 1e-2, 1e-3, 1e-4, 1e-5, 1e-6,]
         });
-        this.absolute_pressure_tolerance = this.addWidget("combo", "Pressure ABS tol", "1e-5", function(v) {}, {
-            values: ["1", "1e-1", "1e-2", "1e-3", "1e-4", "1e-5", "1e-6",]
+        this.absolute_pressure_tolerance = this.addWidget("combo", "Pressure ABS tol", 1e-5, function(v) {}, {
+            values: [1, 1e-1, 1e-2, 1e-3, 1e-4, 1e-5, 1e-6,]
         });
     }
 
@@ -131,7 +127,6 @@ class FluidSolver {
         idx = this.ivolmp;
         if (this.getInputData(idx) != undefined) {
             val = this.getInputData(idx)["smp_name"];
-            val = this.getInputData(idx)["mp_name"] + "." + this.getInputData(idx)["smp_name"];
             this._value["volume_model_part_name"] = val;
         }
 
@@ -175,7 +170,6 @@ class FluidSolver {
 
         this._value["echo_level"] = this.echo_level.value;
         this._value["compute_reactions"] = this.compute_reactions.value;
-        this._value["reform_dofs_at_each_step"] = this.reform_dofs_at_each_step.value;
         this._value["maximum_iterations"] = this.maximum_iterations.value;
         this._value["relative_velocity_tolerance"] = this.relative_velocity_tolerance.value;
         this._value["absolute_velocity_tolerance"] = this.absolute_velocity_tolerance.value;

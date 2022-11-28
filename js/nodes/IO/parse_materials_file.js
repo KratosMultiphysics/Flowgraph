@@ -32,10 +32,15 @@ class ParseMaterialsFile {
         const settings = {
             "materials_filename": this.filename.value
         }
-        //this.setOutputData(0, settings);
-        this.setOutputData(0, this.properties);
-        for (let i = 1; i < this.outputs.length; ++i) {
-            this.setOutputData(i, this.properties[i - 1]);
+        //this.setOutputData(0, this.properties);
+        this.setOutputData(0, settings);
+
+        if (this.properties != undefined) {
+        //if (this.properties != undefined & this.outputs.length != undefined) {
+            //for (let i = 1; i < this.outputs.length; ++i) {
+            for (let i = 1; i < this.ocount; ++i) {
+                this.setOutputData(i, this.properties[i - 1]);
+            }
         }
     }
 
@@ -64,9 +69,8 @@ class ParseMaterialsFile {
             // Set the name of the materials filename
             this.filename.value = file.name;
             this.properties = [];
-            this.addOutput("MATERIALS", "materials_settings");
+            this.addOutput("Materials settings", "materials_settings");
             this.ocount++;
-
 
             // Get materials and create outputs
             for (const prop of JSON.parse(result)["properties"]) {

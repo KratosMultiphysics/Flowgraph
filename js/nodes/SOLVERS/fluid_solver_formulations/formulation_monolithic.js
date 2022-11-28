@@ -15,11 +15,11 @@ function MonolithicFormulation() {
             function(v) {}, {
                 values: ["vms", "vms"]
             });
-        this.use_subscale = this.addWidget("combo", "Orthogonal subsc", "false",
+        this.use_subscale = this.addWidget("combo", "Orthogonal subsc", false,
             function(v) {}, {
-                values: ["false", "true"]
+                values: [false, true]
             });
-        this.dynamic_tau = this.addWidget("number", "Dynamic tau ", 1.0,
+        this.dynamic_tau = this.addWidget("number", "Dynamic tau ", 1,
             function(v) {}, {
                 min: 0, max: 1,
             });
