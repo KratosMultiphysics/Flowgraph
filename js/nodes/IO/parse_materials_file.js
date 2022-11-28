@@ -1,6 +1,7 @@
 class ParseMaterialsFile {
+
     constructor() {
-        // Identifier Glyph
+        // Node settings
         this.glyph = {
             shape: '\uf6d1',
             font: '900 14px "Font Awesome 5 Free"',
@@ -23,8 +24,8 @@ class ParseMaterialsFile {
         //    "materials_list": []
         //};
 
-	    // Output counter
-	    this.ocount = 0;
+        // Output counter
+        this.ocount = 0;
     }
 
     onExecute() {
@@ -33,9 +34,9 @@ class ParseMaterialsFile {
         }
         //this.setOutputData(0, settings);
         this.setOutputData(0, this.properties);
-        //for (let i = 1; i < this.outputs.length; ++i) {
-        //    this.setOutputData(i, this.mp_name.value+this.outputs[i].name);
-        //}
+        for (let i = 1; i < this.outputs.length; ++i) {
+            this.setOutputData(i, this.properties[i - 1]);
+        }
     }
 
     onSelection(e) {
@@ -63,9 +64,9 @@ class ParseMaterialsFile {
             // Set the name of the materials filename
             this.filename.value = file.name;
             this.properties = [];
-	    this.addOutput("MATERIALS", "materials_settings");
-	    this.ocount++;
-	    
+            this.addOutput("MATERIALS", "materials_settings");
+            this.ocount++;
+
 
             // Get materials and create outputs
             for (const prop of JSON.parse(result)["properties"]) {
@@ -77,39 +78,11 @@ class ParseMaterialsFile {
                     prop["model_part_name"].split(".")[1] +
                     " - id: " +
                     prop["properties_id"];
-                this.addOutput(name, 0);
-	    this.ocount++;
+                this.addOutput(name, "material");
+                this.ocount++;
             }
         }
     }
-
-    //updateProblemModelParts() {
-    //    // Need to restore the list of submodelparts in the main model node.
-    //    problem_modelparts[this.id] = []
-
-    //    for (const submodelpart of this.properties["materials_list"]) {
-    //        problem_modelparts[this.id].push(submodelpart);
-    //    }
-    //}
-
-    //updateModelNodes() {
-    //    // Update the combos of all the Models nodes in the workspace
-    //    for (const modelNode of Object.keys(model_nodes)) {
-    //        model_nodes[modelNode].updateCombos();
-    //    }
-    //}
-
-    //onAdded() {
-    //    this.updateProblemModelParts();
-    //    this.updateModelNodes();
-    //}
-
-    //onRemoved() {
-    //    // Unregister
-    //    delete problem_modelparts[this.id];
-    //    this.updateModelNodes();
-    //}
-
 }
 
 ParseMaterialsFile.title = "Parse MATERIALS file";

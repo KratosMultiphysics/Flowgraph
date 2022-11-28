@@ -1,4 +1,4 @@
-class ParseModelPart {
+class ParseModelPartSubmodelparts {
 
     constructor() {
         // Node settings
@@ -17,18 +17,31 @@ class ParseModelPart {
         this.addWidget("button", "Open...", "", function(value, widget, node) {
             node.input_manager.click();
         });
+
+        // List of submodelparts
+        this.properties = {
+            "submodelpart_list": []
+        };
     }
 
     onExecute() {
         const out = {
+            "mp_name": this.mpname.value,
             "mp_settings": {
                 "input_type": "mdpa",
                 "input_file": this.filename.split('.')[0]
             },
             "dim": this.dim,
-            "submodelparts": this.submodelparts
-        };
+            "submodelparts": this.properties["submodelpart_list"]
+        }
         this.setOutputData(0, out);
+        for (let i = 1; i < this.outputs.length; ++i) {
+            const out = {
+                "mp_name": this.mpname.value,
+                "smp_name": this.outputs[i].name
+            }
+            this.setOutputData(i, out);
+        }
     }
 
     onSelection(e) {
@@ -41,6 +54,10 @@ class ParseModelPart {
         const reader = new FileReader();
         reader.onload = this.onReaderLoad(file);
         reader.readAsText(file);
+
+        // Continue
+        this.mpname = this.addWidget("text", "Modelpart", "UNSET", function(v) {}, {});
+
     };
 
     onReaderLoad(file) {
@@ -53,28 +70,46 @@ class ParseModelPart {
             const sub_mdpa = result.matchAll(re);
 
             // Remove existing outputs
-            this.submodelparts = [];
+            this.properties["submodelpart_list"] = [];
             while (this.outputs != undefined && this.outputs.length != 0) {
                 this.removeOutput(0);
             }
 
-            // Get required data: submodelparts, filename, dimension
-            let smp_namepath = "";
+            // Obtain mdpa filename
+            this.filename = file.name;
+
+            // Parse and compute dimension of the points
+            // TODO: implement parsing
+            this.dim = 3
+
+
+            // Obtain the Submodelparts
+            let sub_mdpa_namepath = "";
             for (const match of sub_mdpa) {
                 if (match[0].includes("Begin")) {
-                    smp_namepath = `${match[3]}`;
-                    this.submodelparts.push(smp_namepath);
+                    sub_mdpa_namepath = `${match[3]}`;
+                    //sub_mdpa_namepath = `${sub_mdpa_namepath}.${match[3]}`;
+                    this.properties["submodelpart_list"].push(sub_mdpa_namepath);
+                }
+
+                if (match[0].includes("End")) {
+                    sub_mdpa_namepath = sub_mdpa_namepath.split(".");
+                    sub_mdpa_namepath.pop();
+                    sub_mdpa_namepath = sub_mdpa_namepath.join(".");
                 }
             }
-            this.filename = file.name;
-            this.dim = 3 // TODO: implement parsing to compute dimension of the points
 
-            // Create output
-            this.addOutput("Model properties", "model_properties");
+
+
+            // Create outputs
+            this.addOutput("Modelpart Settings", "modelpart_settings");
+            for (const submodelpart of this.properties["submodelpart_list"]) {
+                this.addOutput(submodelpart, "modelpart");
+            }
         }
     }
 }
 
-ParseModelPart.title = "Parse MODELPARTS file";
-ParseModelPart.desc = "Parses a ModelPart";
-LiteGraph.registerNodeType("IO/Parse Model Part", ParseModelPart);
+ParseModelPartSubmodelparts.title = "Parse MODELPARTS w SMP file";
+ParseModelPartSubmodelparts.desc = "Parses a ModelPart";
+LiteGraph.registerNodeType("IO/Parse Model Part with submodelparts", ParseModelPartSubmodelparts);
