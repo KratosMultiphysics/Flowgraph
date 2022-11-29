@@ -2,7 +2,7 @@ import os
 from pathlib import Path
 import ast
 import json
-from pprint import pprint
+#from pprint import pprint
 from lxml import etree, html
 
 
@@ -49,6 +49,32 @@ def update_index(paths):
     with open("index.html", "wb") as f:
         f.write(index_str)
 
+def get_widget(field, value):
+    '''detect argument type and create an appropiate widget configuration'''
+    tv = type(value)
+    title = " ".join(field.split("_")).capitalize()
+    lines = ""
+    if tv is bool:
+        lines += f'    this.{field} = this.addWidget("combo", "{title}", {value},' + "\n"
+        lines += f'        function(v) {{}}, {{values: [false, true]}}' + "\n"
+        lines += f'    );' + "\n"
+    elif tv is int or tv is float:
+        lines += f'    this.{field} = this.addWidget("number", "{title}", {value},' + "\n"
+        lines += f'        function(v) {{}}, {{min: 0, max: 1, step: 0.1}}' + "\n"
+        lines += f'    );' + "\n"
+    elif tv is str:
+        lines += f'    this.{field} = this.addWidget("text", "{title}", {value},' + "\n"
+        lines += f'        function(v) {{}}, {{}}' + "\n"
+        lines += f'    );' + "\n"
+    elif tv is list or tv is dict:
+        lines += f'    this.{field} = this.addWidget("text", "{title}", {value},' + "\n"
+        lines += f'        function(v) {{}}, {{}}' + "\n"
+        lines += f'    );' + "\n"
+    else:
+        lines += f'    this.{field} = this.addWidget("text", "{title}", {value},' + "\n"
+        lines += f'        function(v) {{}}, {{}}' + "\n"
+        lines += f'    );' + "\n"
+    return lines
 
 def create_process_node(path, processtype, descr, iparams, oparams):
     name = path.stem  # apply_inlet_process
@@ -65,12 +91,16 @@ def create_process_node(path, processtype, descr, iparams, oparams):
 
 
     # Write funtion definition
-    lines = f"function {fname}() {{" + "\n"
+    lines = f'function {fname}() {{' + "\n"
+    lines += '    this.size = this.computeSize();' + "\n"
     for mp in iparams:
         lines += f'    this.addInput("{mp}", "submodelpart");' + "\n"
     lines += f'    this.addOutput("{processlabel}", "{processtype}");' + "\n"
-    lines += f"    this.properties = {fprops}" + "\n"
-    lines += "    this.size = this.computeSize();" + "\n"
+    lines += f'    this.properties = {fprops}' + "\n"
+
+    for field, value in oparams.items():
+        lines += get_widget(field, value)
+
     lines += "};" + "\n"
     lines += "\n"
 
@@ -83,15 +113,17 @@ def create_process_node(path, processtype, descr, iparams, oparams):
     lines += '    output["Parameters"] = this.properties' + "\n"
     for i, mp in enumerate(iparams):
         lines += f'    output["Parameters"]["{mp}"] = this.getInputData({i})' + "\n"
+
+    for field in oparams.keys():
+        lines += f'    output["Parameters"]["{field}"] = this.{field}.value' + "\n"
+
     lines += "    this.setOutputData(0, output);" + "\n"
     lines += "};" + "\n"
     lines += "\n"
 
     # Write title, description, registration, ...
     lines += f'{fname}.title = "{title}";' + "\n"
-    lines += "\n"
     lines += f'{fname}.desc = "{descr}";' + "\n"
-    lines += "\n"
     lines += f'LiteGraph.registerNodeType("{processtype.upper()}/{group}/{title}", {fname});\n'
 
     return lines
