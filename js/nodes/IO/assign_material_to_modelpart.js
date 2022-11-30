@@ -10,8 +10,8 @@ class AssignMaterialToModelPart {
         };
         this.serialize_widgets = true;
 
-        this.addInput("Modelpart", "modelpart");
         this.addInput("Material", "material");
+        this.addInput("Modelpart", "modelpart");
         this.addOutput("Modelpart property", "modelpart_property");
     }
 

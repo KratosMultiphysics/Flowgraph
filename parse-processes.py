@@ -94,7 +94,7 @@ def create_process_node(path, processtype, descr, iparams, oparams):
     lines = f'function {fname}() {{' + "\n"
     lines += '    this.size = this.computeSize();' + "\n"
     for mp in iparams:
-        lines += f'    this.addInput("{mp}", "submodelpart");' + "\n"
+        lines += f'    this.addInput(\"{" ".join(mp.split("_"))}\", "modelpart");' + "\n"
     lines += f'    this.addOutput("{processlabel}", "{processtype}");' + "\n"
     lines += f'    this.properties = {fprops}' + "\n"
 
