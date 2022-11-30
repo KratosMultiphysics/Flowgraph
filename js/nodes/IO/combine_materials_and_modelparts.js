@@ -10,57 +10,25 @@ class CombineMaterialsModelparts {
         };
         this.serialize_widgets = true;
         this.size = this.computeSize();
-        this.buildConnections(0);
+
+        this.addInput("Material 0", "material");
+        this.addInput("Modelpart 0", "modelpart");
+        this.icount = 2
     }
-
-    //onAdded() {
-    //    this.buildConnections();
-    //}
-
-    buildConnections(idx) {
-
-        this.addInput("Material " + idx, "material");
-        this.addInput("Modelpart " + idx, "modelpart");
-    }
-
 
     onExecute() {
-        if (!this._value) {
-            this._value = new Array();
-        }
-        this._value.length = this.inputs.length - 1;
-        for (let i = 0; i < this.inputs.length - 1; ++i) {
-            this._value[i] = this.getInputData(i);
-        }
-
-        //const modelpart = this.getInputData(this.findInputSlot("Modelpart"));
-        //const material = this.getInputData(this.findInputSlot("Material"));
-        //this.out = {
-        //    "material": material,
-        //    "modelpart": modelpart
-        //};
+	    // TBD
     }
 
     onConnectionsChange() {
+        if (this.isInputConnected(this.icount - 1) &&
+            this.isInputConnected(this.icount - 2)) {
 
-        // Remove unconnected nodes
-        for (let i = 0; i < this.inputs.length; i++) {
-            if (!this.isInputConnected(i) && this.getOutputData(1) > 0) {
-                this.removeInput(i);
-            }
-            if (i < this.inputs.length) {
-                this.inputs[i].name = Math.floor(i / 2);
-            }
+            const idx = Math.floor(this.icount / 2);
+            this.addInput("Material " + idx, "material");
+            this.addInput("Modelpart " + idx, "modelpart");
+            this.icount += 2;
         }
-
-        // If all nodes are connected, or there are no nodes, add one.
-        if (this.inputs.length <= 0 || this.isInputConnected(this.inputs.length - 1)) {
-            this.buildConnections(Math.floor(this.inputs.length / 2));
-            //this.addInput("Material", "material");
-            //this.addInput("Modelpart", "modelpart");
-        }
-
-        this.size = this.computeSize();
     }
 }
 
