@@ -67,7 +67,7 @@ def get_widget(field, value):
         lines += f'        function(v) {{}}, {{}}' + "\n"
         lines += f'    );' + "\n"
     elif tv is list or tv is dict:
-        lines += f'    this.{field} = this.addWidget("text", "{title}", {value},' + "\n"
+        lines += f'    this.{field} = this.addWidget("text", "{title}", "{value}",' + "\n"
         lines += f'        function(v) {{}}, {{}}' + "\n"
         lines += f'    );' + "\n"
     else:
