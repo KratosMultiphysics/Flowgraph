@@ -55,49 +55,52 @@ def create_widget(field, value):
     title = " ".join(field.split("_")).capitalize()
     lines = ""
     if tv is bool:
+        value = json.dumps(value)
         lines += (
-            f'    this.{field} = this.addWidget("combo", '
-            + f'"{title} (bool)", {value},'
+            f"    this.{field} = this.addWidget('combo', "
+            + f"'{title} (bool)', {value},"
             + "\n"
         )
         lines += f"        function(v) {{}}, {{values: [false, true]}}" + "\n"
         lines += f"    );" + "\n"
     elif tv is int or tv is float:
         lines += (
-            f'    this.{field} = this.addWidget("number", '
-            + f'"{title} (number)", {value},'
+            f"    this.{field} = this.addWidget('number', "
+            + f"'{title} (number)', {value},"
             + "\n"
         )
         lines += f"        function(v) {{}}, {{min: 0, max: 1, step: 0.1}}" + "\n"
         lines += f"    );" + "\n"
     elif tv is str:
         lines += (
-            f'    this.{field} = this.addWidget("text", '
-            + f'"{title} (string)", \'"{value}"\','
+            f"    this.{field} = this.addWidget('text', "
+            + f"'{title} (string)', '\"{value}\"',"
             + "\n"
         )
         lines += f"        function(v) {{}}, {{}}" + "\n"
         lines += f"    );" + "\n"
     elif tv is list:
+        value = json.dumps(value)
         lines += (
-            f'    this.{field} = this.addWidget("text", '
-            + f'"{title} (array)", "{value}",'
+            f"    this.{field} = this.addWidget('text', "
+            + f"'{title} (array)', '{value}',"
             + "\n"
         )
         lines += f"        function(v) {{}}, {{}}" + "\n"
         lines += f"    );" + "\n"
     elif tv is dict:
+        value = json.dumps(value)
         lines += (
-            f'    this.{field} = this.addWidget("text", '
-            + f'"{title} (json)", "{value}",'
+            f"    this.{field} = this.addWidget('text', "
+            + f"'{title} (json)', '{value}',"
             + "\n"
         )
         lines += f"        function(v) {{}}, {{}}" + "\n"
         lines += f"    );" + "\n"
     else:  # missing is NoneType, we use it for catching all cases.
         lines += (
-            f'    this.{field} = this.addWidget("text", '
-            + f'"{title} (null)", null,'
+            f"    this.{field} = this.addWidget('text', "
+            + f"'{title} (null)', null,"
             + "\n"
         )
         lines += f"        function(v) {{}}, {{}}" + "\n"
