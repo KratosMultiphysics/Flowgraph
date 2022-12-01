@@ -2,7 +2,6 @@ import os
 from pathlib import Path
 import ast
 import json
-#from pprint import pprint
 from lxml import etree, html
 
 
@@ -49,32 +48,63 @@ def update_index(paths):
     with open("index.html", "wb") as f:
         f.write(index_str)
 
-def get_widget(field, value):
-    '''detect argument type and create an appropiate widget configuration'''
+
+def create_widget(field, value):
+    """detect argument type and create an appropiate widget configuration"""
     tv = type(value)
     title = " ".join(field.split("_")).capitalize()
     lines = ""
     if tv is bool:
-        lines += f'    this.{field} = this.addWidget("combo", "{title}", {value},' + "\n"
-        lines += f'        function(v) {{}}, {{values: [false, true]}}' + "\n"
-        lines += f'    );' + "\n"
+        lines += (
+            f'    this.{field} = this.addWidget("combo", '
+            + f'"{title} (bool)", {value},'
+            + "\n"
+        )
+        lines += f"        function(v) {{}}, {{values: [false, true]}}" + "\n"
+        lines += f"    );" + "\n"
     elif tv is int or tv is float:
-        lines += f'    this.{field} = this.addWidget("number", "{title}", {value},' + "\n"
-        lines += f'        function(v) {{}}, {{min: 0, max: 1, step: 0.1}}' + "\n"
-        lines += f'    );' + "\n"
+        lines += (
+            f'    this.{field} = this.addWidget("number", '
+            + f'"{title} (number)", {value},'
+            + "\n"
+        )
+        lines += f"        function(v) {{}}, {{min: 0, max: 1, step: 0.1}}" + "\n"
+        lines += f"    );" + "\n"
     elif tv is str:
-        lines += f'    this.{field} = this.addWidget("text", "{title}", {value},' + "\n"
-        lines += f'        function(v) {{}}, {{}}' + "\n"
-        lines += f'    );' + "\n"
-    elif tv is list or tv is dict:
-        lines += f'    this.{field} = this.addWidget("text", "{title}", "{value}",' + "\n"
-        lines += f'        function(v) {{}}, {{}}' + "\n"
-        lines += f'    );' + "\n"
-    else:
-        lines += f'    this.{field} = this.addWidget("text", "{title}", {value},' + "\n"
-        lines += f'        function(v) {{}}, {{}}' + "\n"
-        lines += f'    );' + "\n"
+        lines += (
+            f'    this.{field} = this.addWidget("text", '
+            + f'"{title} (string)", \'"{value}"\','
+            + "\n"
+        )
+        lines += f"        function(v) {{}}, {{}}" + "\n"
+        lines += f"    );" + "\n"
+    elif tv is list:
+        lines += (
+            f'    this.{field} = this.addWidget("text", '
+            + f'"{title} (array)", "{value}",'
+            + "\n"
+        )
+        lines += f"        function(v) {{}}, {{}}" + "\n"
+        lines += f"    );" + "\n"
+    elif tv is dict:
+        lines += (
+            f'    this.{field} = this.addWidget("text", '
+            + f'"{title} (json)", "{value}",'
+            + "\n"
+        )
+        lines += f"        function(v) {{}}, {{}}" + "\n"
+        lines += f"    );" + "\n"
+    else:  # missing is NoneType, we use it for catching all cases.
+        lines += (
+            f'    this.{field} = this.addWidget("text", '
+            + f'"{title} (null)", null,'
+            + "\n"
+        )
+        lines += f"        function(v) {{}}, {{}}" + "\n"
+        lines += f"    );" + "\n"
+
     return lines
+
 
 def create_process_node(path, processtype, descr, iparams, oparams):
     name = path.stem  # apply_inlet_process
@@ -89,17 +119,17 @@ def create_process_node(path, processtype, descr, iparams, oparams):
     fprops = "\n    ".join(props.split("\n"))
     processlabel = "".join(" ".join(processtype.split("_")).title().split())
 
+    # Write function definition
+    lines = f"function {fname}() {{" + "\n"
+    lines += "    this.size = this.computeSize();" + "\n"
 
-    # Write funtion definition
-    lines = f'function {fname}() {{' + "\n"
-    lines += '    this.size = this.computeSize();' + "\n"
     for mp in iparams:
-        lines += f'    this.addInput(\"{" ".join(mp.split("_"))}\", "modelpart");' + "\n"
+        lines += f'    this.addInput("{" ".join(mp.split("_"))}", "modelpart");' + "\n"
     lines += f'    this.addOutput("{processlabel}", "{processtype}");' + "\n"
-    lines += f'    this.properties = {fprops}' + "\n"
+    lines += f"    this.properties = {fprops};" + "\n"
 
     for field, value in oparams.items():
-        lines += get_widget(field, value)
+        lines += create_widget(field, value)
 
     lines += "};" + "\n"
     lines += "\n"
@@ -109,13 +139,20 @@ def create_process_node(path, processtype, descr, iparams, oparams):
     lines += "    output = {" + "\n"
     lines += f'        "python_module": "{name}",' + "\n"
     lines += f'        "kratos_module": "{module}"' + "\n"
-    lines += "    }" + "\n"
-    lines += '    output["Parameters"] = this.properties' + "\n"
+    lines += "    };" + "\n"
+    lines += '    output["Parameters"] = this.properties;' + "\n"
+
     for i, mp in enumerate(iparams):
-        lines += f'    output["Parameters"]["{mp}"] = this.getInputData({i})' + "\n"
+        lines += (
+            f'    output["Parameters"]["{mp}"] = ' + f"this.getInputData({i});" + "\n"
+        )
 
     for field in oparams.keys():
-        lines += f'    output["Parameters"]["{field}"] = this.{field}.value' + "\n"
+        lines += (
+            f'    output["Parameters"]["{field}"] = '
+            + f"JSON.parse(this.{field}.value);"
+            + "\n"
+        )
 
     lines += "    this.setOutputData(0, output);" + "\n"
     lines += "};" + "\n"
@@ -124,7 +161,10 @@ def create_process_node(path, processtype, descr, iparams, oparams):
     # Write title, description, registration, ...
     lines += f'{fname}.title = "{title}";' + "\n"
     lines += f'{fname}.desc = "{descr}";' + "\n"
-    lines += f'LiteGraph.registerNodeType("{processtype.upper()}/{group}/{title}", {fname});\n'
+    lines += (
+        f"LiteGraph.registerNodeType"
+        + f'("{processtype.upper()}/{group}/{title}", {fname});\n'
+    )
 
     return lines
 
@@ -215,6 +255,7 @@ def get_default_params_from_process(code):
         except:
             return "{}"
 
+
 def parse_processes(paths, processtype):
     notparsed = []
     parsed = []
@@ -267,7 +308,6 @@ if __name__ == "__main__":
     gparsed.extend(parsed)
     gnotparsed.extend(notparsed)
 
-
     update_index(gparsed)
 
     # DEBUG: write file with not-parsed processes
@@ -275,4 +315,3 @@ if __name__ == "__main__":
     for p in gnotparsed:
         line += f"{str(p.parents[0].name)} {str(p.name)}\n"
     Path("not-parsed.dat").write_text(line)
-
