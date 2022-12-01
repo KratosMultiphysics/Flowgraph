@@ -51,11 +51,13 @@ def update_index(paths):
 
 def create_widget(field, value):
     """detect argument type and create an appropiate widget configuration"""
+
     tv = type(value)
     title = " ".join(field.split("_")).capitalize()
     lines = ""
+    value = json.dumps(value)
+
     if tv is bool:
-        value = json.dumps(value)
         lines += (
             f"    this.{field} = this.addWidget('combo', "
             + f"'{title} (bool)', {value},"
@@ -74,13 +76,12 @@ def create_widget(field, value):
     elif tv is str:
         lines += (
             f"    this.{field} = this.addWidget('text', "
-            + f"'{title} (string)', '\"{value}\"',"
+            + f"'{title} (string)', '{value}',"
             + "\n"
         )
         lines += f"        function(v) {{}}, {{}}" + "\n"
         lines += f"    );" + "\n"
     elif tv is list:
-        value = json.dumps(value)
         lines += (
             f"    this.{field} = this.addWidget('text', "
             + f"'{title} (array)', '{value}',"
@@ -89,7 +90,6 @@ def create_widget(field, value):
         lines += f"        function(v) {{}}, {{}}" + "\n"
         lines += f"    );" + "\n"
     elif tv is dict:
-        value = json.dumps(value)
         lines += (
             f"    this.{field} = this.addWidget('text', "
             + f"'{title} (json)', '{value}',"
