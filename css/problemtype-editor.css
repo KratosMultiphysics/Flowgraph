@@ -63,7 +63,7 @@ body, html {
 .litegraph-editor .footer {
     position: relative;
     height: 46px;
-    background-color: #333;
+    background-color: #303030;
     /*border-radius: 10px 10px 0 0;*/
 }
 
@@ -93,7 +93,7 @@ body, html {
 }
 
 .litegraph-editor .miniwindow {
-    background-color: #333;
+    background-color: #303030;
     border: 1px solid #111;
 }
 

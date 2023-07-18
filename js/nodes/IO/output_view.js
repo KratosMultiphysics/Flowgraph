@@ -1,3 +1,12 @@
+// var jvc = $('#json-display').JVC({}, {collapsed: false});
+
+// jvc.on('JVC:change', function(element){
+// 	var json = JVC.getJSON(element);
+// 	console.log("JVC:change", json, JSON.parse(json));
+// });
+
+JVC.setStyle('lioshi'); 
+
 class OutputView {
     constructor() {
         this.addInput("json", 0)
@@ -6,14 +15,16 @@ class OutputView {
     }
 
     onExecute() {
+        $('#json-display').JVC(this.getInputData(0), {collapsed: false});
     }
 
     onDrawForeground(ctx, graphcanvas) {
-        ctx.font = "12px Arial";
+        // ctx.font = "12px Arial";
         
-        const text = JSON.stringify(this.getInputData(0), null, 4);
+        // const text = JSON.stringify(this.getInputData(0), null, 4);
 
-        $('#json-display').jsonViewer(this.getInputData(0), {collapsed: false, withLinks: true});
+        // $('#json-display').JVC(this.getInputData(0), {collapsed: false, withLinks: true});
+        // $('#json-display').JVC(this.getInputData(0), {collapsed: false});
         
         // let max_size = this.size;
         // let line_pad = 0;

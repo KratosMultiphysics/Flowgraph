@@ -54,13 +54,13 @@ input[type="file"] {
 }
 
 .sidepanel {
-    height: 100%;
+    height: calc(100% - 46px);
     width: 0px; 
     position: fixed; 
     float: right;
     z-index: 1;
     right: 0;
-    background-color: #111; 
+    background-color: #303030; 
     overflow-x: hidden; 
     transition: 0.5s;
   }
