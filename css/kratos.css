@@ -2,10 +2,6 @@ input[type="file"] {
     display: none;
 }
 
-.litegraph-editor .header label {
-    display: inline-block;
-}
-
 .litegraph-editor .header input {
     vertical-align: top;
     height: 32px;

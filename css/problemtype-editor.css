@@ -62,7 +62,7 @@ body, html {
 .litegraph-editor .header,
 .litegraph-editor .footer {
     position: relative;
-    height: 40px;
+    height: 46px;
     background-color: #333;
     /*border-radius: 10px 10px 0 0;*/
 }
@@ -115,7 +115,7 @@ body, html {
 
 .litegraph-editor .float-btn-container-align {
   width: 100px;
-  float: right;
+  /* float: right; */
   margin-right: 12px;
 }
 
@@ -128,12 +128,11 @@ body, html {
   box-sizing: border-box;
   color: #fff;
   cursor: pointer;
-  display: inline-block;
   font-family: -apple-system,system-ui,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji";
   font-size: 14px;
   font-weight: 600;
   line-height: 20px;
-  padding: 6px 16px;
+  padding: 3px 6px;
   position: relative;
   text-align: center;
   text-decoration: none;
@@ -142,7 +141,7 @@ body, html {
   touch-action: manipulation;
   vertical-align: middle;
   white-space: nowrap;
-  margin: 6px 0px 6px 0px;
+  margin-left: 6px;
   width: 100%;
 }
 
