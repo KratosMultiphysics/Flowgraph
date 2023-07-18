@@ -67,7 +67,7 @@ class AnalysisStage {
                 "name": "Orchestrators.KratosMultiphysics.SequentialOrchestrator",
                 "settings" : {
                     "echo_level" : 0,
-                    "execution_list" : ["potential_flow_stage", "navier_stokes_stage"],
+                    "execution_list" : [],
                     "load_from_checkpoint" : null,
                     "stage_checkpoints" : false
                 }
@@ -111,7 +111,7 @@ AnalysisStage.title = "Analysis stage";
 AnalysisStage.desc = "Select different ModelParts and access their submodelparts directly";
 
 // Set the colors of selected connection to better reflect the flow
-LGraphCanvas.link_type_colors["stage_flow"] = LGraphCanvas.node_colors["pale_blue"].bgcolor;
+LGraphCanvas.link_type_colors["stage_flow"] = "#90bdd1";
 
 LiteGraph.registerNodeType("STAGES/AnalysisStage", ModelManager.registerNodeType(AnalysisStage));
 
