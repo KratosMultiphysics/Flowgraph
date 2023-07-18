@@ -5,6 +5,9 @@ function Editor(container_id, options) {
     //fill container
     var html  = "<div class='header'><div class='tools tools-left'></div><div class='tools tools-right'></div></div>";
         html += "<div class='content'><div class='editor-area'><canvas class='graphcanvas' width='1000' height='500' tabindex=10></canvas></div></div>";
+        html += "<div class='sidepanel' id='side-viewer'>";
+        html += "<pre id='json-display'></pre>";
+        html += "</div>";
 
     var root = document.createElement("div");
     this.root = root;
@@ -20,17 +23,13 @@ function Editor(container_id, options) {
     // Create graph
     var graph = (this.graph = new LGraph());
     var graphcanvas = (this.graphcanvas = new LGraphCanvas(canvas, graph));
+
     graphcanvas.background_image = "imgs/grid.png";
     graph.onAfterExecute = function() {
         graphcanvas.draw(true);
     };
 
 	graphcanvas.onDropItem = this.onDropItem.bind(this);
-
-    // Add stuff
-    // this.addToolsButton("loadsession_button","Load","imgs/icon-load.png", this.onLoadButton.bind(this), ".tools-left" );
-    // this.addToolsButton("savesession_button","Save","imgs/icon-save.png", this.onSaveButton.bind(this), ".tools-left" );
-    // this.addLoadCounter();
 
     if (!options.skip_maximize) {
         this.addToolsButton(

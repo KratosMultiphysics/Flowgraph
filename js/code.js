@@ -23,6 +23,7 @@ elem.innerHTML += "<label id='save-graph' class='float-btn'>Save</label>";
 elem.innerHTML += "<label class='float-btn'>Load<input type='file' id='load-graph' style='display:none'></label>";
 elem.innerHTML += "<label id='expt-group' class='float-btn'>Export</label>";
 elem.innerHTML += "<label class='float-btn'>Import<input type='file' id='impt-group' style='display:none'></label>";
+elem.innerHTML += "<label class='float-btn' onclick='openNav()'>Toggle</label>";
 
 $('.loadmeter').remove();
 

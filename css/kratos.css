@@ -52,3 +52,16 @@ input[type="file"] {
 .litegraph-editor .selector {
     font-size: 20px;
 }
+
+.sidepanel {
+    height: 100%;
+    width: 512px; 
+    position: fixed; 
+    float: right;
+    z-index: 1;
+    top: 0;
+    right: 0;
+    background-color: #111; 
+    overflow-x: hidden; 
+    transition: 0.5s;
+  }

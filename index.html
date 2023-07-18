@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Flowgraph</title>
+
+    <!--<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">-->
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+    <meta content="utf-8" http-equiv="encoding">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;400;900&display=swap">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+    <link rel="stylesheet" type="text/css" href="../css/litegraph.css">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="css/problemtype-editor.css">
+    <link rel="stylesheet" type="text/css" href="css/jquery.json-viewer.css">
+    <link rel="stylesheet" type="text/css" href="css/kratos.css">
+</head>
+
+<body>
+    <div style="display:none; font-family: Font Awesome 6 Free;">.</div>
+    <div id="main"></div>
+
+    <script type="text/javascript" src="../external/jquery-3.3.1.min.js"></script>
+
+    <script type="text/javascript" src="../src/litegraph.js"></script>
+    <script type="text/javascript" src="js/jquery.json-editor.js"></script>
+    <script type="text/javascript" src="js/problemtype-editor.js"></script>
+    <script type="text/javascript" src="js/side.js"></script>
+
+    <!-- Model Manager -->
+    <script type="text/javascript" src="js/model_manager.js"></script>
+
+    <!-- Mods to the base source code of litegraph.js. -->
+    <!-- Needs to be done after importing litegraph AND before registering nodes -->
+    <!-- Maybe ask to merge in the main lib when they are mature -->
+    <script type="text/javascript" src="js/injections/selection_import.js"></script>
+    <script type="text/javascript" src="js/injections/extended_menu.js"></script>
+    <script type="text/javascript" src="js/injections/remove_widget.js"></script>
+    <script type="text/javascript" src="js/injections/glyphs.js"></script>
+
+    <script type="text/javascript" src="js/jszip.js"></script>
+    <script type="text/javascript" src="js/problem_manager.js"></script>
+
+    <!-- TODO: Filter which ones of these could be useful for us -->
+    <script type="text/javascript" src="../src/nodes/base.js"></script>
+
+    <script type="text/javascript" src="js/nodes/utilities/error_handler.js"></script>
+    <script type="text/javascript" src="js/nodes/utilities/input_list.js"></script>
+    <script type="text/javascript" src="js/nodes/utilities/input_map.js"></script>
+
+    <!-- Kratos -->
+    <script type="text/javascript" src="js/nodes/IO/export_case.js"></script>
+    <script type="text/javascript" src="js/nodes/MODELPARTS/models.js"></script>
+    <script type="text/javascript" src="js/nodes/MODELPARTS/model_inspector.js"></script>
+    <script type="text/javascript" src="js/nodes/IO/assign_material_to_modelpart.js"></script>
+    <script type="text/javascript" src="js/nodes/IO/combine_materials_and_modelparts.js"></script>
+    <script type="text/javascript" src="js/nodes/IO/parse_model_part.js"></script>
+    <script type="text/javascript" src="js/nodes/IO/parse_materials_file.js"></script>
+    <script type="text/javascript" src="js/nodes/IO/output_view.js"></script>
+
+    <!-- Stages -->
+    <script type="text/javascript" src="js/nodes/STAGES/pre_process.js"></script>
+    <script type="text/javascript" src="js/nodes/STAGES/post_process.js"></script>
+    <script type="text/javascript" src="js/nodes/STAGES/MODELERS/modeler.js"></script>
+    <script type="text/javascript" src="js/nodes/STAGES/MODELERS/import_modeler.js"></script>
+    <script type="text/javascript" src="js/nodes/STAGES/MODELERS/delete_modeler.js"></script>
+    <script type="text/javascript" src="js/nodes/STAGES/analysis_stage.js"></script>
+    <script type="text/javascript" src="js/nodes/STAGES/multi_stage.js"></script>
+    <script type="text/javascript" src="js/nodes/STAGES/fluid_stage.js"></script>
+
+    <!-- Materials -->
+    <script type="text/javascript" src="js/nodes/IO/materials_list.js"></script>
+    <script type="text/javascript" src="js/nodes/MATERIALS/material_newtonian.js"></script>
+    <script type="text/javascript" src="js/nodes/MATERIALS/material_writer.js"></script>
+
+    <script type="text/javascript" src="js/demos.js"></script>
+    <script type="text/javascript" src="js/code.js"></script>
+
+    <!-- Processes nodes (manually added) -->
+    <script type="text/javascript" src="js/nodes/PROCESS_MANUAL/inlet_by_function.js"></script>
+    <script type="text/javascript" src="js/nodes/PROCESS_MANUAL/outlet_process.js"></script>
+    <script type="text/javascript" src="js/nodes/PROCESS_MANUAL/no_slip_process.js"></script>
+    <script type="text/javascript" src="js/nodes/OUTPUT_PROCESS_MANUAL/gid_output.js"></script>
+
+    <!-- Containers, utilities -->
+    <script type="text/javascript" src="js/nodes/IO/list_of_processes.js"></script>
+    <script type="text/javascript" src="js/nodes/IO/list_of_outputprocesses.js"></script>
+    <script type="text/javascript" src="js/nodes/IO/list_of_submodelparts.js"></script>
+
+    <!-- Main componentes of Project Parameters -->
+    <script type="text/javascript" src="js/nodes/project_parameters.js"></script>
+    <script type="text/javascript" src="js/nodes/SOLVERS/time_stepping.js"></script>
+    <script type="text/javascript" src="js/nodes/SOLVERS/linear_solvers/amgcl.js"></script>
+    <script type="text/javascript" src="js/nodes/SOLVERS/structural_mechanics_solver.js"></script>
+    <script type="text/javascript" src="js/nodes/SOLVERS/fluid_solver.js"></script>
+    <script type="text/javascript" src="js/nodes/SOLVERS/fluid_solver_formulations/formulation_monolithic.js"></script>
+    <script type="text/javascript" src="js/nodes/SOLVERS/fluid_solver_formulations/formulation_fractional_step.js"></script>
+
+    <script>
+        // var data = {
+        //     "foobar": "foobaz"
+        // };
+        // $('#json-display').jsonViewer(data, {collapsed: true, withLinks: true});
+    </script>
+
+</body>
+</html>
