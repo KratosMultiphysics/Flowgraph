@@ -61,7 +61,18 @@ class AnalysisStage {
 
         if(this.getInputData(0) == undefined) {
             this._value = {};
-            this._value["execution_order"] = [];
+
+            // Define a default set of settings for the orchestrator in case is not provided.
+            this._value["orchestrator"] = {
+                "name": "Orchestrators.KratosMultiphysics.SequentialOrchestrator",
+                "settings" : {
+                    "echo_level" : 0,
+                    "execution_list" : ["potential_flow_stage", "navier_stokes_stage"],
+                    "load_from_checkpoint" : null,
+                    "stage_checkpoints" : false
+                }
+            }
+
             this._value["stages"] = {};
         } else {
             this._value = this.getInputData(0);
@@ -72,9 +83,9 @@ class AnalysisStage {
             stage_name = toSnakeCase(this._name.value) + "_stage";
         }
 
-        // The if is needed to prevent cycles and duplicated stages
-        if(!this._value["execution_order"].includes(stage_name)) {
-            this._value["execution_order"].push(stage_name);
+        // For our sequential orchestrator we add stages if they are not repeated.
+        if(!this._value["orchestrator"]["settings"]["execution_list"].includes(stage_name)) {
+            this._value["orchestrator"]["settings"]["execution_list"].push(stage_name);
 
             this._value["stages"][stage_name] = {
                 "stage_preprocess":     this.getInputData(1),
