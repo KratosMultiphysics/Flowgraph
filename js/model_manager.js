@@ -12,7 +12,7 @@ class ModelNode {
             if(link_info) {
                 this._beforeUpdateModel(link_info.id, connected);
             } else {
-                console.log("Warning: Calling oConnectionsChange with no link info")
+                // console.log("Warning: Calling oConnectionsChange with no link info")
             }
         }
     }
@@ -33,7 +33,7 @@ class ModelNode {
                 }
                 this._afterUpdateModel(link_info.id, connected);
             } else {
-                console.log("Warning: Calling oConnectionsChange with no link info")
+                // console.log("Warning: Calling oConnectionsChange with no link info")
             }
         }
     }

@@ -14,18 +14,22 @@ class AnalysisStage {
         this._name = this.addWidget("text","Stage Name", "", function(v){}, {} );
 
         // List of inputs and outputs ("name", "type")
-        this.addInput("Pre",                "stage_flow");          // 0
+        this.addInput("Stage",              "stage_flow");          // 0
         this.addInput("Problem Data",       "problem_data");        // 1
         this.addInput("Solver Settings",    "solver_settings");     // 2
         this.addInput("Processes",          "process_list");        // 3
         this.addInput("Output Processes",   "output_process_list"); // 4
 
-        this.addOutput("Post",              "stage_flow")           // 0
+        this.addOutput("Stage",             "stage_flow");          // 0
 
         this.crop_title = 20;
         this.hover_tooltip = false;
         this.error_list = []
         // this.error_list = ["Error1", "Error2", "Error3", "Error4"];
+
+        // Set the color to visualize flows
+        this.color = LGraphCanvas.node_colors["pale_blue"].color;
+        this.bgcolor = LGraphCanvas.node_colors["pale_blue"].bgcolor;
     }
 
     onDrawTitle(ctx) {
@@ -94,6 +98,9 @@ class AnalysisStage {
 
 AnalysisStage.title = "Analysis stage";
 AnalysisStage.desc = "Select different ModelParts and access their submodelparts directly";
+
+// Set the colors of selected connection to better reflect the flow
+LGraphCanvas.link_type_colors["stage_flow"] = LGraphCanvas.node_colors["pale_blue"].bgcolor;
 
 LiteGraph.registerNodeType("STAGES/AnalysisStage", ModelManager.registerNodeType(AnalysisStage));
 

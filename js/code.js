@@ -18,7 +18,7 @@ var elem = document.createElement("span");
 elem.className = "selector"
 elem.innerHTML = "<span style='vertical-align: middle;'> Kratos FlowGraph <span class='glyph'>\uf35a</span></span> ";
 
-elem.innerHTML += "<label id='play-graph' class='float-btn btn-blue'>Generate</label>";
+elem.innerHTML += "<span id='play-graph' class='float-btn btn-blue'>Generate</span>";
 elem.innerHTML += "<label id='save-graph' class='float-btn'>Save</label>";
 elem.innerHTML += "<label class='float-btn'>Load<input type='file' id='load-graph' style='display:none'></label>";
 elem.innerHTML += "<label id='expt-group' class='float-btn'>Export</label>";

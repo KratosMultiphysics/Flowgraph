@@ -5,7 +5,7 @@ function Editor(container_id, options) {
     //fill container
     var html  = "<div class='header'><div class='tools tools-left'></div><div class='tools tools-right'></div></div>";
         html += "<div class='content'><div class='editor-area'><canvas class='graphcanvas' width='1000' height='500' tabindex=10></canvas></div></div>";
-        html += "<div class='sidepanel' id='side-viewer'>";
+        html += "<div class='sidepanel' id='side-viewer' toggled='collapsed'>";
         html += "<pre id='json-display'></pre>";
         html += "</div>";
 
