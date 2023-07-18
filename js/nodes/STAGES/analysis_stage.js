@@ -69,7 +69,7 @@ class AnalysisStage {
         
         let stage_name = "auto_" + this.id + "_stage";
         if(this._name.value != undefined && this._name.value != "") {
-            stage_name = this._name.value + "_stage";
+            stage_name = toSnakeCase(this._name.value) + "_stage";
         }
 
         // The if is needed to prevent cycles and duplicated stages
