@@ -5,18 +5,6 @@ function Editor(container_id, options) {
     //fill container
     var html  = "<div class='header'><div class='tools tools-left'></div><div class='tools tools-right'></div></div>";
         html += "<div class='content'><div class='editor-area'><canvas class='graphcanvas' width='1000' height='500' tabindex=10></canvas></div></div>";
-    
-    var button_test  = "<div class='float-btn-container'>"
-        button_test += "<div class='float-btn-container-align'>"
-        button_test += "<div><label id='play-graph' class='float-btn btn-blue'>Generate</button></div>";
-        button_test += "<div><label id='save-graph' class='float-btn'>Save</button></div>";
-        button_test += "<div><label class='float-btn'>Load<input type='file' id='load-graph' style='display:none'></button></div>";
-        button_test += "<div><label id='expt-group' class='float-btn'>Export</button></div>";
-        button_test += "<div><label class='float-btn'>Import<input type='file' id='impt-group' style='display:none'></label></div>";
-        button_test += "</div>"
-        button_test += "</div>"
-
-    html += button_test
 
     var root = document.createElement("div");
     this.root = root;

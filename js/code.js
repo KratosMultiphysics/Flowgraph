@@ -16,7 +16,13 @@ window.onbeforeunload = function(){
 var elem = document.createElement("span");
 
 elem.className = "selector"
-elem.innerHTML = "Kratos FlowGraph <span class='glyph'>\uf35a</span>";
+elem.innerHTML = "<span style='vertical-align: middle;'> Kratos FlowGraph <span class='glyph'>\uf35a</span></span> ";
+
+elem.innerHTML += "<label id='play-graph' class='float-btn btn-blue'>Generate</label>";
+elem.innerHTML += "<label id='save-graph' class='float-btn'>Save</label>";
+elem.innerHTML += "<label class='float-btn'>Load<input type='file' id='load-graph' style='display:none'></label>";
+elem.innerHTML += "<label id='expt-group' class='float-btn'>Export</label>";
+elem.innerHTML += "<label class='float-btn'>Import<input type='file' id='impt-group' style='display:none'></label>";
 
 $('.loadmeter').remove();
 
