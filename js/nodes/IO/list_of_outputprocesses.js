@@ -1,7 +1,7 @@
 class OutputProcessesList {
     constructor() {
         this.input_type = "output_process";
-        this.output_type = "output_processes";
+        this.output_type = "output_process_list";
     }
 
     onAdded() {

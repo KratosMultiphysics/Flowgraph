@@ -1,7 +1,7 @@
 class ProcessesList {
     constructor() {
         this.input_type = "process";
-        this.output_type = "processes";
+        this.output_type = "process_list";
     }
 
     onAdded() {
