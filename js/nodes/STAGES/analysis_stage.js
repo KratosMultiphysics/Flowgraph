@@ -5,13 +5,13 @@ class AnalysisStage {
         this.MODEL_OUTPUT = 0;
 
         // Identifier Glyph
-        this.glyph = {shape: '\uf121', font:'900 14px "Font Awesome 5 Free"', width: 16, height: 9};
+        this.glyph = {shape: '\uf5fd', font:'900 14px "Font Awesome 5 Free"', width: 16, height: 9};
 
         // Type
-        this._type = "analysis_stage"
+        this._type = "KratosMultiphysics.analysis_stage"
 
         // Stage Name
-        this._name = this.addWidget("text","Stage Name", "", function(v){}, {} );
+        this._name = this.addWidget("text", "Stage Name", "", function(v){}, {} );
 
         // List of inputs and outputs ("name", "type")
         this.addInput("Stage",              "stage_flow");          // 0
@@ -21,6 +21,7 @@ class AnalysisStage {
         this.addInput("Output Processes",   "output_process_list"); // 4
 
         this.addOutput("Stage",             "stage_flow");          // 0
+        this.addOutput("Name",              "string");              // 1
 
         this.crop_title = 20;
         this.hover_tooltip = false;
@@ -83,24 +84,28 @@ class AnalysisStage {
             stage_name = toSnakeCase(this._name.value) + "_stage";
         }
 
-        // For our sequential orchestrator we add stages if they are not repeated.
+        // Generate the stage data
         if(!this._value["orchestrator"]["settings"]["execution_list"].includes(stage_name)) {
             this._value["orchestrator"]["settings"]["execution_list"].push(stage_name);
 
             this._value["stages"][stage_name] = {
-                "stage_preprocess":     this.getInputData(1),
-                "analysis_stage":       this._type,
-                "problem_data":         this.getInputData(2),
-                "solver_settings":      this.getInputData(3),
-                "processes":            this.getInputData(4),
-                "output_processes":     this.getInputData(5),
-                "stage_postprocess":    this.getInputData(6)
+                "stage_preprocess":         null, // this.getInputData(1),
+                "stage_settings": {
+                    "analysis_stage":           this._type,
+                    "problem_data":             this.getInputData(1),
+                    "solver_settings":          this.getInputData(2),
+                    "processes":                this.getInputData(3),
+                    "output_processes":         this.getInputData(4),
+                },
+                "postprocess":              null, // this.getInputData(5),
             }
         } else {
             this.error_list.push("Stage '"+stage_name+"' already exists")
         }
         
+        // Set the output data
         this.setOutputData(0, this._value);
+        this.setOutputData(1, stage_name);
     }
 
     onSelection(e) {
@@ -108,7 +113,7 @@ class AnalysisStage {
 }
 
 AnalysisStage.title = "Analysis stage";
-AnalysisStage.desc = "Select different ModelParts and access their submodelparts directly";
+AnalysisStage.desc = "Main stage Node. Use this to define the flow of your simulation.";
 
 // Set the colors of selected connection to better reflect the flow
 LGraphCanvas.link_type_colors["stage_flow"] = "#90bdd1";
