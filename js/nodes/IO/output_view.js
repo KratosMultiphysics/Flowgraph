@@ -9,6 +9,9 @@ JVC.setStyle('lioshi');
 
 class OutputView {
     constructor() {
+        // Identifier Glyph
+        this.glyph = {shape: '\uf06e', font:'900 14px "Font Awesome 5 Free"', width: 16, height: 9};
+
         this.addInput("json", 0)
 
         this.size = this.computeSize();

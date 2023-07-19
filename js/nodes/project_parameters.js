@@ -1,12 +1,12 @@
 class ProjectParameters {
 
     constructor() {
-        // node configuration
+        // Identifier Glyph
+        this.glyph = {shape: '\uf0ad', font:'900 14px "Font Awesome 5 Free"', width: 16, height: 9};
 
         this.size = this.computeSize();
 
         // set inputs
-
         let iidx = 0
         this.isolver = iidx++;
         this.addInput("Solver", "solver_settings");
