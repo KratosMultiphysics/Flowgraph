@@ -1,5 +1,8 @@
 class ProcessesList {
     constructor() {
+        // Identifier Glyph
+        this.glyph = {shape: '\uf0cb', font:'900 14px "Font Awesome 5 Free"', width: 16, height: 9};
+
         this.input_type = "process";
         this.output_type = "process_list";
     }
@@ -64,7 +67,7 @@ class ProcessesList {
     }
 }
 
-ProcessesList.title = "List of Processes";
+ProcessesList.title = "List of Kratos Processes";
 ProcessesList.desc = "Merges several processes into a list";
 
 LiteGraph.registerNodeType("IO/ProcessesList", ProcessesList);

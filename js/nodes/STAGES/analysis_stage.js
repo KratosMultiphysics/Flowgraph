@@ -29,10 +29,6 @@ class AnalysisStage {
         this.hover_tooltip = false;
         this.error_list = []
         // this.error_list = ["Error1", "Error2", "Error3", "Error4"];
-
-        // Set the color to visualize flows
-        this.color = LGraphCanvas.node_colors["pale_blue"].color;
-        this.bgcolor = LGraphCanvas.node_colors["pale_blue"].bgcolor;
     }
 
     onDrawTitle(ctx) {
@@ -119,6 +115,8 @@ AnalysisStage.desc = "Main stage Node. Use this to define the flow of your simul
 
 // Set the colors of selected connection to better reflect the flow
 LGraphCanvas.link_type_colors["stage_flow"] = "#90bdd1";
+LGraphCanvas.slot_type_colors["stage_flow"] = "#90bdd1";
+LGraphCanvas.slot_type_colorsOff["stage_flow"] = "#90bdd1";
 
 LiteGraph.registerNodeType("STAGES/AnalysisStage", AnalysisStage);
 
