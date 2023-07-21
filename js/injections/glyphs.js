@@ -1,4 +1,5 @@
 LiteGraph.NODE_DEFAULT_TITLE_FONT = "" + LiteGraph.NODE_TEXT_SIZE + "px Arial";
+LiteGraph.NODE_SLOT_HEIGHT = 24;
 
 var temp_vec2 = new Float32Array(2);
     
@@ -152,12 +153,14 @@ LGraphCanvas.prototype.drawNode = function(node, ctx) {
                             this.default_connection_color.input_off;
 
                 var pos = node.getConnectionPos(true, i, slot_pos);
+
                 pos[0] -= node.pos[0];
                 pos[1] -= node.pos[1];
+                
                 if (max_y < pos[1] + LiteGraph.NODE_SLOT_HEIGHT * 0.5) {
                     max_y = pos[1] + LiteGraph.NODE_SLOT_HEIGHT * 0.5;
                 }
-
+                
                 ctx.beginPath();
 
                 if (slot_type == "array"){
@@ -349,7 +352,7 @@ LGraphCanvas.prototype.drawNode = function(node, ctx) {
         if (node.widgets) {
             var widgets_y = max_y;
             if (horizontal || node.widgets_up) {
-                widgets_y = 2;
+                widgets_y = 4;
             }
             if( node.widgets_start_y != null )
                 widgets_y = node.widgets_start_y;
@@ -684,22 +687,23 @@ LGraphCanvas.prototype.drawNodeShape = function(
                         LiteGraph.NODE_TITLE_TEXT_Y - title_height
                     );
                     ctx.textAlign = "left";
-                } else if (node.crop_title) {
+                } else {
                     ctx.textAlign = "left";
-                    var measure = ctx.measureText(title);
+                    var title_to_render = title;
+                    var measure = ctx.measureText(title_to_render);
+
+                    if (measure.width > size[0]) {
+                        let size_per_char = title_to_render.length / measure.width;
+                        let chars_to_draw = size[0] * 0.8 * size_per_char - 3;
+                        title_to_render = title_to_render.substring(0, chars_to_draw) + '...';
+                    } 
+
                     ctx.fillText(
-                        title.substr(0,node.crop_title) + "...", //avoid urls too long
+                        title_to_render, //avoid urls too long
                         title_height,// + measure.width * 0.5,
                         LiteGraph.NODE_TITLE_TEXT_Y - title_height
                     );
                     ctx.textAlign = "left";
-                } else {
-                    ctx.textAlign = "left";
-                    ctx.fillText(
-                        title,
-                        title_height,
-                        LiteGraph.NODE_TITLE_TEXT_Y - title_height
-                    );
                 }
             }
         }
