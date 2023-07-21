@@ -5,6 +5,8 @@ class InputList {
         
         this.input_type = 0;
         this.output_type = "array";
+
+        this.size = this.computeSize();
     }
 
     onAdded() {

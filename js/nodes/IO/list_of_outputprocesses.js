@@ -10,4 +10,4 @@ class OutputProcessesList extends InputList {
 OutputProcessesList.title = "List of Output Processes";
 OutputProcessesList.desc = "Merges several output processes into a list";
 
-LiteGraph.registerNodeType("IO/OutputProcessesList", OutputProcessesList);
+LiteGraph.registerNodeType("LISTS/OutputProcessesList", OutputProcessesList);

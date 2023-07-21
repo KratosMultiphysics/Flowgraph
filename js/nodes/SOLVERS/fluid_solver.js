@@ -1,7 +1,7 @@
 class FluidSolver extends Solver {
     constructor() {
         super();
-        
+
         // node configuration
         this.size = this.computeSize();
 
@@ -23,7 +23,7 @@ class FluidSolver extends Solver {
         this.inskinmp = iidx++;
         this.addInput("NonSkin submodelparts", "modelparts");
         this.ilinsol = iidx++;
-        this.addInput("Linear solver", "map");
+        this.addInput("Linear solver", "linear_solver_settings");
         this.imat = iidx++;
         this.addInput("Materials settings", "materials_settings");
         this.itime = iidx++;

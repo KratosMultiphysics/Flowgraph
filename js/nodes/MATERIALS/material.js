@@ -10,7 +10,5 @@ const material_color = "#924ccf";
 
 LGraphCanvas.link_type_colors["material"] = material_color;
 LGraphCanvas.slot_type_colors["material"] = material_color;
-LGraphCanvas.slot_type_colorsOff["material"] = material_color;
 LGraphCanvas.link_type_colors["materials_list"] = material_color;
 LGraphCanvas.slot_type_colors["materials_list"] = material_color;
-LGraphCanvas.slot_type_colorsOff["materials_list"] = material_color;

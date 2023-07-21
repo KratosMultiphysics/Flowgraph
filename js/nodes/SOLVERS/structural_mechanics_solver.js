@@ -1,14 +1,14 @@
 class StructuralMechanicsSolver extends Solver {
     constructor() {
         super();
-        
+
         // List of inputs and outputs ("name", "type")
         this.addInput("model_import_settings", "map", {"glyph": {shape:"\uf6cf", font:'900 10px "Font Awesome 5 Free"', width:9, height:10}}); // 0
         this.addInput("model_part_name", "string");         // 1
         this.addInput("volume_model_part_name", "string");  // 2
         this.addInput("skin_parts", "array");               // 3
         this.addInput("no_skin_parts", "array");            // 4
-        this.addInput("linear_solver_settings", "map");     // 5
+        this.addInput("linear_solver_settings", "linear_solver_settings");     // 5
         this.addInput("material_import_settings", "map");   // 6
         
         this.addOutput("solver_settings", "solver_settings");
