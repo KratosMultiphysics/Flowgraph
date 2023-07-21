@@ -5,7 +5,6 @@ class DeleteModeler {
         this.MODEL_OUTPUT = 0;
 
         // List of inputs and outputs ("name", "type")
-        this.addInput("", 0);
         this.addOutput("", 0);
 
         this.widgets_up = true;

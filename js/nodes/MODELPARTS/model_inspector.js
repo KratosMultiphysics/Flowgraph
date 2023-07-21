@@ -4,6 +4,9 @@ class ModelInspector {
         this.MODEL_INPUT  = 0;
         this.MODEL_OUTPUT = 0;
 
+        // Identifier Glyph
+        this.glyph = {shape: '\uf06e', font:'900 14px "Font Awesome 5 Free"', width: 16, height: 9};
+
         // List of inputs and outputs ("name", "type")
         this.addInput("Model", 0);
 
@@ -17,6 +20,7 @@ class ModelInspector {
         }));
 
         this.output_type = "";
+        this.size = this.computeSize();
     }
 
     /** Model */
@@ -51,6 +55,7 @@ class ModelInspector {
         for (let widget in this._output_slector_map) {
             this._output_slector_map[widget].options.values = [];
             let model_values = this.getModelList();
+            console.log(model_values)
             if(model_values) {
                 let old_value = this._output_slector_map[widget].value;
                 
@@ -68,6 +73,7 @@ class ModelInspector {
                 this._output_slector_map[widget].value = "";
             }
         }
+        this.size = this.computeSize();
     }
 
     /**
@@ -98,6 +104,7 @@ class ModelInspector {
             this.setSize(1, this.outputs.length);
             this.size = this.computeSize();
         }
+        this.size = this.computeSize();
     }
 }
 

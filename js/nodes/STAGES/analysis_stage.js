@@ -5,7 +5,7 @@ class AnalysisStage {
         this.MODEL_OUTPUT = 0;
 
         // Identifier Glyph
-        this.glyph = {shape: '\uf5fd', font:'900 14px "Font Awesome 5 Free"', width: 16, height: 9};
+        this.glyph = {shape: '\uf15b', font:'900 14px "Font Awesome 5 Free"', width: 16, height: 9};
 
         // Type
         this._type = "KratosMultiphysics.analysis_stage"
@@ -15,10 +15,12 @@ class AnalysisStage {
 
         // List of inputs and outputs ("name", "type")
         this.addInput("Stage",              "stage_flow");          // 0
-        this.addInput("Problem Data",       "problem_data");        // 1
-        this.addInput("Solver Settings",    "solver_settings");     // 2
-        this.addInput("Processes",          "process_list");        // 3
-        this.addInput("Output Processes",   "output_process_list"); // 4
+        this.addInput("Stage Pre",          "stage_pre");           // 1
+        this.addInput("Stage Post",         "stage_post");          // 2
+        this.addInput("Problem Data",       "problem_data");        // 3
+        this.addInput("Solver Settings",    "solver_settings");     // 4
+        this.addInput("Processes",          "process_list");        // 5
+        this.addInput("Output Processes",   "output_process_list"); // 6
 
         this.addOutput("Stage",             "stage_flow");          // 0
         this.addOutput("Name",              "string");              // 1
@@ -89,15 +91,15 @@ class AnalysisStage {
             this._value["orchestrator"]["settings"]["execution_list"].push(stage_name);
 
             this._value["stages"][stage_name] = {
-                "stage_preprocess":         null, // this.getInputData(1),
+                "stage_preprocess":         this.getInputData(1),
+                "stage_postprocess":        this.getInputData(2),
                 "stage_settings": {
                     "analysis_stage":           this._type,
-                    "problem_data":             this.getInputData(1),
-                    "solver_settings":          this.getInputData(2),
-                    "processes":                this.getInputData(3),
-                    "output_processes":         this.getInputData(4),
+                    "problem_data":             this.getInputData(3),
+                    "solver_settings":          this.getInputData(4),
+                    "processes":                this.getInputData(5),
+                    "output_processes":         this.getInputData(6),
                 },
-                "postprocess":              null, // this.getInputData(5),
             }
         } else {
             this.error_list.push("Stage '"+stage_name+"' already exists")

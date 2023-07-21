@@ -5,14 +5,13 @@ class StagePostProcess {
         this.MODEL_OUTPUT = 0;
 
         // Identifier Glyph
-        this.glyph = {shape: '\uf35a', font:'900 14px "Font Awesome 5 Free"', width: 16, height: 9};
+        this.glyph = {shape: '\uf56e', font:'900 14px "Font Awesome 5 Free"', width: 16, height: 9};
 
         // List of inputs and outputs ("name", "type")
-        this.addInput("Stage", "stage_flow");
         this.addInput("Modelers", "modelers_array");
         this.addInput("Operations", "operations_array");
 
-        this.addOutput("Output", "stage_flow");
+        this.addOutput("Output", "stage_post");
     }
 
     onExecute() {
@@ -25,6 +24,6 @@ class StagePostProcess {
 StagePostProcess.title = "Postprocess";
 StagePostProcess.desc = "Select different ModelParts and access their submodelparts directly";
 
-LiteGraph.registerNodeType("STAGES/PostProcess", ModelManager.registerNodeType(StagePostProcess));
+LiteGraph.registerNodeType("STAGES/PostProcess", StagePostProcess);
 
 console.log("Modeler node created"); //helps to debug
