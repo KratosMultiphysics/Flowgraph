@@ -1,7 +1,8 @@
 // TODO: Create a material base class
-class MaterialNewtonian {
-    constructor()
-    {
+class MaterialNewtonian extends Material {
+    constructor() {
+        super(); 
+        
         this.addInput("model_part_name","string");
         this.addInput("properties_id","number");
         this.addInput("density","number");

@@ -8,7 +8,5 @@ class Process {
 // Set the colors of selected connection to better reflect the flow
 LGraphCanvas.link_type_colors["process"] = "#de6d47";
 LGraphCanvas.slot_type_colors["process"] = "#de6d47";
-LGraphCanvas.slot_type_colorsOff["process"] = "#de6d47";
 LGraphCanvas.link_type_colors["process_list"] = "#de6d47";
 LGraphCanvas.slot_type_colors["process_list"] = "#de6d47";
-LGraphCanvas.slot_type_colorsOff["process_list"] = "#de6d47";

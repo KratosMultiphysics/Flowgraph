@@ -2,7 +2,7 @@ class MaterialWriter {
     constructor()
     {
         this.material_file_name = this.addWidget("string","Materials Filenae", "Materials");
-        this.addInput("Material List","material_array");
+        this.addInput("Material List","materials_list");
         this.addOutput("Material","string");
         this.size = this.computeSize();
     }

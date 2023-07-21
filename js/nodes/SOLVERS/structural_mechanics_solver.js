@@ -1,8 +1,7 @@
-class StructuralMechanicsSolver {
+class StructuralMechanicsSolver extends Solver {
     constructor() {
-        // Identifier Glyph
-        this.glyph = {shape: '\uf085', font:'900 14px "Font Awesome 5 Free"', width: 16, height: 9};
-
+        super();
+        
         // List of inputs and outputs ("name", "type")
         this.addInput("model_import_settings", "map", {"glyph": {shape:"\uf6cf", font:'900 10px "Font Awesome 5 Free"', width:9, height:10}}); // 0
         this.addInput("model_part_name", "string");         // 1

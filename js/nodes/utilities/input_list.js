@@ -1,5 +1,8 @@
 class InputList {
     constructor() {
+        // Identifier Glyph
+        this.glyph = {shape: '\uf0cb', font:'900 14px "Font Awesome 5 Free"', width: 16, height: 9};
+        
         this.input_type = 0;
         this.output_type = "array";
     }

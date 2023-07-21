@@ -3,7 +3,7 @@ class MaterialsList extends InputList{
     constructor() {
         super();
         this.input_type = "material";
-        this.output_type = "material_array";
+        this.output_type = "materials_list";
     }
 };
 

@@ -1,20 +1,11 @@
-class FluidSolver {
-
+class FluidSolver extends Solver {
     constructor() {
-
+        super();
+        
         // node configuration
-
-        this.glyph = {
-            shape: '\uf085',
-            font: '900 14px "Font Awesome 5 Free"',
-            width: 16,
-            height: 9
-        };
         this.size = this.computeSize();
-        //this.crop_title = 5;
 
         // set inputs
-
         let iidx = 0;
         this.imod = iidx++;
         this.addInput("Modelpart settings", "modelpart_settings", {
