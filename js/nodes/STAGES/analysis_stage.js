@@ -120,6 +120,6 @@ AnalysisStage.desc = "Main stage Node. Use this to define the flow of your simul
 // Set the colors of selected connection to better reflect the flow
 LGraphCanvas.link_type_colors["stage_flow"] = "#90bdd1";
 
-LiteGraph.registerNodeType("STAGES/AnalysisStage", ModelManager.registerNodeType(AnalysisStage));
+LiteGraph.registerNodeType("STAGES/AnalysisStage", AnalysisStage);
 
 console.log("AnalysisStage node created");

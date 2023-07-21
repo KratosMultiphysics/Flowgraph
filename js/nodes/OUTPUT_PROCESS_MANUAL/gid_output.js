@@ -14,6 +14,7 @@ function GiDIO() {
         "nodal_results": ["VELOCITY", "PRESSURE"],
         "gauss_point_results": []
     }
+    
     this.size = this.computeSize();
 }
 

@@ -1,6 +1,7 @@
-class NoSlipProcess {
-    constructor()
-    {
+class NoSlipProcess extends Process {
+    constructor() {
+        super();
+        
         this.addInput("model_part","string");
         this.addOutput("Process","process");
         this.properties = {
@@ -12,12 +13,14 @@ class NoSlipProcess {
 
     onExecute()
     {
-        output = {
+        let output = {
             "python_module" : "apply_noslip_process",
             "kratos_module" : "KratosMultiphysics.FluidDynamicsApplication"
         }
+
         output["Parameters"] = this.properties
         output["Parameters"]["model_part_name"] = this.getInputData(0)
+        
         this.setOutputData(0, output);
     }
 }
