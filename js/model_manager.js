@@ -70,7 +70,13 @@ class ModelNode {
      * @param {*} link 
      * @param {*} connected 
      */
-    _getDownstreamModelList(link=this.inputs[this.MODEL_INPUT].link, connected=true){
+    _getDownstreamModelList(link=undefined, connected=true){
+        // If there is no link passed, try to ask the node
+        if (link == undefined) {
+            if (this.inputs != undefined && this.MODEL_INPUT != undefined) {
+                this.inputs[this.MODEL_INPUT].link;
+            }
+        }
         if (link && connected) {
             this._in_model = [...this.graph.getNodeById(this.graph.links[this.inputs[this.MODEL_INPUT].link].origin_id).getModelList()];
         } else {
