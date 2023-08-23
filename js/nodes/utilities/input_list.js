@@ -3,14 +3,20 @@ class InputList {
         // Identifier Glyph
         this.glyph = {shape: '\uf0cb', font:'900 14px "Font Awesome 5 Free"', width: 16, height: 9};
         
-        /* Note that for the ease of use, we consider that every being of the type array, so that
-           a user that only wants to connect 1 process/outputprocess etc... can do it directly */
-        this.setIOType();
+        // This is a dirty bit to prevent onConnectionChange from triggering while making a copy/paste of the node (as the connection will change during the paste and break the list of inputs)
+        this.isAdded = false;
         this.size = this.computeSize();
+        this.setIOType();
         this.buildConnections();
     }
 
+    onAdded() {
+        this.isAdded = true;
+        this.onConnectionsChange();
+    }
+
     setIOType() {
+        // Default types are generic arrays, derived lists can specialize this.
         this.input_type = "array";
         this.output_type = "array";
     }
@@ -33,14 +39,10 @@ class InputList {
     }
 
     onExecute() {
-        if (!this._value) {
-            this._value = new Array();
-        }
-        this._value.length = this.inputs.length - 1;
+        this._value = [];
         for (let i = 0; i < this.inputs.length - 1; i++) {
-            this._value[i] = [];
             for(let j = 0; j < this.getInputData(i).length; j++) {
-                this._value[i].push(this.getInputData(i)[j]);
+                this._value.push(this.getInputData(i)[j]);
             }
         }
         
@@ -48,28 +50,30 @@ class InputList {
     }
 
     onConnectionsChange() {
-        // Set the size in case is missing (copying the node from the graph?)
-        this.setSize(1, this.inputs.length);
+        if(this.isAdded) {
+            // Set the size in case is missing (copying the node from the graph?)
+            this.setSize(1, this.inputs.length);
 
-        // Remove unconnected nodes
-        for (let i = 0; i < this.inputs.length; i++) {
-            if (!this.isInputConnected(i) && this.getOutputData(1) > 0) {
-                this.incSize(1, -1);
-                this.removeInput(i);
+            // Remove unconnected nodes
+            for (let i = 0; i < this.inputs.length; i++) {
+                if (!this.isInputConnected(i) && this.getOutputData(1) > 0) {
+                    this.incSize(1, -1);
+                    this.removeInput(i);
+                }
+                if (i < this.inputs.length) {
+                    this.inputs[i].name = "In" + (i);
+                }
             }
-            if (i < this.inputs.length) {
-                this.inputs[i].name = "In" + (i);
+
+            // If all nodes are connected, or there are no nodes, add one.
+            if (this.inputs.length <= 0 || this.isInputConnected(this.inputs.length - 1)) {
+                this.addInput("In" + (this.getOutputData(1)), this.input_type, "");
+                this.incSize(1, 1);
             }
-        }
 
-        // If all nodes are connected, or there are no nodes, add one.
-        if (this.inputs.length <= 0 || this.isInputConnected(this.inputs.length - 1)) {
-            this.addInput("In" + (this.getOutputData(1)), this.input_type, "");
-            this.incSize(1, 1);
+            this.setSize(1, this.inputs.length);
+            this.size = this.computeSize();
         }
-
-        this.setSize(1, this.inputs.length);
-        this.size = this.computeSize();
     }
 }
 
