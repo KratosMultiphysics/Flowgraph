@@ -47,6 +47,7 @@ class InputList {
         }
         
         this.setOutputData(0, this._value);
+        this.setOutputData(1, this._value.length);
     }
 
     onConnectionsChange() {
