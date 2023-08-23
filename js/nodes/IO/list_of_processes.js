@@ -1,7 +1,9 @@
 class ProcessesList extends InputList {
     constructor() {
         super();
+    }
 
+    setIOType() {
         this.input_type = "process_list";
         this.output_type = "process_list";
     }

@@ -2,6 +2,9 @@
 class MaterialsList extends InputList{
     constructor() {
         super();
+    }
+
+    setIOType() {
         this.input_type = "materials_list";
         this.output_type = "materials_list";
     }

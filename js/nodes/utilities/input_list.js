@@ -4,16 +4,15 @@ class InputList {
         this.glyph = {shape: '\uf0cb', font:'900 14px "Font Awesome 5 Free"', width: 16, height: 9};
         
         /* Note that for the ease of use, we consider that every being of the type array, so that
-           a user that only wants to connect 1 process/outputprocess etc... can do it directly
-         */
-        this.input_type = "array";
-        this.output_type = "array";
-
+           a user that only wants to connect 1 process/outputprocess etc... can do it directly */
+        this.setIOType();
         this.size = this.computeSize();
+        this.buildConnections();
     }
 
-    onAdded() {
-        this.buildConnections();
+    setIOType() {
+        this.input_type = "array";
+        this.output_type = "array";
     }
 
     buildConnections() {
