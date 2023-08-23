@@ -9,7 +9,7 @@ class ProcessesList extends InputList {
     }
 }
 
-ProcessesList.title = "List of Kratos Processes";
+ProcessesList.title = "List of Processes";
 ProcessesList.desc = "Merges several processes into a list";
 
 LiteGraph.registerNodeType("Lists/ProcessesList", ProcessesList);
