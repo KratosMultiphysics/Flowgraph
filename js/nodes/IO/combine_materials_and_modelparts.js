@@ -34,4 +34,5 @@ class CombineMaterialsModelparts {
 
 CombineMaterialsModelparts.title = "Combine materials and modelparts";
 CombineMaterialsModelparts.desc = "Combine materials and modelparts, and create a valid materials file.";
+
 LiteGraph.registerNodeType("IO/CombineMaterialsModelparts", CombineMaterialsModelparts);
