@@ -3,7 +3,7 @@
             super();
             
             this.addInput("model_part","string");
-            this.addOutput("Process","process");
+            this.addOutput("Process","process_list");
 
             this.modulus = this.addWidget("string","f(x,y,z,t)=", "", function(v){} );
 
@@ -27,13 +27,13 @@
             output["Parameters"]["model_part_name"] = this.getInputData(0)
             output["Parameters"]["modulus"] = this.modulus.value
     
-            this.setOutputData(0, output);
+            this.setOutputData(0, [output]);
         };
     }
 
     InletByFunction.title = "Inlet By Function";
-    InletByFunction.desc = "define inlet";
+    InletByFunction.desc = "Define inlet";
 
-    LiteGraph.registerNodeType("PROCESS/InletByFunction", InletByFunction);
+    LiteGraph.registerNodeType("Processes/InletByFunction", InletByFunction);
 
     console.log("InletByFunction node created"); //helps to debug

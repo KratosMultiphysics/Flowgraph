@@ -6,8 +6,8 @@ class FluidAnalysisStage extends AnalysisStage {
 }
 
 FluidAnalysisStage.title = "Fluid analysis stage";
-FluidAnalysisStage.desc = "Select different ModelParts and access their submodelparts directly";
+FluidAnalysisStage.desc = "Base FluidDynamicsApplication stage";
 
-LiteGraph.registerNodeType("STAGES/FluidAnalysisStage", FluidAnalysisStage);
+LiteGraph.registerNodeType("Stages/FluidAnalysisStage", FluidAnalysisStage);
 
 console.log("FluidAnalysisStage node created");

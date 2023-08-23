@@ -17,8 +17,8 @@ class Modeler {
 }
 
 Modeler.title = "Modeler";
-Modeler.desc = "Select different ModelParts and access their submodelparts directly";
+Modeler.desc = "Base Modeler";
 
-LiteGraph.registerNodeType("STAGES/MODELERS/Modeler", Modeler);
+LiteGraph.registerNodeType("Stages/Modeleres/Modeler", Modeler);
 
 console.log("Modeler node created"); //helps to debug

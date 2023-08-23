@@ -69,7 +69,7 @@ class Orchestrator {
 Orchestrator.title = "Orchestrator";
 Orchestrator.desc = "Creates a Orchestrator object from several Stages";
 
-LiteGraph.registerNodeType("STAGES/Orchestrator", Orchestrator);
+LiteGraph.registerNodeType("Stages/Orchestrator", Orchestrator);
 
 console.log("Orchestrator node created");
 

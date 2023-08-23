@@ -3,7 +3,10 @@ class InputList {
         // Identifier Glyph
         this.glyph = {shape: '\uf0cb', font:'900 14px "Font Awesome 5 Free"', width: 16, height: 9};
         
-        this.input_type = 0;
+        /* Note that for the ease of use, we consider that every being of the type array, so that
+           a user that only wants to connect 1 process/outputprocess etc... can do it directly
+         */
+        this.input_type = "array";
         this.output_type = "array";
 
         this.size = this.computeSize();
@@ -35,8 +38,11 @@ class InputList {
             this._value = new Array();
         }
         this._value.length = this.inputs.length - 1;
-        for (let i = 0; i < this.inputs.length - 1; ++i) {
-            this._value[i] = this.getInputData(i);
+        for (let i = 0; i < this.inputs.length - 1; i++) {
+            this._value[i] = [];
+            for(let j = 0; j < this.getInputData(i).length; j++) {
+                this._value[i].push(this.getInputData(i)[j]);
+            }
         }
         
         this.setOutputData(0, this._value);

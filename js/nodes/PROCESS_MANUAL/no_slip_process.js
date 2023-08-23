@@ -3,7 +3,7 @@ class NoSlipProcess extends Process {
         super();
         
         this.addInput("model_part","string");
-        this.addOutput("Process","process");
+        this.addOutput("Process","process_list");
         this.properties = {
             "model_part_name" : ""
         };
@@ -21,13 +21,13 @@ class NoSlipProcess extends Process {
         output["Parameters"] = this.properties
         output["Parameters"]["model_part_name"] = this.getInputData(0)
         
-        this.setOutputData(0, output);
+        this.setOutputData(0, [output]);
     }
 }
 
 NoSlipProcess.title = "No-slip process";
 NoSlipProcess.desc = "Node to specify a no-slip boundary process.";
 
-LiteGraph.registerNodeType("PROCESS/No-Slip Process", NoSlipProcess);
+LiteGraph.registerNodeType("Processes/No-Slip Process", NoSlipProcess);
 
 console.log("NoSlipProcess node created"); //helps to debug

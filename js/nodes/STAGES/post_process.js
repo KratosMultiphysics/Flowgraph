@@ -22,8 +22,8 @@ class StagePostProcess {
 }
 
 StagePostProcess.title = "Postprocess";
-StagePostProcess.desc = "Select different ModelParts and access their submodelparts directly";
+StagePostProcess.desc = "Creates a Post Process section for a stage";
 
-LiteGraph.registerNodeType("STAGES/PostProcess", StagePostProcess);
+LiteGraph.registerNodeType("Stages/PostProcess", StagePostProcess);
 
-console.log("Modeler node created"); //helps to debug
+console.log("Post-Process node created"); //helps to debug

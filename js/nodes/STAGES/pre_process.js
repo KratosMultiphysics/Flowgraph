@@ -22,8 +22,8 @@ class StagePreProcess {
 }
 
 StagePreProcess.title = "Preprocess";
-StagePreProcess.desc = "Select different ModelParts and access their submodelparts directly";
+StagePreProcess.desc = "Creates a Pre Process section for a stage";
 
-LiteGraph.registerNodeType("STAGES/Preprocess", StagePreProcess);
+LiteGraph.registerNodeType("Stages/Preprocess", StagePreProcess);
 
-console.log("Modeler node created"); //helps to debug
+console.log("Pre-Process node created"); //helps to debug

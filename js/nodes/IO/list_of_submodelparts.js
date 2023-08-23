@@ -63,4 +63,4 @@ class ListSubMP {
 ListSubMP.title = "List of Submodelparts";
 ListSubMP.desc = "Merges several submodelparts into a list";
 
-LiteGraph.registerNodeType("LISTS/ListSubMP", ListSubMP);
+LiteGraph.registerNodeType("Lists/ListSubMP", ListSubMP);

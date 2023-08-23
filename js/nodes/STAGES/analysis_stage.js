@@ -111,12 +111,13 @@ class AnalysisStage {
 }
 
 AnalysisStage.title = "Analysis stage";
-AnalysisStage.desc = "Main stage Node. Use this to define the flow of your simulation.";
+AnalysisStage.desc = "Base Analysis stage";
 
 // Set the colors of selected connection to better reflect the flow
 LGraphCanvas.link_type_colors["stage_flow"] = "#90bdd1";
 LGraphCanvas.slot_type_colors["stage_flow"] = "#90bdd1";
+LGraphCanvas.slot_type_colorsOff["stage_flow"] = "#90bdd1";
 
-LiteGraph.registerNodeType("STAGES/AnalysisStage", AnalysisStage);
+LiteGraph.registerNodeType("Stages/AnalysisStage", AnalysisStage);
 
 console.log("AnalysisStage node created");

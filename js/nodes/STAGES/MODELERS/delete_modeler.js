@@ -85,8 +85,8 @@ class DeleteModeler {
 }
 
 DeleteModeler.title = "Delete Modeler";
-DeleteModeler.desc = "Select different ModelParts and access their submodelparts directly";
+DeleteModeler.desc = "Delete modelparts/submodelparts from the current Model";
 
-LiteGraph.registerNodeType("STAGES/MODELERS/Delete Modeler", ModelManager.registerNodeType(DeleteModeler));
+LiteGraph.registerNodeType("Stages/Modeleres/Delete Modeler", ModelManager.registerNodeType(DeleteModeler));
 
 console.log("DeleteModeler node created"); //helps to debug

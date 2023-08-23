@@ -2,7 +2,7 @@ class OutputProcessesList extends InputList {
     constructor() {
         super();
 
-        this.input_type = "output_process";
+        this.input_type = "output_process_list";
         this.output_type = "output_process_list";
     }
 }
@@ -10,4 +10,4 @@ class OutputProcessesList extends InputList {
 OutputProcessesList.title = "List of Output Processes";
 OutputProcessesList.desc = "Merges several output processes into a list";
 
-LiteGraph.registerNodeType("LISTS/OutputProcessesList", OutputProcessesList);
+LiteGraph.registerNodeType("Lists/OutputProcessesList", OutputProcessesList);
