@@ -17,8 +17,8 @@ class ModelImportSettings {
     onExecute = function() {
         this._value = Object.assign({}, this.properties);
 
-        output["input_type"] = this.model_type.value;
-        output["input_name"] = this.getInputData(0)
+        this._value["input_type"] = this.model_type.value;
+        this._value["input_name"] = this.getInputData(0)
 
         this.setOutputData(0, this._value);
     };
