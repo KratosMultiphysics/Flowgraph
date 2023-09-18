@@ -1,4 +1,4 @@
-class AssignScalarVariableToConditions extends Process {
+class AssignScalarVariableToConditionsProcess extends Process {
     constructor() {
         super();
         
@@ -40,9 +40,9 @@ class AssignScalarVariableToConditions extends Process {
     };
 }
 
-AssignScalarVariableToConditions.title = "Assign scalar variable to conditions";
-AssignScalarVariableToConditions.desc = "Sets a variable a certain scalar value for all the conditions belonging to a submodelpart. Uses assign_scalar_variable_to_conditions_process for each component";
+AssignScalarVariableToConditionsProcess.title = "Assign scalar variable to conditions";
+AssignScalarVariableToConditionsProcess.desc = "Sets a variable a certain scalar value for all the conditions belonging to a submodelpart. Uses assign_scalar_variable_to_conditions_process for each component";
 
-LiteGraph.registerNodeType("Processes/AssignScalarVariableToConditions", AssignScalarVariableToConditions);
+LiteGraph.registerNodeType("Processes/AssignScalarVariableToConditionsProcess", AssignScalarVariableToConditionsProcess);
 
-console.log("AssignScalarVariableToConditions node created"); //helps to debug
+console.log("AssignScalarVariableToConditionsProcess node created"); //helps to debug

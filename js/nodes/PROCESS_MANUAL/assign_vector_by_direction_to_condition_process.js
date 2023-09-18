@@ -1,4 +1,4 @@
-class AssignVectorByDirectionToCondition extends Process {
+class AssignVectorByDirectionToConditionProcess extends Process {
     constructor() {
         super();
         
@@ -42,9 +42,9 @@ class AssignVectorByDirectionToCondition extends Process {
     };
 }
 
-AssignVectorByDirectionToCondition.title = "Assign vector by direction to a condition";
-AssignVectorByDirectionToCondition.desc = "Sets a variable a certain scalar value in a given direction, for all the conditions belonging to a submodelpart.";
+AssignVectorByDirectionToConditionProcess.title = "Assign vector by direction to a condition";
+AssignVectorByDirectionToConditionProcess.desc = "Sets a variable a certain scalar value in a given direction, for all the conditions belonging to a submodelpart.";
 
-LiteGraph.registerNodeType("Processes/AssignVectorByDirectionToCondition", AssignVectorByDirectionToCondition);
+LiteGraph.registerNodeType("Processes/AssignVectorByDirectionToConditionProcess", AssignVectorByDirectionToConditionProcess);
 
-console.log("AssignVectorByDirectionToCondition node created"); //helps to debug
+console.log("AssignVectorByDirectionToConditionProcess node created"); //helps to debug

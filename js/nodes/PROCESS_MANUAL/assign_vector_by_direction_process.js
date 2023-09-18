@@ -1,4 +1,4 @@
-class AssignVectorByDirection extends Process {
+class AssignVectorByDirectionProcess extends Process {
     constructor() {
         super();
         
@@ -41,9 +41,9 @@ class AssignVectorByDirection extends Process {
     };
 }
 
-AssignVectorByDirection.title = "Assign vector by direction";
-AssignVectorByDirection.desc = "Sets a variable a certain scalar value in a given direction, for all the nodes belonging to a submodelpart.";
+AssignVectorByDirectionProcess.title = "Assign vector by direction";
+AssignVectorByDirectionProcess.desc = "Sets a variable a certain scalar value in a given direction, for all the nodes belonging to a submodelpart.";
 
-LiteGraph.registerNodeType("Processes/AssignVectorByDirection", AssignVectorByDirection);
+LiteGraph.registerNodeType("Processes/AssignVectorByDirectionProcess", AssignVectorByDirectionProcess);
 
-console.log("AssignVectorByDirection node created"); //helps to debug
+console.log("AssignVectorByDirectionProcess node created"); //helps to debug

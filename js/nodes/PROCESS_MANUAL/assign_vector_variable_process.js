@@ -1,4 +1,4 @@
-class AssignVectorVariable extends Process {
+class AssignVectorVariableProcess extends Process {
     constructor() {
         super();
         
@@ -33,9 +33,9 @@ class AssignVectorVariable extends Process {
     };
 }
 
-AssignVectorVariable.title = "Assign vector variable";
-AssignVectorVariable.desc = "Sets a given vector for a certain variable to all the nodes of a submodelpart";
+AssignVectorVariableProcess.title = "Assign vector variable";
+AssignVectorVariableProcess.desc = "Sets a given vector for a certain variable to all the nodes of a submodelpart";
 
-LiteGraph.registerNodeType("Processes/AssignVectorVariable", AssignVectorVariable);
+LiteGraph.registerNodeType("Processes/AssignVectorVariableProcess", AssignVectorVariableProcess);
 
-console.log("AssignVectorVariable node created"); //helps to debug
+console.log("AssignVectorVariableProcess node created"); //helps to debug

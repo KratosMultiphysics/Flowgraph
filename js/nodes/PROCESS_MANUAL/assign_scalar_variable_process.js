@@ -1,4 +1,4 @@
-class AssignScalarVariable extends Process {
+class AssignScalarVariableProcess extends Process {
     constructor() {
         super();
         
@@ -40,9 +40,9 @@ class AssignScalarVariable extends Process {
     };
 }
 
-AssignScalarVariable.title = "Assign scalar variable";
-AssignScalarVariable.desc = "Sets a given scalar value for a certain variable in all the nodes of a submodelpart";
+AssignScalarVariableProcess.title = "Assign scalar variable";
+AssignScalarVariableProcess.desc = "Sets a given scalar value for a certain variable in all the nodes of a submodelpart";
 
-LiteGraph.registerNodeType("Processes/AssignScalarVariable", AssignScalarVariable);
+LiteGraph.registerNodeType("Processes/AssignScalarVariableProcess", AssignScalarVariableProcess);
 
-console.log("AssignScalarVariable node created"); //helps to debug
+console.log("AssignScalarVariableProcess node created"); //helps to debug
