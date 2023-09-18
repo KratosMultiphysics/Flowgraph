@@ -11,7 +11,9 @@ class MLSolver {
             "scaling": true,
             "reform_preconditioner_at_each_step": true,
             "symmetric": false,
-            "verbosity": 0
+            "verbosity": 0,
+            "trilinos_aztec_parameter_list": {},
+            "trilinos_preconditioner_parameter_list": {}
         };
 
         // Define the widgets and store them as instance variables
