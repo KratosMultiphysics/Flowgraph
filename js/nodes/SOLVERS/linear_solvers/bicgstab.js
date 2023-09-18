@@ -26,7 +26,7 @@ class BICGSTABSolver {
     onExecute = function() {
         // Update the properties based on the widget values
         this.properties.tolerance = this.tolerance.value;
-        this.properties.max_iteration = this.max_iteration.value;
+        this.properties.max_iteration = Math.round(this.max_iteration.value);
         this.properties.verbosity = this.verbosity.value;
         this.properties.preconditioner_type = this.preconditioner_type.value;
 
