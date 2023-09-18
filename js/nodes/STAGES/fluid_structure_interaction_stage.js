@@ -38,8 +38,6 @@ class FsiStage extends AnalysisStage {
                  },
              }
 
-         console.log("FsiStage onExecute called")
-
          // Set the output data
          this.setOutputData(0, this._value);
          this.setOutputData(1, this.stage_name);
@@ -53,5 +51,3 @@ FsiStage.title = "Fluid Structure Interaction analysis stage";
 FsiStage.desc = "Base FSIApplication stage";
 
 LiteGraph.registerNodeType("Stages/FsiStage", FsiStage);
-
-console.log("FsiStage node created");
