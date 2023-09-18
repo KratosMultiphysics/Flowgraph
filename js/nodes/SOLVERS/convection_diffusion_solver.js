@@ -126,7 +126,7 @@ class ConvectionDiffusionSolver extends Solver {
 
         idx = this.imod;
         if (this.getInputData(idx) != undefined) {
-            val = this.getInputData(idx)["mp_settings"];
+            val = this.getInputData(idx);
             this._value["model_import_settings"] = val;
         }
 
