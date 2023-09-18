@@ -13,6 +13,17 @@ class AnalysisStage {
         // Stage Name
         this._name = this.addWidget("text", "Stage Name", "", function(v){}, {} );
 
+        this.SetUpInputs()
+        this.SetUpOutputs()
+
+        this.crop_title = 20;
+        this.hover_tooltip = false;
+        this.error_list = []
+        // this.error_list = ["Error1", "Error2", "Error3", "Error4"];
+    }
+
+
+    SetUpInputs(){
         // List of inputs and outputs ("name", "type")
         this.addInput("Stage",              "stage_flow");          // 0
         this.addInput("Stage Pre",          "stage_pre");           // 1
@@ -22,13 +33,11 @@ class AnalysisStage {
         this.addInput("Processes",          "process_list");        // 5
         this.addInput("Output Processes",   "output_process_list"); // 6
 
+    }
+
+    SetUpOutputs(){
         this.addOutput("Stage",             "stage_flow");          // 0
         this.addOutput("Name",              "string");              // 1
-
-        this.crop_title = 20;
-        this.hover_tooltip = false;
-        this.error_list = []
-        // this.error_list = ["Error1", "Error2", "Error3", "Error4"];
     }
 
     onDrawTitle(ctx) {
@@ -38,11 +47,11 @@ class AnalysisStage {
     }
 
     onMouseMove(e, pos, graph_canvas) {
-        if (pos[0] > this.size[0]-24 && 
+        if (pos[0] > this.size[0]-24 &&
             pos[0] < this.size[0]-10 &&
             pos[1] > LiteGraph.NODE_TITLE_TEXT_Y - LiteGraph.NODE_TITLE_HEIGHT - 13 &&
             pos[1] < LiteGraph.NODE_TITLE_TEXT_Y - LiteGraph.NODE_TITLE_HEIGHT + 2) {
-            
+
             this.hover_tooltip = true;
         } else {
             this.hover_tooltip = false;
@@ -55,7 +64,14 @@ class AnalysisStage {
         }
     }
 
+
+
+    setUpOrchestrtor(){
+
+    }
+
     onExecute() {
+        console.log("AnalysisStage onExecute called")
         this.error_list = [];
 
         if(this.getInputData(0) == undefined) {
@@ -76,17 +92,17 @@ class AnalysisStage {
         } else {
             this._value = this.getInputData(0);
         }
-        
-        let stage_name = "auto_" + this.id + "_stage";
+
+        this.stage_name = "auto_" + this.id + "_stage";
         if(this._name.value != undefined && this._name.value != "") {
             stage_name = toSnakeCase(this._name.value) + "_stage";
         }
 
         // Generate the stage data
-        if(!this._value["orchestrator"]["settings"]["execution_list"].includes(stage_name)) {
-            this._value["orchestrator"]["settings"]["execution_list"].push(stage_name);
+        if(!this._value["orchestrator"]["settings"]["execution_list"].includes(this.stage_name)) {
+            this._value["orchestrator"]["settings"]["execution_list"].push(this.stage_name);
 
-            this._value["stages"][stage_name] = {
+            this._value["stages"][this.stage_name] = {
                 "stage_preprocess":         this.getInputData(1),
                 "stage_postprocess":        this.getInputData(2),
                 "stage_settings": {
@@ -98,12 +114,12 @@ class AnalysisStage {
                 },
             }
         } else {
-            this.error_list.push("Stage '"+stage_name+"' already exists")
+            this.error_list.push("Stage '"+this.stage_name+"' already exists")
         }
-        
+
         // Set the output data
         this.setOutputData(0, this._value);
-        this.setOutputData(1, stage_name);
+        this.setOutputData(1, this.stage_name);
     }
 
     onSelection(e) {
