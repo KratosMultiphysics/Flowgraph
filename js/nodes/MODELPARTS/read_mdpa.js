@@ -159,6 +159,6 @@ class ReadMdpa {
 ReadMdpa.title = "Read Mdpa";
 ReadMdpa.desc  = "This nodes reads a Mpda file and makes its modelparts avaliable";
 
-LiteGraph.registerNodeType("MODELPARTS/Read Mdpa", ReadMdpa);
+LiteGraph.registerNodeType("ModelParts/Read Mdpa", ReadMdpa);
 
 console.log("ReadMdpa node created"); //helps to debug

@@ -1,7 +1,5 @@
 class ModelImportSettings {
     constructor() {
-        super();
-        
         this.addInput("name","string");
         this.model_type = this.addWidget("combo", "Type", "mdpa", function(v) {}, { values: ["mdpa"] });
 
@@ -29,6 +27,6 @@ class ModelImportSettings {
 ModelImportSettings.title = "Model Import Settings";
 ModelImportSettings.desc = "Define inlet";
 
-LiteGraph.registerNodeType("Processes/ModelImportSettings", ModelImportSettings);
+LiteGraph.registerNodeType("ModelParts/ModelImportSettings", ModelImportSettings);
 
 console.log("ModelImportSettings node created"); //helps to debug
