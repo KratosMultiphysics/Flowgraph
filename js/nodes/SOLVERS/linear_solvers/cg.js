@@ -37,4 +37,4 @@ class CGSolver {
 CGSolver.title = "CG";
 CGSolver.desc = "Conjugate gradient linear solver";
 
-LiteGraph.registerNodeType("SOLVERS/Linear Solvers/CG", CGSolver);
+LiteGraph.registerNodeType("SOLVERS/Linear Solvers/Serial/CG", CGSolver);

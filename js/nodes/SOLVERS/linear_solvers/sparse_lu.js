@@ -21,4 +21,4 @@ class SparseLUSolver {
 SparseLUSolver.title = "SparseLU";
 SparseLUSolver.desc = "SparseLU linear solver from LinearSolversApplication";
 
-LiteGraph.registerNodeType("SOLVERS/Linear Solvers/SparseLU", SparseLUSolver);
+LiteGraph.registerNodeType("SOLVERS/Linear Solvers/Serial/SparseLU", SparseLUSolver);
