@@ -8,7 +8,7 @@ class ConvectionDiffusionSolver extends Solver {
         // set inputs
         let iidx = 0;
         this.imod = iidx++;
-        this.addInput("Modelpart settings", "modelpart_settings", {
+        this.addInput("Modelpart settings", "model_import_settings", {
             //"glyph": {
             //    shape: "\uf6cf",
             //    font: '900 10px "Font Awesome 5 Free"',
