@@ -27,7 +27,7 @@ class BICGSTABSolver {
         // Update the properties based on the widget values
         this.properties.tolerance = this.tolerance.value;
         this.properties.max_iteration = Math.round(this.max_iteration.value);
-        this.properties.verbosity = this.verbosity.value;
+        this.properties.verbosity = Math.round(this.verbosity.value);
         this.properties.preconditioner_type = this.preconditioner_type.value;
 
         this.setOutputData(0, this.properties);
