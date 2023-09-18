@@ -1,4 +1,3 @@
-// TODO: Create a material base class
 class MaterialNewtonian extends Material {
     constructor() {
         super(); 

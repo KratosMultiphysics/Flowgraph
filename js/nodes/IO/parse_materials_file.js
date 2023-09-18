@@ -1,5 +1,4 @@
 class ParseMaterialsFile {
-
     constructor() {
         // Node settings
         this.glyph = {
