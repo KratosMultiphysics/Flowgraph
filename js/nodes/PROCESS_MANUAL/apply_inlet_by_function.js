@@ -1,4 +1,4 @@
-class InletByFunction extends Process {
+class ApplyInletByFunction extends Process {
     constructor() {
         super();
         
@@ -31,9 +31,9 @@ class InletByFunction extends Process {
     };
 }
 
-InletByFunction.title = "Inlet By Function";
-InletByFunction.desc = "Define inlet";
+ApplyInletByFunction.title = "Apply Inlet By Function";
+ApplyInletByFunction.desc = "Define inlet";
 
-LiteGraph.registerNodeType("Processes/InletByFunction", InletByFunction);
+LiteGraph.registerNodeType("Processes/ApplyInletByFunction", ApplyInletByFunction);
 
-console.log("InletByFunction node created"); //helps to debug
+console.log("ApplyInletByFunction node created"); //helps to debug

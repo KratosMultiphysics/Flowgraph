@@ -1,4 +1,4 @@
-class OutletProcess extends Process {
+class ApplyOutletProcess extends Process {
     constructor() {
         super();
         
@@ -30,9 +30,9 @@ class OutletProcess extends Process {
     };
 }
 
-OutletProcess.title = "Outlet Process";
-OutletProcess.desc = "Define outlet";
+ApplyOutletProcess.title = "Apply Outlet Process";
+ApplyOutletProcess.desc = "Define outlet";
 
-LiteGraph.registerNodeType("Processes/OutletProcess", OutletProcess);
+LiteGraph.registerNodeType("Processes/ApplyOutletProcess", ApplyOutletProcess);
 
-console.log("OutletProcess created"); //helps to debug
+console.log("ApplyOutletProcess created"); //helps to debug
