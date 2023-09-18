@@ -16,3 +16,7 @@ function openNav() {
 // function closeNav() {
 // 	document.getElementById("side-viewer").style.width = "0";
 // } 
+
+function addViewerNode() {
+    graph.add(LiteGraph.createNode("IO/JSONView"));
+}

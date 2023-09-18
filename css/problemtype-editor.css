@@ -146,6 +146,17 @@ body, html {
   min-width: 82px;
 }
 
+.litegraph-editor .float-btn-left {
+  border-top-right-radius: 0px;
+  border-bottom-right-radius: 0px;
+}
+
+.litegraph-editor .float-btn-right {
+    margin-left: 0px;
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
+  }
+
 .litegraph-editor .btn-blue {
   background-color: #2e6ba4;
 }
