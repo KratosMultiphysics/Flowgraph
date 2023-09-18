@@ -24,16 +24,25 @@ class AMGCLSolver {
         var that = this;
 
         // Define the widgets and store them as instance variables
+        this.max_iteration = this.addWidget("number", "Max Iteration", this.properties.max_iteration, "max_iteration", { step: 1, precision: 0 });
+        this.gmres_krylov_space_dimension = this.addWidget("number", "GMRES Krylov Space Dimension", this.properties.gmres_krylov_space_dimension, "gmres_krylov_space_dimension", { step: 1, precision: 0 });
+        this.verbosity = this.addWidget("number", "Verbosity", this.properties.verbosity, "verbosity", { step: 1, precision: 0 });
+        this.tolerance = this.addWidget("number", "Tolerance", this.properties.tolerance, "tolerance", { step: 0.000001, precision: 6 });
+        this.block_size = this.addWidget("number", "Block Size", this.properties.block_size, "block_size", { step: 1, precision: 0 });
+        this.coarse_enough = this.addWidget("number", "Coarse Enough", this.properties.coarse_enough, "coarse_enough", { step: 1, precision: 0 });
+        this.max_levels = this.addWidget("number", "Max Levels", this.properties.max_levels, "max_levels", { step: 1, precision: 0 });
+        this.pre_sweeps = this.addWidget("number", "Pre Sweeps", this.properties.pre_sweeps, "pre_sweeps", { step: 1, precision: 0 });
+        this.post_sweeps = this.addWidget("number", "Post Sweeps", this.properties.post_sweeps, "post_sweeps", { step: 1, precision: 0 });
+
         this.coarsening_type = this.addWidget("combo", "Coarsening", this.properties.coarsening_type, "coarsening_type", { values: ["ruge_stuben", "aggregation", "smoothed_aggregation", "smoothed_aggr_emin"] });
         this.smoother_type = this.addWidget("combo", "Smoother", this.properties.smoother_type, "smoother_type", { values: ["spai0", "spai1", "ilu0", "ilut", "iluk", "damped_jacobi", "gauss_seidel", "chebyshev"] });
         this.krylov_type = this.addWidget("combo", "Krylov", this.properties.krylov_type, "krylov_type", { values: ["gmres", "bicgstab", "cg", "bicgstabl", "lgmres", "fgmres", "bicgstab_with_gmres_fallback", "idrs"] });
         this.preconditioner_type = this.addWidget("combo", "Preconditioner", this.properties.preconditioner_type, "preconditioner_type", { values: ["diagonal", "ilu0", "ilut", "iluk", "damped_jacobi", "gauss_seidel", "chebyshev"] });
-        this.scaling_type = this.addWidget("combo", "Scaling", this.properties.scaling, "scaling", { values: ["standard", "advanced"] });
+        this.scaling_type = this.addWidget("toggle", "Scaling", this.properties.scaling, "scaling");
         this.use_amg_preconditioning = this.addWidget("toggle", "Use AMG Preconditioning", this.properties.use_amg_preconditioning, "use_amg_preconditioning");
         this.provide_coordinates = this.addWidget("toggle", "Provide Coordinates", this.properties.provide_coordinates, "provide_coordinates");
         this.use_block_matrices_if_possible = this.addWidget("toggle", "Use Block Matrices If Possible", this.properties.use_block_matrices_if_possible, "use_block_matrices_if_possible");
         this.enforce_use_block_matrices = this.addWidget("toggle", "Enforce Use of Block Matrices", this.properties.enforce_use_block_matrices, "enforce_use_block_matrices");
-
 
         this.addOutput("Settings", "linear_solver_settings");
 
@@ -44,6 +53,15 @@ class AMGCLSolver {
     onExecute = function() {
         let myoutput = this.properties;
         // Access the widget values using the instance variables
+        myoutput["max_iteration"] = this.max_iteration.value;
+        myoutput["gmres_krylov_space_dimension"] = this.gmres_krylov_space_dimension.value;
+        myoutput["verbosity"] = this.verbosity.value;
+        myoutput["tolerance"] = this.tolerance.value;
+        myoutput["block_size"] = this.block_size.value;
+        myoutput["coarse_enough"] = this.coarse_enough.value;
+        myoutput["max_levels"] = this.max_levels.value;
+        myoutput["pre_sweeps"] = this.pre_sweeps.value;
+        myoutput["post_sweeps"] = this.post_sweeps.value;
         myoutput["coarsening_type"] = this.coarsening_type.value;
         myoutput["smoother_type"] = this.smoother_type.value;
         myoutput["krylov_type"] = this.krylov_type.value;
@@ -66,4 +84,5 @@ LiteGraph.registerNodeType("SOLVERS/Linear Solvers/AMGCL", AMGCLSolver);
 const l_solver_color = "#7a8ec4";
 LGraphCanvas.link_type_colors["linear_solver_settings"] = l_solver_color;
 LGraphCanvas.slot_type_colors["linear_solver_settings"] = l_solver_color;
+
 
