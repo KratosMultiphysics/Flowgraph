@@ -53,15 +53,15 @@ class AMGCLSolver {
     onExecute = function() {
         let myoutput = this.properties;
         // Access the widget values using the instance variables
-        myoutput["max_iteration"] = this.max_iteration.value;
-        myoutput["gmres_krylov_space_dimension"] = this.gmres_krylov_space_dimension.value;
-        myoutput["verbosity"] = this.verbosity.value;
+        myoutput["max_iteration"] = Math.round(this.max_iteration.value);
+        myoutput["gmres_krylov_space_dimension"] = Math.round(this.gmres_krylov_space_dimension.value);
+        myoutput["verbosity"] = Math.round(this.verbosity.value);
         myoutput["tolerance"] = this.tolerance.value;
-        myoutput["block_size"] = this.block_size.value;
-        myoutput["coarse_enough"] = this.coarse_enough.value;
-        myoutput["max_levels"] = this.max_levels.value;
-        myoutput["pre_sweeps"] = this.pre_sweeps.value;
-        myoutput["post_sweeps"] = this.post_sweeps.value;
+        myoutput["block_size"] = Math.round(this.block_size.value);
+        myoutput["coarse_enough"] = Math.round(this.coarse_enough.value);
+        myoutput["max_levels"] = Math.round(this.max_levels.value);
+        myoutput["pre_sweeps"] = Math.round(this.pre_sweeps.value);
+        myoutput["post_sweeps"] = Math.round(this.post_sweeps.value);
         myoutput["coarsening_type"] = this.coarsening_type.value;
         myoutput["smoother_type"] = this.smoother_type.value;
         myoutput["krylov_type"] = this.krylov_type.value;
