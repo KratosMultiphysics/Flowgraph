@@ -4,13 +4,12 @@ class BICGSTABSolver {
         this.glyph = {shape: '\uf013', font:'900 14px "Font Awesome 5 Free"', width: 16, height: 9};
 
         this.properties = {
-            "solver_type": "BICGSTAB",
+            "solver_type": "bicgstab",
             "tolerance": 0.000001,
             "max_iteration": 1000,
             "verbosity": 1,
             "preconditioner_type": "none"
         };
-        var that = this;
 
         // Define the widgets and store them as instance variables
         this.tolerance = this.addWidget("number", "Tolerance", this.properties.tolerance, "tolerance", { step: 0.000001, precision: 6 });
@@ -25,14 +24,13 @@ class BICGSTABSolver {
     }
 
     onExecute = function() {
-        let myoutput = this.properties;
-        // Access the widget values using the instance variables
-        myoutput["tolerance"] = this.tolerance.value;
-        myoutput["max_iteration"] = this.max_iteration.value;
-        myoutput["verbosity"] = this.verbosity.value;
-        myoutput["preconditioner_type"] = this.preconditioner_type.value;
+        // Update the properties based on the widget values
+        this.properties.tolerance = this.tolerance.value;
+        this.properties.max_iteration = this.max_iteration.value;
+        this.properties.verbosity = this.verbosity.value;
+        this.properties.preconditioner_type = this.preconditioner_type.value;
 
-        this.setOutputData(0, myoutput);
+        this.setOutputData(0, this.properties);
     }
 };
 
@@ -41,6 +39,3 @@ BICGSTABSolver.desc = "Biconjugate gradient stabilized linear solver";
 
 LiteGraph.registerNodeType("SOLVERS/Linear Solvers/BICGSTAB", BICGSTABSolver);
 
-// const l_solver_color = "#7a8ec4";
-// LGraphCanvas.link_type_colors["linear_solver_settings"] = l_solver_color;
-// LGraphCanvas.slot_type_colors["linear_solver_settings"] = l_solver_color;
