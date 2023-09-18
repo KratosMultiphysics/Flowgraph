@@ -71,7 +71,6 @@ class AnalysisStage {
     }
 
     onExecute() {
-        console.log("AnalysisStage onExecute called")
         this.error_list = [];
 
         if(this.getInputData(0) == undefined) {
@@ -135,5 +134,3 @@ LGraphCanvas.slot_type_colors["stage_flow"] = "#90bdd1";
 LGraphCanvas.slot_type_colorsOff["stage_flow"] = "#90bdd1";
 
 LiteGraph.registerNodeType("Stages/AnalysisStage", AnalysisStage);
-
-console.log("AnalysisStage node created");

@@ -17,37 +17,34 @@ class FsiStage extends AnalysisStage {
     }
 
     combineSolvers(){
-        this.output = {}
-        this.output["solver_settings"] = {
-
+        return {
+            "fluid_solver_settings": this.getInputData(4),
+            "structure_solver_settings": this.getInputData(5),
         }
-
-        this.output["solver_settings"]["fluid_solver_settings"] = this.getInputData(4);
-        this.output["solver_settings"]["structure_solver_settings"] = this.getInputData(5);
     };
 
-    // onExecute() {
-    //     super.onExecute();
+    onExecute() {
+         super.onExecute();
 
-    //     this._value["stages"][this.stage_name] = {
-    //         "stage_preprocess":         this.getInputData(1),
-    //         "stage_postprocess":        this.getInputData(2),
-    //         "stage_settings": {
-    //             "analysis_stage":           this._type,
-    //             "problem_data":             this.getInputData(3),
-    //             "solver_settings":          this.combineSolvers(),
-    //             "processes":                this.getInputData(6),
-    //             "output_processes":         this.getInputData(7),
-    //             },
-    //         }
+         this._value["stages"][this.stage_name] = {
+             "stage_preprocess":         this.getInputData(1),
+             "stage_postprocess":        this.getInputData(2),
+             "stage_settings": {
+                 "analysis_stage":           this._type,
+                 "problem_data":             this.getInputData(3),
+                 "solver_settings":          this.combineSolvers(),
+                 "processes":                this.getInputData(6),
+                 "output_processes":         this.getInputData(7),
+                 },
+             }
 
-    //     console.log("FsiStage onExecute called")
+         console.log("FsiStage onExecute called")
 
-    //     // Set the output data
-    //     this.setOutputData(0, this._value);
-    //     this.setOutputData(1, this.stage_name);
+         // Set the output data
+         this.setOutputData(0, this._value);
+         this.setOutputData(1, this.stage_name);
 
-    // };
+     };
 
     }
 
