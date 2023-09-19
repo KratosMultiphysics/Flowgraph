@@ -5,11 +5,10 @@ class ApplyNoSlipProcess extends Process {
         this.addInput("model_part","string");
         this.addOutput("Process","process_list");
         this.properties = {
-            "model_part_name" : "",
-            "variable_name"        : "VELOCITY",
-            "interval"             : [0.0, 1e30],
-            "value"                : [0.0, 0.0, 0.0],
-            "constrained"          : [true,true,true]
+            "variable_name" : "VELOCITY",
+            "interval"      : [0.0, 1e30],
+            "value"         : [0.0, 0.0, 0.0],
+            "constrained"   : [true,true,true]
         };
 
         this.size = this.computeSize();

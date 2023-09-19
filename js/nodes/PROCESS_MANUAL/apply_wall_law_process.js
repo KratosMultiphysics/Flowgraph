@@ -4,11 +4,11 @@ class ApplyWallLawProcess extends Process {
         
         this.addInput("model_part","string");
         this.addOutput("Process","process_list");
+
+        this.wall_model_name = this.addWidget("string","wall model name=","", function(v){} );
+
         this.properties = {
-                "model_part_name" : "",
-                "wall_model_name" : "",
-                "wall_model_settings" : {},
-                "calculate_normals_at_each_step" : false
+            "calculate_normals_at_each_step" : false
         };
 
         this.size = this.computeSize();
@@ -23,13 +23,14 @@ class ApplyWallLawProcess extends Process {
 
         output["Parameters"] = this.properties
         output["Parameters"]["model_part_name"] = this.getInputData(0)
+        output["Parameters"]["wall_model_name"] = this.wall_model_name.value
         
         this.setOutputData(0, [output]);
     }
 }
 
 ApplyWallLawProcess.title = "Apply Wall Law Process";
-ApplyWallLawProcess.desc = "Node to specify a slip boundary process.";
+ApplyWallLawProcess.desc = "Node to specify a wall law boundary process.";
 
 LiteGraph.registerNodeType("Processes/ApplyWallLawProcess", ApplyWallLawProcess);
 

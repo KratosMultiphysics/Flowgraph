@@ -5,10 +5,11 @@ class ApplyOutletProcess extends Process {
         this.addInput("model_part","string");
         this.addOutput("Process","process_list");
 
+        this.variable_name = this.addWidget("string","Variable=", "PRESSURE", function(v){} );
+        this.value = this.addWidget("number", "Value=", 0, function(v) {});
+
         this.properties = {
-            "variable_name"      : "PRESSURE",
             "constrained"        : true,
-            "value"              : 0.0,
             "hydrostatic_outlet" : false,
             "h_top"              : 0.0
         }
@@ -25,6 +26,8 @@ class ApplyOutletProcess extends Process {
         
         output["Parameters"] = this.properties
         output["Parameters"]["model_part_name"] = this.getInputData(0)
+        output["Parameters"]["variable_name"] = this.variable_name.value
+        output["Parameters"]["value"] = this.value.value
     
         this.setOutputData(0, [output]);
     };

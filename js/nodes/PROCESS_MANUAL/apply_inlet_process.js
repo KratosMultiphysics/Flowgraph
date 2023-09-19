@@ -1,16 +1,16 @@
-class ApplyInletByFunction extends Process {
+class ApplyInletProcess extends Process {
     constructor() {
         super();
         
         this.addInput("model_part","string");
         this.addOutput("Process","process_list");
 
+        this.variable_name = this.addWidget("string","Variable=", "VELOCITY", function(v){} );
         this.modulus = this.addWidget("string","f(x,y,z,t)=", "", function(v){} );
+        this.direction = this.addWidget("string","Direction=", "automatic_inwards_normal", function(v){} );
 
         this.properties = {
-            "variable_name"   : "VELOCITY",
-            "interval"        : [0,"End"],
-            "direction"       : "automatic_inwards_normal"
+            "interval" : [0, 1e30]
         }
 
         this.serialize_widgets = true;
@@ -25,15 +25,17 @@ class ApplyInletByFunction extends Process {
 
         output["Parameters"] = this.properties
         output["Parameters"]["model_part_name"] = this.getInputData(0)
+        output["Parameters"]["variable_name"] = this.variable_name.value
         output["Parameters"]["modulus"] = this.modulus.value
+        output["Parameters"]["direction"] = this.direction.value
 
         this.setOutputData(0, [output]);
     };
 }
 
-ApplyInletByFunction.title = "Apply Inlet By Function";
-ApplyInletByFunction.desc = "Define inlet";
+ApplyInletProcess.title = "Apply Inlet Process";
+ApplyInletProcess.desc = "Define inlet";
 
-LiteGraph.registerNodeType("Processes/ApplyInletByFunction", ApplyInletByFunction);
+LiteGraph.registerNodeType("Processes/ApplyInletProcess", ApplyInletProcess);
 
-console.log("ApplyInletByFunction node created"); //helps to debug
+console.log("ApplyInletProcess node created"); //helps to debug

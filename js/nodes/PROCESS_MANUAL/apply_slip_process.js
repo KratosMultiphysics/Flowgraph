@@ -5,8 +5,7 @@ class ApplySlipProcess extends Process {
         this.addInput("model_part","string");
         this.addOutput("Process","process_list");
         this.properties = {
-            "model_part_name" : "",
-            "avoid_recomputing_normals" : false,
+            "avoid_recomputing_normals"  : false,
             "slip_tangential_correction" : true
         };
 
