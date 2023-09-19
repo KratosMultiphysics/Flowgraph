@@ -10,8 +10,8 @@ class StructuralMechanicsSolver extends Solver {
         this.addInput("no_skin_parts", "array");            // 4
         this.addInput("linear_solver_settings", "linear_solver_settings");     // 5
         this.addInput("material_import_settings", "map");   // 6
-        
-        this.addOutput("solver_settings", "solver_settings");
+
+        this.addOutput("solver_settings", "solver_settings,structure_solver_settings");
 
         // List of properties
         this.properties = {
@@ -75,7 +75,7 @@ class StructuralMechanicsSolver extends Solver {
 
         this._value["material_import_settings"] = this.getInputData(6);
 
-        // Get the 
+        // Get the
         this.setOutputData(0, this._value);
     }
 }

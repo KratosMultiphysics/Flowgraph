@@ -35,7 +35,7 @@ class FluidSolver extends Solver {
 
         let oidx = 0;
         this.osolver = oidx++;
-        this.addOutput("Solver", "solver_settings");
+        this.addOutput("Solver", "solver_settings,fluid_solver_settings");
 
         // properties
 
