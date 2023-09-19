@@ -3,7 +3,7 @@ class StructuralMechanicsSolver extends Solver {
         super();
 
         // List of inputs and outputs ("name", "type")
-        this.addInput("model_import_settings", "map", {"glyph": {shape:"\uf6cf", font:'900 10px "Font Awesome 5 Free"', width:9, height:10}}); // 0
+        this.addInput("model_import_settings", "model_import_settings", {"glyph": {shape:"\uf6cf", font:'900 10px "Font Awesome 5 Free"', width:9, height:10}}); // 0
         this.addInput("model_part_name", "string");         // 1
         this.addInput("volume_model_part_name", "string");  // 2
         this.addInput("skin_parts", "array");               // 3

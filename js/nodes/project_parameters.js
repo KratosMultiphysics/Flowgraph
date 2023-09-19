@@ -9,7 +9,7 @@ class ProjectParameters {
         // set inputs
         let iidx = 0
         this.isolver = iidx++;
-        this.addInput("Solver", "solver_settings");
+        this.addInput("Solver", "project_parameters");
         this.iprocinit = iidx++;
         this.addInput("Processes: Initial conditions", "processes");
         this.iprocbound = iidx++;
