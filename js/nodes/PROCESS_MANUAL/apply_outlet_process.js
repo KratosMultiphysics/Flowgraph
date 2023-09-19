@@ -1,14 +1,15 @@
-class OutletProcess extends Process {
+class ApplyOutletProcess extends Process {
     constructor() {
         super();
         
         this.addInput("model_part","string");
         this.addOutput("Process","process_list");
 
+        this.variable_name = this.addWidget("string","Variable=", "PRESSURE", function(v){} );
+        this.value = this.addWidget("number", "Value=", 0, function(v) {});
+
         this.properties = {
-            "variable_name"      : "PRESSURE",
             "constrained"        : true,
-            "value"              : 0.0,
             "hydrostatic_outlet" : false,
             "h_top"              : 0.0
         }
@@ -25,14 +26,16 @@ class OutletProcess extends Process {
         
         output["Parameters"] = this.properties
         output["Parameters"]["model_part_name"] = this.getInputData(0)
+        output["Parameters"]["variable_name"] = this.variable_name.value
+        output["Parameters"]["value"] = this.value.value
     
         this.setOutputData(0, [output]);
     };
 }
 
-OutletProcess.title = "Outlet Process";
-OutletProcess.desc = "Define outlet";
+ApplyOutletProcess.title = "Apply Outlet Process";
+ApplyOutletProcess.desc = "Define outlet";
 
-LiteGraph.registerNodeType("Processes/OutletProcess", OutletProcess);
+LiteGraph.registerNodeType("Processes/ApplyOutletProcess", ApplyOutletProcess);
 
-console.log("OutletProcess created"); //helps to debug
+console.log("ApplyOutletProcess created"); //helps to debug

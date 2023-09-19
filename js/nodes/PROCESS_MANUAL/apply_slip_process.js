@@ -1,11 +1,12 @@
-class NoSlipProcess extends Process {
+class ApplySlipProcess extends Process {
     constructor() {
         super();
         
         this.addInput("model_part","string");
         this.addOutput("Process","process_list");
         this.properties = {
-            "model_part_name" : ""
+            "avoid_recomputing_normals"  : false,
+            "slip_tangential_correction" : true
         };
 
         this.size = this.computeSize();
@@ -14,7 +15,7 @@ class NoSlipProcess extends Process {
     onExecute()
     {
         let output = {
-            "python_module" : "apply_noslip_process",
+            "python_module" : "apply_slip_process",
             "kratos_module" : "KratosMultiphysics.FluidDynamicsApplication"
         }
 
@@ -25,9 +26,9 @@ class NoSlipProcess extends Process {
     }
 }
 
-NoSlipProcess.title = "No-slip process";
-NoSlipProcess.desc = "Node to specify a no-slip boundary process.";
+ApplySlipProcess.title = "Apply Slip Process";
+ApplySlipProcess.desc = "Node to specify a slip boundary process.";
 
-LiteGraph.registerNodeType("Processes/No-Slip Process", NoSlipProcess);
+LiteGraph.registerNodeType("Processes/ApplySlipProcess", ApplySlipProcess);
 
-console.log("NoSlipProcess node created"); //helps to debug
+console.log("ApplySlipProcess node created"); //helps to debug
