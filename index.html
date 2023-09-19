@@ -60,8 +60,10 @@
 
     <!-- Kratos -->
     <script type="text/javascript" src="js/nodes/IO/export_case.js"></script>
-    <script type="text/javascript" src="js/nodes/MODELPARTS/models.js"></script>
-    <script type="text/javascript" src="js/nodes/MODELPARTS/read_mdpa.js"></script>
+    <script type="text/javascript" src="js/nodes/ModelParts/models.js"></script>
+    <script type="text/javascript" src="js/nodes/ModelParts/read_mdpa.js"></script>
+    <script type="text/javascript" src="js/nodes/ModelParts/model_import_settings.js"></script>
+    <script type="text/javascript" src="js/nodes/MATERIALS/material_import_settings.js"></script>
     <script type="text/javascript" src="js/nodes/IO/assign_material_to_modelpart.js"></script>
     <script type="text/javascript" src="js/nodes/IO/combine_materials_and_modelparts.js"></script>
     <script type="text/javascript" src="js/nodes/IO/parse_model_part.js"></script>
@@ -75,9 +77,11 @@
     <script type="text/javascript" src="js/nodes/STAGES/MODELERS/import_modeler.js"></script>
     <script type="text/javascript" src="js/nodes/STAGES/MODELERS/delete_modeler.js"></script>
     <script type="text/javascript" src="js/nodes/STAGES/analysis_stage.js"></script>
+    <script type="text/javascript" src="js/nodes/STAGES/structural_mechanics_analysis.js"></script>
     <script type="text/javascript" src="js/nodes/STAGES/orchestrator.js"></script>
     <script type="text/javascript" src="js/nodes/STAGES/fluid_stage.js"></script>
     <script type="text/javascript" src="js/nodes/STAGES/fluid_structure_interaction_stage.js"></script>
+    <script type="text/javascript" src="js/nodes/STAGES/convection_diffusion_stage.js"></script>
 
     <!-- Materials -->
     <script type="text/javascript" src="js/nodes/IO/list_of_materials.js"></script>
@@ -93,6 +97,13 @@
     <script type="text/javascript" src="js/nodes/PROCESS_MANUAL/inlet_by_function.js"></script>
     <script type="text/javascript" src="js/nodes/PROCESS_MANUAL/outlet_process.js"></script>
     <script type="text/javascript" src="js/nodes/PROCESS_MANUAL/no_slip_process.js"></script>
+    <script type="text/javascript" src="js/nodes/PROCESS_MANUAL/assign_scalar_variable_process.js"></script>
+    <script type="text/javascript" src="js/nodes/PROCESS_MANUAL/assign_vector_variable_process.js"></script>
+    <script type="text/javascript" src="js/nodes/PROCESS_MANUAL/assign_vector_by_direction_process.js"></script>
+    <script type="text/javascript" src="js/nodes/PROCESS_MANUAL/assign_scalar_variable_to_conditions_process.js"></script>
+    <script type="text/javascript" src="js/nodes/PROCESS_MANUAL/assign_vector_variable_to_conditions_process.js"></script>
+    <script type="text/javascript" src="js/nodes/PROCESS_MANUAL/assign_vector_by_direction_to_condition_process.js"></script>
+    <script type="text/javascript" src="js/nodes/PROCESS_MANUAL/assign_flag_process.js"></script>
     <script type="text/javascript" src="js/nodes/OUTPUT_PROCESS_MANUAL/output_process.js"></script>
     <script type="text/javascript" src="js/nodes/OUTPUT_PROCESS_MANUAL/gid_output.js"></script>
 
@@ -108,6 +119,9 @@
     <script type="text/javascript" src="js/nodes/SOLVERS/solver.js"></script>
     <script type="text/javascript" src="js/nodes/SOLVERS/structural_mechanics_solver.js"></script>
     <script type="text/javascript" src="js/nodes/SOLVERS/fluid_solver.js"></script>
+    <script type="text/javascript" src="js/nodes/SOLVERS/navier_stokes_solver_fractional.js"></script>
+    <script type="text/javascript" src="js/nodes/SOLVERS/navier_stokes_solver_monolithic.js"></script>
+    <script type="text/javascript" src="js/nodes/SOLVERS/convection_diffusion_solver.js"></script>
     <script type="text/javascript" src="js/nodes/SOLVERS/fluid_solver_formulations/formulation_monolithic.js"></script>
     <script type="text/javascript" src="js/nodes/SOLVERS/fluid_solver_formulations/formulation_fractional_step.js"></script>
 
