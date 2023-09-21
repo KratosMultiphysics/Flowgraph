@@ -821,3 +821,70 @@ LGraphCanvas.prototype.drawNodeShape = function(
     if (node.execute_triggered>0) node.execute_triggered--;
     if (node.action_triggered>0) node.action_triggered--;
 };
+
+
+//used by this.over_link_center
+LGraphCanvas.prototype.drawLinkTooltip = function( ctx, link )
+{
+    var pos = link._pos;
+    ctx.fillStyle = "black";
+    ctx.beginPath();
+    ctx.arc( pos[0], pos[1], 3, 0, Math.PI * 2 );
+    ctx.fill();
+
+    if(link.data == null)
+        return;
+
+    if(this.onDrawLinkTooltip)
+        if( this.onDrawLinkTooltip(ctx,link,this) == true )
+            return;
+
+    var data = link.data;
+    var text = null;
+
+    if( data.constructor === Number )
+        text = data.toFixed(2);
+    else if( data.constructor === String )
+        text = "\"" + data + "\"";
+    else if( data.constructor === Boolean )
+        text = String(data);
+    else if (data.toToolTip)
+        text = data.toToolTip();
+    else
+        text = JSON.stringify(data, null, 2); // "[" + data.constructor.name + "]";
+
+    if(text == null)
+        return;
+
+    // text = text.substr(0,30); //avoid weird
+
+    let lines = text.split('\n');
+    let line_w = 14;
+    
+    ctx.font = "14px Courier New";
+    let info = lines.map((line)=>ctx.measureText(line).width).reduce((a,b)=>Math.max(a,b));
+
+    let h = line_w * ( lines.length + 1 ); // + 25 * 0.3;
+    let w = info + 20;
+    
+    ctx.shadowColor = "black";
+    ctx.shadowOffsetX = 2;
+    ctx.shadowOffsetY = 2;
+    ctx.shadowBlur = 3;
+    ctx.fillStyle = "#454";
+    ctx.beginPath();
+    ctx.roundRect( pos[0] - w*0.5, pos[1] - 15 - h, w, h, [3]);
+    ctx.moveTo( pos[0] - 10, pos[1] - 15 );
+    ctx.lineTo( pos[0] + 10, pos[1] - 15 );
+    ctx.lineTo( pos[0], pos[1] - 5 );
+    ctx.fill();
+    ctx.shadowColor = "transparent";
+    ctx.textAlign = "left";
+    ctx.fillStyle = "#CEC";
+
+    for(let l in lines) {
+        ctx.fillText(lines[l], pos[0] - w * 0.5 + 8, pos[1] - h + line_w * l + 15 * 0.3);
+    }
+
+    // ctx.fillText(text, pos[0], pos[1] - 15 - h * 0.3);
+}

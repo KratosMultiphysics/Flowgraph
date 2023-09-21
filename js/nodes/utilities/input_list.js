@@ -17,8 +17,8 @@ class InputList {
 
     setIOType() {
         // Default types are generic arrays, derived lists can specialize this.
-        this.input_type = "array";
-        this.output_type = "array";
+        this.input_type = "";
+        this.output_type = "";
     }
 
     buildConnections() {

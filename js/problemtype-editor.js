@@ -22,11 +22,14 @@ function Editor(container_id, options) {
 
     // Create graph
     var graph = (this.graph = new LGraph());
-    // graph.config.align_to_grid = true;
+
+    graph.config.align_to_grid = true;
     
     var graphcanvas = (this.graphcanvas = new LGraphCanvas(canvas, graph));
 
+    graphcanvas.connections_width = 8;
     graphcanvas.background_image = "imgs/grid.png";
+
     graph.onAfterExecute = function() {
         graphcanvas.draw(true);
     };
