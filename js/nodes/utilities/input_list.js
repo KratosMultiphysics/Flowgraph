@@ -41,8 +41,16 @@ class InputList {
     onExecute() {
         this._value = [];
         for (let i = 0; i < this.inputs.length - 1; i++) {
-            for(let j = 0; j < this.getInputData(i).length; j++) {
-                this._value.push(this.getInputData(i)[j]);
+            let in_i = this.getInputData(i);
+
+            // Non Array objects are added to the results directly
+            // Array objects forward all its contents to the output (merges arrays)
+            if (!Array.isArray(in_i)) {
+                this._value.push(in_i);
+            } else {
+                for(let j = 0; j < in_i.length; j++) {
+                    this._value.push(in_i[j]);
+                }
             }
         }
         

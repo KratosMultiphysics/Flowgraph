@@ -1,3 +1,14 @@
+async function uploadJson(url, json_data) {
+    let pp_blob = new Blob([JSON.stringify(json_data)], {type: "application/json"})
+    console.log(pp_blob);
+    const response = await fetch(url, {method:"POST", body:pp_blob}).then(
+        async (response) => {
+            if (response.ok) return response;
+            else throw Error(`Server returned ${response.status}: ${response.statusText}`)
+        }
+    );
+}
+
 async function fetchServerData(url, that) {
     const response = await fetch(url);
     const data = await response.text();
@@ -44,50 +55,23 @@ class RunProblem {
 
         this.properties = { filename: "data.json" };
         this.value = null;
-        
-        var that = this;
-
-        // This should be triggered onExecute
-        // this.addWidget("button", "Download", "", function (v) {
-        //     if (!that.value)
-        //         return;
-        //     that.uploadProblem();
-        // });
     }
 
-    uploadProblem() {
-        if (this.value == null)
-            return;
-
-        var str = null;
-
-        if (this.value.constructor === String) {
-            str = this.value;
-        } else {
-            str = JSON.stringify(this.value);
-        }
-
-        let project_parameters = new Blob([str]);
-
-        // var that = this;
-        // var zip = new JSZip();
-        //     zip.file("ProjectParameters.json", new Blob([str]));
-
-        //     Object.entries(problem_files["materials"]).forEach(([key, value]) => {
-        //         zip.file(value["name"]+".json", new Blob([JSON.stringify(value["data"])]));
-        //     });
-
-        //     zip.generateAsync({type:"blob"})
-        //     .then(function(content) {
-        //         that.saveAs(content, "case.zip");
-        // });
-    }
-
-    onExecute() {
+    async onExecute() {
         var that = this;
+        var project_parameters = this.getInputData(0);
+
         this._debug.value = "Loading...";
-        fetchServerStream(
-            'http://' + this.virtual_run_ip.value + ":" + this.virtual_run_pt.value + "/kratos",
+
+        let api_url = 'http://' + this.virtual_run_ip.value + ":" + this.virtual_run_pt.value;
+        
+        await uploadJson(
+            api_url + "/upload_json",
+            project_parameters
+        );
+
+        await fetchServerStream(
+            api_url + "/run_simulation",
             that
         );
     }

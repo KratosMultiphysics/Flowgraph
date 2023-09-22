@@ -7,7 +7,7 @@ class ModelImportSettings {
 
         this.properties = {
             "input_type": "mpda",
-            "input_name": ""
+            "input_filename": ""
         }
 
         this.serialize_widgets = true;
@@ -18,7 +18,7 @@ class ModelImportSettings {
         this._value = Object.assign({}, this.properties);
 
         this._value["input_type"] = this.model_type.value;
-        this._value["input_name"] = this.getInputData(0)
+        this._value["input_filename"] = this.getInputData(0)
 
         this.setOutputData(0, this._value);
     };

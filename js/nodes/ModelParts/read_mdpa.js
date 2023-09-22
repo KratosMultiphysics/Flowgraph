@@ -1,16 +1,14 @@
 class ReadMdpa {
     constructor() {
-        // Model
-        this.MODEL_INPUT  = 0;
-        this.MODEL_OUTPUT = 0;
-
         // Identifier Glyph
         this.glyph = {shape: '\uf6d1', font:'900 14px "Font Awesome 5 Free"', width: 16, height: 9};
 
         // List of inputs and outputs ("name", "type")
 
-        /* This section is intentionally left empty because the node
-           outputs will get populated based on the loaded file. */
+        /* 
+            This section is intentionally left empty because the node
+            outputs will get populated based on the loaded file. 
+        */
 
         // File Manager
         this.input_manager = document.createElement('input');
@@ -27,12 +25,34 @@ class ReadMdpa {
 
         this.size = this.computeSize();
         this.serialize_widgets = true;
+
+        /* 
+            If the list of submodelparts is not empty, it means we already have the mdpa info.
+            This needs to be in the  constructor otherwise litegraph.js will not handle the connections correctly
+            because of the clone in the serialize code. 
+        */
+
+        this.rebuildbuildNode();
+    }
+
+    rebuildbuildNode() {
+        if(this._submodelpart_names.length) {
+            // Wipe the node clean
+            this.wipeNode();
+            this.widgets_up = true;
+
+            // Update the outputs
+            this.updateNodeOutputSlots(LiteGraph.OUTPUT);
+        }
+    }
+
+    onSerialize(serilized) {
+        serilized["_submodelpart_names"] = this._submodelpart_names;
+        console.log(serilized);
     }
 
     onExecute() {
         if(this.outputs && this.outputs.length > 0) {
-            this.setOutputData(0, `${this.filename}.mdpa`);
-
             for (let i = 0; i < this.outputs.length; i++) {
                 if (this.isOutputConnected(i)) {
                     this.setOutputData(i, this._output_slector_map[i].value);   
@@ -70,14 +90,15 @@ class ReadMdpa {
             this.filename = file.name.slice(0, -5);
             
             // Add the filename and the main modelpart names to the list
-            this._submodelpart_names.push(`${this.filename}.mdpa`);
+            // this._submodelpart_names.push(`${this.filename}.mdpa`);
             this._submodelpart_names.push(this.filename);
 
             // Obtain the Submodelparts
             for (const match of sub_mdpa) {
                 if (match[0].includes("Begin")) {
                     sub_mdpa_namepath = `${sub_mdpa_namepath}.${match[3]}`;
-                    this._submodelpart_names.push(`${this.filename}${sub_mdpa_namepath}`)
+                    // this._submodelpart_names.push(`${this.filename}${sub_mdpa_namepath}`);
+                    this._submodelpart_names.push(`${match[3]}`);
                 }
 
                 if (match[0].includes("End")) {
@@ -87,13 +108,10 @@ class ReadMdpa {
                 }
             }
             
-            // Trigger an update which will convert the node
-            this.wipeNode();
-            this.widgets_up = true;
-
-            // Update the node
             this.title = file.name;
-            this.updateNodeOutputSlots(LiteGraph.OUTPUT);
+
+            // Rebuild the node
+            this.rebuildbuildNode();
         }
     }
 
@@ -144,7 +162,7 @@ class ReadMdpa {
             // If all nodes are connected, or there are no nodes, add one.
             if (!this.outputs || this.outputs.length <= 1 || this.isOutputConnected(this.outputs.length - 1)) {
                 this.addOutput(null, "string");
-                this._output_slector_map.push(this.addWidget("combo","ModelPart", this._submodelpart_names[0], null, { 
+                this._output_slector_map.push(this.addWidget("combo","ModelPart", this._submodelpart_names[0], (v) => {}, { 
                     values:this._submodelpart_names,
                 }));
             }
