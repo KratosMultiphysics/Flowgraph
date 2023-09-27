@@ -23,7 +23,7 @@ function Editor(container_id, options) {
     // Create graph
     var graph = (this.graph = new LGraph());
 
-    graph.config.align_to_grid = true;
+    graph.config.align_to_grid = false;
     
     var graphcanvas = (this.graphcanvas = new LGraphCanvas(canvas, graph));
 
