@@ -25,25 +25,10 @@ class ReadMdpa {
 
         this.size = this.computeSize();
         this.serialize_widgets = true;
-
-        /* 
-            If the list of submodelparts is not empty, it means we already have the mdpa info.
-            This needs to be in the  constructor otherwise litegraph.js will not handle the connections correctly
-            because of the clone in the serialize code. 
-        */
-
-        this.rebuildbuildNode();
     }
 
-    rebuildbuildNode() {
-        if(this._submodelpart_names.length) {
-            // Wipe the node clean
-            this.wipeNode();
-            this.widgets_up = true;
-
-            // Update the outputs
-            this.updateNodeOutputSlots(LiteGraph.OUTPUT);
-        }
+    onConfigure() {
+        this.rebuildbuildNode();
     }
 
     onSerialize(serilized) {
@@ -65,20 +50,6 @@ class ReadMdpa {
         const [file] = event.target.files;
         this.readModelList(file);
     }
-
-    /**
-     * Read the node's model with the values from a file.
-     */
-    readModelList(source) {
-        if (!source) {
-            return;
-        }
-
-        const reader = new FileReader();
-
-        reader.onload = this.onReaderLoad(source);
-        reader.readAsText(source);
-    };
 
     onReaderLoad(file) {
         return ({ target: { result } }) => {
@@ -139,6 +110,36 @@ class ReadMdpa {
         this.widgets = [];
         this.setDirtyCanvas(true, true);
     }
+
+    /**
+     * Rebuild the node based on the elements of _submodepart_names variable
+     */
+    rebuildbuildNode() {
+        console.log("Rebuilding node...", this._submodelpart_names.length);
+        if(this._submodelpart_names.length) {
+            // Wipe the node clean
+            this.wipeNode();
+            this.widgets_up = true;
+
+            // Update the outputs
+            this.updateNodeOutputSlots(LiteGraph.OUTPUT);
+        }
+    }
+
+    /**
+     * Read the node's model with the values from a file.
+     * @param {*} source ModelPart file
+     */
+    readModelList(source) {
+        if (!source) {
+            return;
+        }
+
+        const reader = new FileReader();
+
+        reader.onload = this.onReaderLoad(source);
+        reader.readAsText(source);
+    };
 
     /**
      * Updates the list outputs on the node
