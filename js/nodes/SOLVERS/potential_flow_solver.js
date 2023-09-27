@@ -18,7 +18,7 @@ class PotentialFlowSolver extends Solver {
 
         // set properties
         this.properties = {
-            "model_part_name"               : "",
+            "model_part_name"               : "FluidModelPart",
             "domain_size"                   : 2,
             "solver_type"                   : "potential_flow",
             "model_import_settings"         : {},
@@ -30,7 +30,7 @@ class PotentialFlowSolver extends Solver {
                                               },
             "maximum_iterations"            : 50,
             "echo_level"                    : 1,
-            "volume_model_part_name"        : "",
+            "volume_model_part_name"        : "FluidParts_Fluid",
             "skin_parts"                    : [],
             "no_skin_parts"                 : [],
             "reform_dofs_at_each_step"      : false
