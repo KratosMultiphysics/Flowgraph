@@ -19,7 +19,7 @@ class ProblemData {
 
         // set widgets
         this.problem_name   = this.addWidget("string", "Name", this.properties["problem_name"]);
-        this.echo_level     = this.addWidget("combo", "Parallel Type", this.properties["parallel_type"], { property:"parallel_type", values: ["OpenMP", "MPI"]});
+        this.echo_level     = this.addWidget("combo", "Parallel Type", this.properties["parallel_type"], { property:"parallel_type", values: ["Serial", "OpenMP", "MPI"]});
         this.echo_level     = this.addWidget("combo", "Echo level", this.properties["echo_level"], { property:"echo_level", values: [0, 1, 2, 3]});
         this.start_time     = this.addWidget("number", "Start Time", this.properties["start_time"], "start_time", {step: 0.1});
         this.stop_time      = this.addWidget("number", "End Time", this.properties["end_time"], "end_time", {step: 0.1});

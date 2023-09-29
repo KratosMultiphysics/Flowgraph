@@ -25,6 +25,8 @@ elem.innerHTML += "<label id='expt-group' class='float-btn'>Export</label>";
 elem.innerHTML += "<label class='float-btn'>Import<input type='file' id='impt-group' style='display:none'></label>";
 elem.innerHTML += "<label class='float-btn float-btn-left' onclick='openNav()'>Viewer</label>";
 elem.innerHTML += "<label class='float-btn float-btn-right' style='min-width:40px' onclick='addViewerNode()'>+</label>";
+elem.innerHTML += "<label class='float-btn float-btn-left' onclick='llamaCall()'>KTS-LLM</label>";
+elem.innerHTML += "<input id='kratos-llm' class='float-inpt float-inpt-right' style='min-width:120px'></label>";
 
 $('.loadmeter').remove();
 

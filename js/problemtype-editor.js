@@ -113,7 +113,9 @@ Editor.prototype.onLoadButton = function() {
     this.root.appendChild(panel);
 };
 
-Editor.prototype.onSaveButton = function() {};
+Editor.prototype.onSaveButton = function() {
+    
+};
 
 Editor.prototype.onPlayStepButton = function() {
     var graph = this.graph;
