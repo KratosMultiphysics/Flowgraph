@@ -39,4 +39,4 @@ MonolithicFormulation.prototype.onExecute = function() {
 
 MonolithicFormulation.title = "Monolithic formulation";
 MonolithicFormulation.desc = "Description of the monolitic formulation";
-LiteGraph.registerNodeType("SOLVERS/Formulations/Monolithic", MonolithicFormulation);
+LiteGraph.registerNodeType("Solvers/Formulations/Monolithic", MonolithicFormulation);

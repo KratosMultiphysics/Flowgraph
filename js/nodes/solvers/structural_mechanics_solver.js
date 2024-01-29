@@ -83,6 +83,6 @@ class StructuralMechanicsSolver extends Solver {
 StructuralMechanicsSolver.title = "Structural mechanics solver";
 StructuralMechanicsSolver.desc = "Properties for the structural mechanics solver";
 
-LiteGraph.registerNodeType("SOLVERS/Structural Mechanics Solver", StructuralMechanicsSolver);
+LiteGraph.registerNodeType("Solvers/Structural Mechanics Solver", StructuralMechanicsSolver);
 
 console.log("StructuralMechanicsSolver node created"); //helps to debug

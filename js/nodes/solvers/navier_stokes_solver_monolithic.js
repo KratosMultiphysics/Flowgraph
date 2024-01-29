@@ -1,4 +1,4 @@
-class NavierStokesSolverFractional extends Solver {
+class NavierStokesSolverMonolithic extends Solver {
     constructor() {
         super();
 
@@ -16,18 +16,14 @@ class NavierStokesSolverFractional extends Solver {
             //    height: 10
             //}
         });
-        this.imodn = iidx++;
-        this.addInput("model_part_name", "string");
         this.ivolmp = iidx++;
         this.addInput("Volume submodelpart", "string");
         this.iskinmp = iidx++;
         this.addInput("Skin submodelparts", "string");
         this.inskinmp = iidx++;
         this.addInput("NonSkin submodelparts", "string");
-        this.vilinsol = iidx++;
-        this.addInput("Velocity Linear solver", "velocity_linear_solver_settings");
-        this.pilinsol = iidx++;
-        this.addInput("Pressure Linear solver", "pressure_linear_solver_settings");
+        this.ilinsol = iidx++;
+        this.addInput("Linear solver", "linear_solver_settings");
         this.imat = iidx++;
         this.addInput("Materials settings", "materials_settings");
         this.itime = iidx++;
@@ -39,31 +35,31 @@ class NavierStokesSolverFractional extends Solver {
 
         let oidx = 0;
         this.osolver = oidx++;
-        this.addOutput("Solver settings", "solver_settings");
+        this.addOutput("Solver", "solver_settings");
 
         // properties
 
         this.properties = {
-            "solver_type": "fractional_step",
+            "solver_type": "",
             "echo_level": -1,
             "compute_reactions": false,
 
-            "maximum_velocity_iterations": -1,
-            "maximum_pressure_iterations": -1,
-            "velocity_tolerance": -1,
-            "pressure_tolerance": -1,
-            
+            "maximum_iterations": -1,
+            "relative_velocity_tolerance": -1,
+            "absolute_velocity_tolerance": -1,
+            "relative_pressure_tolerance": -1,
+            "absolute_pressure_tolerance": -1,
+
             "domain_size": -1,
             "model_import_settings": {},
-            "model_part_name": [],
-            "volume_model_part_name": [],
+            "model_part_name": "",
+            "volume_model_part_name": "",
             "skin_parts": [],
             "no_skin_parts": [],
 
             "material_import_settings": {},
 
-            "velocity_linear_solver_settings": {},
-            "pressure_linear_solver_settings": {},
+            "linear_solver_settings": {},
             "time_stepping": {},
             "formulation": {}
         };
@@ -82,12 +78,18 @@ class NavierStokesSolverFractional extends Solver {
         this.maximum_iterations = this.addWidget("number", "Maximum iterations", 10, function(v) {}, {
 		min: 1, max: 100, step: 1
         });
-        this.velocity_tolerance = this.addWidget("combo", "Velocity non-lin tol ", 1e-3, function(v) {}, {
+        this.relative_velocity_tolerance = this.addWidget("combo", "Velocity REL tol ", 1e-3, function(v) {}, {
             values: [1, 1e-1, 1e-2, 1e-3, 1e-4, 1e-5, 1e-6,]
-        });        
-        this.pressure_tolerance = this.addWidget("combo", "Pressure non-lin tol", 1e-3, function(v) {}, {
+        });
+        this.absolute_velocity_tolerance = this.addWidget("combo", "Velocity ABS tol", 1e-5, function(v) {}, {
             values: [1, 1e-1, 1e-2, 1e-3, 1e-4, 1e-5, 1e-6,]
-        });        
+        });
+        this.relative_pressure_tolerance = this.addWidget("combo", "Pressure REL tol", 1e-3, function(v) {}, {
+            values: [1, 1e-1, 1e-2, 1e-3, 1e-4, 1e-5, 1e-6,]
+        });
+        this.absolute_pressure_tolerance = this.addWidget("combo", "Pressure ABS tol", 1e-5, function(v) {}, {
+            values: [1, 1e-1, 1e-2, 1e-3, 1e-4, 1e-5, 1e-6,]
+        });
     }
 
     onExecute() {
@@ -95,15 +97,27 @@ class NavierStokesSolverFractional extends Solver {
         let val;
         let idx;
 
-        idx = this.imodn;
+        idx = this.imod;
         if (this.getInputData(idx) != undefined) {
-            val = this.getInputData(idx);
+            val = this.getInputData(idx)["mp_name"];
             this._value["model_part_name"] = val;
+        }
+
+        idx = this.imod;
+        if (this.getInputData(idx) != undefined) {
+            val = this.getInputData(idx)["dim"];
+            this._value["domain_size"] = val;
+        }
+
+        idx = this.imod;
+        if (this.getInputData(idx) != undefined) {
+            val = this.getInputData(idx)["mp_settings"];
+            this._value["model_import_settings"] = val;
         }
 
         idx = this.ivolmp;
         if (this.getInputData(idx) != undefined) {
-            val = this.getInputData(idx);
+            val = this.getInputData(idx)["smp_name"];
             this._value["volume_model_part_name"] = val;
         }
 
@@ -119,29 +133,10 @@ class NavierStokesSolverFractional extends Solver {
             this._value["no_skin_parts"] = val;
         }
 
-        idx = this.imod;
-        if (this.getInputData(idx) != undefined) {
-            val = this.getInputData(idx)["dim"];
-            this._value["domain_size"] = val;
-        }
-
-        idx = this.imod;
-        if (this.getInputData(idx) != undefined) {
-            val = this.getInputData(idx)["mp_settings"];
-            this._value["model_import_settings"] = val;
-        }
-
-        
-        idx = this.pilinsol;
+        idx = this.ilinsol;
         if (this.getInputData(idx) != undefined) {
             val = this.getInputData(idx);
-            this._value["pressure_linear_solver_settings"] = val;
-        }
-
-        idx = this.vilinsol;
-        if (this.getInputData(idx) != undefined) {
-            val = this.getInputData(idx);
-            this._value["velocity_linear_solver_settings"] = val;
+            this._value["linear_solver_settings"] = val;
         }
 
         idx = this.itime;
@@ -167,14 +162,16 @@ class NavierStokesSolverFractional extends Solver {
         this._value["echo_level"] = this.echo_level.value;
         this._value["compute_reactions"] = this.compute_reactions.value;
         this._value["maximum_iterations"] = this.maximum_iterations.value;
-        this._value["velocity_tolerance"] = this.velocity_tolerance.value;
-        this._value["pressure_tolerance"] = this.pressure_tolerance.value;
-       
+        this._value["relative_velocity_tolerance"] = this.relative_velocity_tolerance.value;
+        this._value["absolute_velocity_tolerance"] = this.absolute_velocity_tolerance.value;
+        this._value["relative_pressure_tolerance"] = this.relative_pressure_tolerance.value;
+        this._value["absolute_pressure_tolerance"] = this.absolute_pressure_tolerance.value;
+
         this.setOutputData(this.osolver, this._value);
     }
 }
 
-NavierStokesSolverFractional.title = "Navier Stokes Solver Fractional";
-NavierStokesSolverFractional.desc = "Properties for the fluid solver";
+NavierStokesSolverMonolithic.title = "Navier Stokes Solver Monolithic";
+NavierStokesSolverMonolithic.desc = "Properties for the fluid solver";
 
-LiteGraph.registerNodeType("SOLVERS/Navier Stokes Solver Fractional", NavierStokesSolverFractional);
+LiteGraph.registerNodeType("Solvers/Navier Stokes Solver Monolithic", NavierStokesSolverMonolithic);

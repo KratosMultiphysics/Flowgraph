@@ -81,4 +81,4 @@ class AMGCLMPISolver {
 AMGCLMPISolver.title = "AMGCL MPI";
 AMGCLMPISolver.desc = "MPI version of AMGCL";
 
-LiteGraph.registerNodeType("SOLVERS/Linear Solvers/MPI/AMGCL", AMGCLMPISolver);
+LiteGraph.registerNodeType("Solvers/Linear Solvers/MPI/AMGCL", AMGCLMPISolver);

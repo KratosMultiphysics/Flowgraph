@@ -30,4 +30,4 @@ TimeStepping.prototype.onExecute = function() {
 
 TimeStepping.title = "Time Stepping";
 TimeStepping.desc = "Set time stepping";
-LiteGraph.registerNodeType("SOLVERS/TimeStepping", TimeStepping);
+LiteGraph.registerNodeType("Solvers/TimeStepping", TimeStepping);

@@ -79,7 +79,7 @@ class AMGCLSolver {
 AMGCLSolver.title = "AMGCL";
 AMGCLSolver.desc = "Description for AMGCL";
 
-LiteGraph.registerNodeType("SOLVERS/Linear Solvers/Serial/AMGCL", AMGCLSolver);
+LiteGraph.registerNodeType("Solvers/Linear Solvers/Serial/AMGCL", AMGCLSolver);
 
 const l_solver_color = "#7a8ec4";
 LGraphCanvas.link_type_colors["linear_solver_settings"] = l_solver_color;

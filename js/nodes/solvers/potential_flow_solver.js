@@ -74,4 +74,4 @@ class PotentialFlowSolver extends Solver {
 PotentialFlowSolver.title = "Potential Flow Solver";
 PotentialFlowSolver.desc = "Properties for the potential flow solver";
 
-LiteGraph.registerNodeType("SOLVERS/Potential Flow", PotentialFlowSolver);
+LiteGraph.registerNodeType("Solvers/Potential Flow", PotentialFlowSolver);

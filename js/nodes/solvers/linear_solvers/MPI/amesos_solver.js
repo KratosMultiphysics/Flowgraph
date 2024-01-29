@@ -30,6 +30,6 @@ class AmesosSolver {
 AmesosSolver.title = "Amesos";
 AmesosSolver.desc = "Trilinos Amesos-Solver";
 
-LiteGraph.registerNodeType("SOLVERS/Linear Solvers/MPI/Amesos", AmesosSolver);
+LiteGraph.registerNodeType("Solvers/Linear Solvers/MPI/Amesos", AmesosSolver);
 
 

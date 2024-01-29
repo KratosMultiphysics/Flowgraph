@@ -1,4 +1,4 @@
-class FluidSolver extends Solver {
+class ConvectionDiffusionSolver extends Solver {
     constructor() {
         super();
 
@@ -25,7 +25,7 @@ class FluidSolver extends Solver {
         this.ilinsol = iidx++;
         this.addInput("Linear solver", "linear_solver_settings");
         this.imat = iidx++;
-        this.addInput("Materials settings", "materials_settings");
+        this.addInput("Materials settings", "material_import_settings");
         this.itime = iidx++;
         this.addInput("Time stepping", "time");
         this.iformulation = iidx++;
@@ -35,39 +35,48 @@ class FluidSolver extends Solver {
 
         let oidx = 0;
         this.osolver = oidx++;
-        this.addOutput("Solver", "solver_settings,fluid_solver_settings");
+        this.addOutput("Solver", "solver_settings");
 
         // properties
 
         this.properties = {
             "solver_type": "",
             "echo_level": -1,
-            "compute_reactions": false,
+            "compute_reactions": true,
 
-            "maximum_iterations": -1,
-            "relative_velocity_tolerance": -1,
-            "absolute_velocity_tolerance": -1,
-            "relative_pressure_tolerance": -1,
-            "absolute_pressure_tolerance": -1,
+            "analysis_type": "",
+
+            "solution_relative_tolerance": -1,
+            "solution_absolute_tolerance": -1,
+            "residual_relative_tolerance": -1,
+            "residual_absolute_tolerance": -1,
 
             "domain_size": -1,
             "model_import_settings": {},
             "model_part_name": "",
-            "volume_model_part_name": "",
-            "skin_parts": [],
-            "no_skin_parts": [],
 
             "material_import_settings": {},
 
             "linear_solver_settings": {},
             "time_stepping": {},
-            "formulation": {}
+
+            "convection_diffusion_variables" : {
+                "density_variable"              : "DENSITY",
+                "diffusion_variable"            : "CONDUCTIVITY",
+                "unknown_variable"              : "TEMPERATURE",
+                "volume_source_variable"        : "HEAT_FLUX",
+                "surface_source_variable"       : "FACE_HEAT_FLUX",
+                "projection_variable"           : "PROJECTED_SCALAR1",
+                "convection_variable"           : "CONVECTION_VELOCITY",
+                "gradient_variable"             : "TEMPERATURE_GRADIENT",
+                "mesh_velocity_variable"        : "MESH_VELOCITY",
+                "transfer_coefficient_variable" : "TRANSFER_COEFFICIENT",
+                "velocity_variable"             : "VELOCITY",
+                "specific_heat_variable"        : "SPECIFIC_HEAT",
+                "reaction_variable"             : "REACTION_FLUX",
+                "reaction_gradient_variable"    : "REACTION"
+            }
         };
-            //"formulation": {
-            //    "element_type": "vms",
-            //    "use_orthogonal_subscales": false,
-            //    "dynamic_tau": 1.0
-            //},
 
         this.echo_level = this.addWidget("combo", "Echo level", 0, function(v) {}, {
             values: [0, 1, 2, 3]
@@ -76,18 +85,18 @@ class FluidSolver extends Solver {
             values: [false, true]
         });
         this.maximum_iterations = this.addWidget("number", "Maximum iterations", 10, function(v) {}, {
-		min: 1, max: 100, step: 1
+		min: 1, max: 100, step: 10
         });
-        this.relative_velocity_tolerance = this.addWidget("combo", "Velocity REL tol ", 1e-3, function(v) {}, {
+        this.solution_relative_tolerance = this.addWidget("combo", "Solution REL tol ", 1e-3, function(v) {}, {
             values: [1, 1e-1, 1e-2, 1e-3, 1e-4, 1e-5, 1e-6,]
         });
-        this.absolute_velocity_tolerance = this.addWidget("combo", "Velocity ABS tol", 1e-5, function(v) {}, {
+        this.solution_absolute_tolerance = this.addWidget("combo", "Solution ABS tol", 1e-5, function(v) {}, {
             values: [1, 1e-1, 1e-2, 1e-3, 1e-4, 1e-5, 1e-6,]
         });
-        this.relative_pressure_tolerance = this.addWidget("combo", "Pressure REL tol", 1e-3, function(v) {}, {
+        this.residual_relative_tolerance = this.addWidget("combo", "Residual REL tol ", 1e-3, function(v) {}, {
             values: [1, 1e-1, 1e-2, 1e-3, 1e-4, 1e-5, 1e-6,]
         });
-        this.absolute_pressure_tolerance = this.addWidget("combo", "Pressure ABS tol", 1e-5, function(v) {}, {
+        this.residual_absolute_tolerance = this.addWidget("combo", "Residual ABS tol", 1e-5, function(v) {}, {
             values: [1, 1e-1, 1e-2, 1e-3, 1e-4, 1e-5, 1e-6,]
         });
     }
@@ -105,13 +114,19 @@ class FluidSolver extends Solver {
 
         idx = this.imod;
         if (this.getInputData(idx) != undefined) {
+            val = this.getInputData(idx)["linear"];
+            this._value["analysis_type"] = val;
+        }
+
+        idx = this.imod;
+        if (this.getInputData(idx) != undefined) {
             val = this.getInputData(idx)["dim"];
             this._value["domain_size"] = val;
         }
 
         idx = this.imod;
         if (this.getInputData(idx) != undefined) {
-            val = this.getInputData(idx)["mp_settings"];
+            val = this.getInputData(idx);
             this._value["model_import_settings"] = val;
         }
 
@@ -162,16 +177,16 @@ class FluidSolver extends Solver {
         this._value["echo_level"] = this.echo_level.value;
         this._value["compute_reactions"] = this.compute_reactions.value;
         this._value["maximum_iterations"] = this.maximum_iterations.value;
-        this._value["relative_velocity_tolerance"] = this.relative_velocity_tolerance.value;
-        this._value["absolute_velocity_tolerance"] = this.absolute_velocity_tolerance.value;
-        this._value["relative_pressure_tolerance"] = this.relative_pressure_tolerance.value;
-        this._value["absolute_pressure_tolerance"] = this.absolute_pressure_tolerance.value;
+        this._value["solution_relative_tolerance"] = this.solution_relative_tolerance.value;
+        this._value["solution_absolute_tolerance"] = this.solution_absolute_tolerance.value;
+        this._value["residual_relative_tolerance"] = this.residual_relative_tolerance.value;
+        this._value["residual_absolute_tolerance"] = this.residual_absolute_tolerance.value;
 
         this.setOutputData(this.osolver, this._value);
     }
 }
 
-FluidSolver.title = "Fluid solver";
-FluidSolver.desc = "Properties for the fluid solver";
+ConvectionDiffusionSolver.title = "Convection-diffusion solver";
+ConvectionDiffusionSolver.desc = "Properties for the convection-diffusion solver";
 
-LiteGraph.registerNodeType("SOLVERS/Fluid Solver", FluidSolver);
+LiteGraph.registerNodeType("Solvers/Convection-diffusion Solver", ConvectionDiffusionSolver);

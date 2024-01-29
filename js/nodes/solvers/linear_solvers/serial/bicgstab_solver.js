@@ -37,5 +37,5 @@ class BICGSTABSolver {
 BICGSTABSolver.title = "BICGSTAB";
 BICGSTABSolver.desc = "Biconjugate gradient stabilized linear solver";
 
-LiteGraph.registerNodeType("SOLVERS/Linear Solvers/Serial/BICGSTAB", BICGSTABSolver);
+LiteGraph.registerNodeType("Solvers/Linear Solvers/Serial/BICGSTAB", BICGSTABSolver);
 

@@ -49,4 +49,4 @@ class AztecSolver {
 AztecSolver.title = "Aztec";
 AztecSolver.desc = "Aztec linear solver for MPI";
 
-LiteGraph.registerNodeType("SOLVERS/Linear Solvers/MPI/Aztec", AztecSolver);
+LiteGraph.registerNodeType("Solvers/Linear Solvers/MPI/Aztec", AztecSolver);

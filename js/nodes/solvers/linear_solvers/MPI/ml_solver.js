@@ -49,5 +49,5 @@ class MLSolver {
 MLSolver.title = "Multi-Level";
 MLSolver.desc = "Multi-Level solver from Trilinos";
 
-LiteGraph.registerNodeType("SOLVERS/Linear Solvers/MPI/Multi-Level", MLSolver);
+LiteGraph.registerNodeType("Solvers/Linear Solvers/MPI/Multi-Level", MLSolver);
 

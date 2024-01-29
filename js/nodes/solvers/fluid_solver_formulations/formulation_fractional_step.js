@@ -39,4 +39,4 @@ FractionalStepFormulation.prototype.onExecute = function() {
 
 FractionalStepFormulation.title = "Fractional step formulation";
 FractionalStepFormulation.desc = "Description of the fractional step formulation";
-LiteGraph.registerNodeType("SOLVERS/Formulations/FractionalStep", FractionalStepFormulation);
+LiteGraph.registerNodeType("Solvers/Formulations/FractionalStep", FractionalStepFormulation);

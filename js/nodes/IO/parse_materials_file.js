@@ -88,6 +88,6 @@ class ParseMaterialsFile {
     }
 }
 
-ParseMaterialsFile.title = "Parse MATERIALS file";
+ParseMaterialsFile.title = "Parse Materials file";
 ParseMaterialsFile.desc = "Parses a .json file with the descripcion of the materials.";
 LiteGraph.registerNodeType("IO/Parse Materials", ParseMaterialsFile);
