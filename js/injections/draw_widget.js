@@ -167,6 +167,12 @@
 									values = values();
 								if(values && values.constructor !== Array)
 									v = values[ w.value ];
+                                
+                                // Charlie: If the value is not in the list of values, set it to the first value ( For dynamic lists )
+                                if(values && values.indexOf(v) == -1) {
+                                    w.value = values[0];
+                                    v = w.value
+                                }
 							}
                             ctx.fillText(
                                 v,
