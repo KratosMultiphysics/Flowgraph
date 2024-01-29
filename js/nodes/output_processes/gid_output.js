@@ -55,6 +55,6 @@ class GiDIO extends OutputProcess {
 GiDIO.title = "GiD";
 GiDIO.desc = "Creates GiD IO";
 
-LiteGraph.registerNodeType("OUTPUT PROCESS/GiD", GiDIO);
+LiteGraph.registerNodeType("Output Processes/GiD", GiDIO);
 
 console.log("GiDIO node created"); //helps to debug
