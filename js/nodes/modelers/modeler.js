@@ -5,7 +5,7 @@ class Modeler {
 
         // List of inputs and outputs ("name", "type")
         this.addInput("Input", "stage_modeler");
-        
+
         this.addOutput("Modeler", "stage_modeler")
     }
 
@@ -19,6 +19,6 @@ class Modeler {
 Modeler.title = "Modeler";
 Modeler.desc = "Base Modeler";
 
-LiteGraph.registerNodeType("Stages/Modeleres/Modeler", Modeler);
+LiteGraph.registerNodeType("Modelers/Modeler", Modeler);
 
 console.log("Modeler node created"); //helps to debug
