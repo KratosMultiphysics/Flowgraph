@@ -8,8 +8,8 @@ class CreateEntitiesFromGeometriesModeler {
         this.glyph = {shape: '\uf6cf', font:'900 14px "Font Awesome 5 Free"', width: 16, height: 9};
 
         // List of inputs and outputs ("name", "type")
-        this.addInput("File Name", "string");
-        this.addInput("ModelPart Name", "string");
+        this.addInput("Elements list", "input_list");
+        this.addInput("Conditions list", "input_list");
         this.addOutput("Modeler", "stage_modeler");
 
         this.size = this.computeSize();
