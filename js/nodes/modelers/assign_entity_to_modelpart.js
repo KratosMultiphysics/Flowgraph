@@ -1,7 +1,7 @@
 class AssignEntityToModelPart {
     constructor() {
         // Identifier Glyph
-        this.glyph = {shape: '\uf1b3', font:'900 14px "Font Awesome 5 Free"', width: 16, height: 9};
+        this.glyph = {shape: '\uf248', font:'900 14px "Font Awesome 5 Free"', width: 16, height: 9};
 
         // Set inputs
         this.addInput("Model part", "string");
@@ -18,7 +18,7 @@ class AssignEntityToModelPart {
         };
 
         this.application_selector = this.addWidget("combo", "Application", Object.keys(this.list_of_entities[this.entity_type_selector.value])[0], () => { }, { 
-            values: () => { return Object.keys(this.list_of_entities[this.entity_type_selector.value]); }
+            values: () => { return Object.keys(this.list_of_entities[this.entity_type_selector.value]) || ['Invalid Entity']; }
         });
 
         this.entities_selector = this.addWidget("combo", this.entity_type_selector.value + " Name", this.list_of_entities[this.entity_type_selector.value][this.application_selector.value][0], () => { }, {
