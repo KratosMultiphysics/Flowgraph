@@ -42,7 +42,7 @@ class ReadMdpa {
         // Add back all widgets and outputs
         for(let i = 0; i < this._selected_mdpa_vals.length; i++) {
             console.log("Adding something...")
-            this.addOutput(null, "string");
+            // this.addOutput(null, "string");
             this._output_slector_map.push(this.addWidget("combo","ModelPart", this._selected_mdpa_vals[i], (v) => {}, { 
                 values:this._submodelpart_names,
             }));
@@ -80,8 +80,10 @@ class ReadMdpa {
     }
 
     onExecute() {
+        console.log(this._output_slector_map)
         if(this.outputs && this.outputs.length > 0) {
             for (let i = 0; i < this.outputs.length; i++) {
+                console.log(this.isOutputConnected(i))
                 if (this.isOutputConnected(i)) {
                     this.setOutputData(i, this._output_slector_map[i].value);   
                 }
@@ -155,8 +157,8 @@ class ReadMdpa {
      */
     wipeNode() {
         // Clean io/widgets
-        this.inputs = [];
-        this.outputs = [];
+        // this.inputs = [];
+        // this.outputs = [];
         this.widgets = [];
 
         // Clean internal data
