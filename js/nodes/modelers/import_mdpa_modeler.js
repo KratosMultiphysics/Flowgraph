@@ -1,4 +1,4 @@
-class ImportMdpaModeler {
+class ImportMDPAModeler {
     constructor() {
         // Model
         this.MODEL_INPUT  = 0;
@@ -29,9 +29,9 @@ class ImportMdpaModeler {
     }
 }
 
-ImportMdpaModeler.title = "Import Mdpa Modeler";
-ImportMdpaModeler.desc  = "This modeler loads a Mpda file and makes its modelparts avaliable";
+ImportMDPAModeler.title = "Import MDPA modeler";
+ImportMDPAModeler.desc  = "This modeler loads a MDPA file and makes its modelparts avaliable";
 
-LiteGraph.registerNodeType("Stages/Modeleres/Import Mdpa", ModelManager.registerNodeType(ImportMdpaModeler));
+LiteGraph.registerNodeType("Modelers/Import MDPA", ModelManager.registerNodeType(ImportMDPAModeler));
 
-console.log("ImportMdpaModeler node created"); //helps to debug
+console.log("ImportMDPAModeler node created"); //helps to debug

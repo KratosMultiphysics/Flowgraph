@@ -1,4 +1,4 @@
-class DeleteModeler {
+class DeleteModelPartsModeler {
     constructor() {
         // Model
         this.MODEL_INPUT  = 0;
@@ -17,14 +17,14 @@ class DeleteModeler {
     /**
      * Executed on connection change.
      * This function can get extended my ModelNode.
-     * @param {*} type 
-     * @param {*} slot 
-     * @param {*} connected 
-     * @param {*} link_info 
-     * @param {*} input_info 
+     * @param {*} type
+     * @param {*} slot
+     * @param {*} connected
+     * @param {*} link_info
+     * @param {*} input_info
      */
     onConnectionsChange(type, slot, connected, link_info, input_info) {
-        if (type == LiteGraph.INPUT) { 
+        if (type == LiteGraph.INPUT) {
             this.updateWidgetList();
         }
     }
@@ -44,9 +44,9 @@ class DeleteModeler {
     }
 
     /** Internal */
-    /** 
+    /**
      * Populates the node widgets with the name of the modelparts available
-     * in the input's model, if exists. 
+     * in the input's model, if exists.
      */
     updateModelOuputs() {
         this._model_operations = [];
@@ -75,7 +75,7 @@ class DeleteModeler {
         this._output_slector_map = [];
 
         for (let index in model_list) {
-            this._output_slector_map.push(this.addWidget("combo", model_list[index], "Keep", (v) => {console.log("hola?"); this.onUpdateDropdown();}, { 
+            this._output_slector_map.push(this.addWidget("combo", model_list[index], "Keep", (v) => {console.log("hola?"); this.onUpdateDropdown();}, {
                 values:["Keep", "Delete"]
             }));
         }
@@ -84,9 +84,9 @@ class DeleteModeler {
     }
 }
 
-DeleteModeler.title = "Delete Modeler";
-DeleteModeler.desc = "Delete modelparts/submodelparts from the current Model";
+DeleteModelPartsModeler.title = "Delete model parts modeler";
+DeleteModelPartsModeler.desc = "Delete modelparts/submodelparts from the current Model";
 
-LiteGraph.registerNodeType("Stages/Modeleres/Delete Modeler", ModelManager.registerNodeType(DeleteModeler));
+LiteGraph.registerNodeType("Modelers/Delete model part", ModelManager.registerNodeType(DeleteModelPartsModeler));
 
-console.log("DeleteModeler node created"); //helps to debug
+console.log("DeleteModelPartsModeler node created"); //helps to debug

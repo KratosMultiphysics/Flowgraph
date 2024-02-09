@@ -20,6 +20,7 @@ class ReadMdpa {
         });
 
         this.filename = "";
+        this._loaded = false;
         this._output_slector_map = [];
         this._submodelpart_names = [];
         this._selected_mdpa_vals = ["none"];
@@ -32,15 +33,14 @@ class ReadMdpa {
         console.log("Creating node...", this._output_slector_map.length);
     }
 
-    onAdded() {
-        console.log("onAdded", this._selected_mdpa_vals)
-        // Wipe the node
+    rebuildNode() {
         this.wipeNode();
         this.widgets_up = true;
 
         console.log("onAddedWp", this._selected_mdpa_vals)
+        
         // Add back all widgets and outputs
-        for(let i = 0; i < this._selected_mdpa_vals.length + 1; i++) {
+        for(let i = 0; i < this._selected_mdpa_vals.length; i++) {
             console.log("Adding something...")
             this.addOutput(null, "string");
             this._output_slector_map.push(this.addWidget("combo","ModelPart", this._selected_mdpa_vals[i], (v) => {}, { 
@@ -51,30 +51,32 @@ class ReadMdpa {
         this.setDirtyCanvas(true, true);
     }
 
+    onAdded() {
+        console.log("onAdded", this._selected_mdpa_vals)
+        
+        // Wipe the node
+        if (this._loaded) {
+            this.rebuildNode();
+        }
+    }
+
     onConfigure(info) {
-        console.log("nfo",info)
-        this._selected_mdpa_vals = info["_selected_mdpa_vals"];
-        console.log("nfo",this._selected_mdpa_vals)
-        // console.log("onConfigure", this._selected_mdpa_vals)
-        // // If copy / past connections will could change and we need to restore the values
-        // for(let i = 0; i < this.widgets.length; i++) {
-        //     console.log(this.widgets[i].value)
-        //     this.widgets[i].value = this._selected_mdpa_vals[i];
-        //     console.log(this.widgets[i].value)
-        // }
+        console.log(" -- onConfigure -- ", info);
+        
+        this.rebuildNode();
     }
 
     onSerialize(serilized) {
         // We have to serialize the values of the widgets ourselves because
         // they will be destroyed during the serialization
-        console.log("Serializer:", this._submodelpart_names)
-        console.log("Serializer:", this._output_slector_map)
+        console.log(" -- onSerialize -- ");
 
+        serilized["_loaded"] = this._loaded;
         serilized["_submodelpart_names"] = this._submodelpart_names;
         serilized["_output_slector_map"] = this._output_slector_map;
         serilized["_selected_mdpa_vals"] = [...this._output_slector_map.map(w => w.value)];
 
-        console.log("_selected_mdpa_vals", this._selected_mdpa_vals)
+        console.log("_selected_mdpa_vals", serilized)
     }
 
     onExecute() {
@@ -99,6 +101,7 @@ class ReadMdpa {
 
             // Obtain the name of the ModelPart to get complete routes.
             let sub_mdpa_namepath = ""
+            this._loaded = true;
             this.filename = file.name.slice(0, -5);
             
             // Add the filename and the main modelpart names to the list
@@ -157,7 +160,7 @@ class ReadMdpa {
         this.widgets = [];
 
         // Clean internal data
-        // this._output_slector_map = [];
+        this._output_slector_map = [];
 
         // Redraw
         this.setDirtyCanvas(true, true);
@@ -183,7 +186,7 @@ class ReadMdpa {
      * @param {connection type} type 
      */
     updateNodeOutputSlots(type) {
-        console.log("Rebuild output");
+        console.log(" -- Rebuild output -- ");
         if (type == LiteGraph.OUTPUT) {
             // Remove unconnected nodes
             if(this.outputs) {
