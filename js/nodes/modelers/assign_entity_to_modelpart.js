@@ -10,18 +10,18 @@ class AssignEntityToModelPart {
         this.addOutput("Pair", "");
 
         // Set widgets
-        this.entity_type_selector = this.addWidget("combo","Combo", "element", function(v){}, { values:["element","condition"]} );
+        this.entity_type_selector = this.addWidget("combo","Combo", "Element", function(v){}, { values:["Element","Condition"]} );
 
         this.list_of_entities = {
-            "element" : list_of_elements,
-            "condition" : list_of_conditions
+            "Element" : list_of_elements,
+            "Condition" : list_of_conditions
         };
 
-        this.application_selector = this.addWidget("combo", "Application", Object.keys(this.list_of_entities[this.entity_type_selector.value])[0], () => { }, { 
+        this.application_selector = this.addWidget("combo", "Application", Object.keys(this.list_of_entities[this.entity_type_selector.value])[0], () => { }, {
             values: () => { return Object.keys(this.list_of_entities[this.entity_type_selector.value]) || ['Invalid Entity']; }
         });
 
-        this.entities_selector = this.addWidget("combo", this.entity_type_selector.value + " Name", this.list_of_entities[this.entity_type_selector.value][this.application_selector.value][0], () => { }, {
+        this.entities_selector = this.addWidget("combo", this.entity_type_selector.value + " name", this.list_of_entities[this.entity_type_selector.value][this.application_selector.value][0], () => { }, {
             values: () => { return this.list_of_entities[this.entity_type_selector.value][this.application_selector.value] || ['Invalid Application']; }
         });
 
@@ -31,13 +31,13 @@ class AssignEntityToModelPart {
 
     onExecute() {
         this._pair = {"model_part_name": this.getInputData(0)};
-        this._pair[this.entity_type_selector.value + "_name"] = this.getInputData(1);
+        this._pair[this.entity_type_selector.value.toLowerCase() + "_name"] = this.entities_selector.value;
 
         this.setOutputData(0, this._pair);
     }
 }
 
-AssignEntityToModelPart.title = "Assign Entity to ModelPart";
+AssignEntityToModelPart.title = "Assign entity to ModelPart";
 AssignEntityToModelPart.desc = "Assigns an entity (element or condition) to the compatible given modelpart geometries";
 
 LiteGraph.registerNodeType("Modelers/AssignEntityToModelPart", AssignEntityToModelPart);
