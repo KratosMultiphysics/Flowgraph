@@ -20,8 +20,8 @@ class CreateEntitiesFromGeometriesModeler {
         this._value = {
             "model": {
                 "echo_level" : 0,
-                "elements_list" :  this.getInputData(0),
-                "conditions_list" : this.getInputData(1),
+                "elements_list" : (this.getInputData(0) == null ? [] : this.getInputData(0)),
+                "conditions_list" : (this.getInputData(1) == null ? [] : this.getInputData(1)),
             }
         };
 
