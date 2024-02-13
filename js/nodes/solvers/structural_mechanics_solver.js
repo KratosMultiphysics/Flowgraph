@@ -9,7 +9,7 @@ class StructuralMechanicsSolver extends Solver {
         this.addInput("skin_parts", "array");               // 3
         this.addInput("no_skin_parts", "array");            // 4
         this.addInput("linear_solver_settings", "linear_solver_settings");     // 5
-        this.addInput("material_import_settings", "map");   // 6
+        this.addInput("material_import_settings", "model_import_settings");   // 6
 
         this.addOutput("solver_settings", "solver_settings,structure_solver_settings");
 
@@ -62,12 +62,11 @@ class StructuralMechanicsSolver extends Solver {
         this._value["no_skin_parts"] = this.getInputData(4);
         this._value["linear_solver_settings"] = this.getInputData(5);
 
-        if (this.getInputData(7) == undefined) {
-            // If the input is not provided, get the "problem_name" as mpda input file
+        if (this.getInputData(0) == undefined) {
             if (this.getInputData(1) != undefined) {
                 this._value["model_import_settings"]["input_filename"] = this.getInputData(2)["problem_name"];
+                this._value["model_import_settings"]["input_type"] = this.getInputData(2)["problem_name"];
             }
-            this._value["model_import_settings"]["input_type"] = "mdpa";
         } else {
             // Custom input provided
             this._value["model_import_settings"] = this.getInputData(0);

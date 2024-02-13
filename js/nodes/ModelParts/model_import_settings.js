@@ -1,7 +1,7 @@
 class ModelImportSettings {
     constructor() {
         this.addInput("name","string");
-        this.model_type = this.addWidget("combo", "Type", "mdpa", function(v) {}, { values: ["mdpa"] });
+        this.model_type = this.addWidget("combo", "Type", "mdpa", function(v) {}, { values: ["mdpa", "use_input_model_part"] });
 
         this.addOutput("Process","model_import_settings");
 

@@ -15,6 +15,12 @@ class StagePreProcess {
     }
 
     onExecute() {
+        this.output = {
+            "list_of_modelers": this.getInputData(0) || "[]",
+            "list_of_operations": this.getInputData(1) || "[]"
+        }
+        
+        this.setOutputData(0, this.output);
     }
 
     onSelection(e) {

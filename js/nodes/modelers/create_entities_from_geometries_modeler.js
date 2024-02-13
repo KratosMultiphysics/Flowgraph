@@ -18,14 +18,18 @@ class CreateEntitiesFromGeometriesModeler {
 
     onExecute() {
         this._value = {
-            "model": {
-                "echo_level" : 0,
-                "elements_list" : (this.getInputData(0) == null ? [] : this.getInputData(0)),
-                "conditions_list" : (this.getInputData(1) == null ? [] : this.getInputData(1)),
-            }
+            "elements_list" : (this.getInputData(0) == null ? [] : this.getInputData(0)),
+            "conditions_list" : (this.getInputData(1) == null ? [] : this.getInputData(1)),
         };
 
-        this.setOutputData(0, this._value);
+        let output = {
+            "python_module" : "create_entities_from_geometries_modeler",
+            "kratos_module" : "KratosMultiphysics"
+        }
+
+        output["settings"] = this._value
+
+        this.setOutputData(0, output);
     }
 }
 
