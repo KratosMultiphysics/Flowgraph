@@ -1,0 +1,3 @@
+[submodule "litegraph.js"]
+	path = litegraph.js
+	url = https://github.com/jagenjo/litegraph.js
