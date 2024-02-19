@@ -1,0 +1,22 @@
+{
+  "name": "flowgraph",
+  "version": "1.0.0",
+  "description": "Node editor to configure KratosMultiphysics simulations",
+  "type": "module",
+  "scripts": {
+    "start": "node ./app.js",
+    "devstart": "nodemon ./app.js"
+  },
+  "keywords": [
+    "KratosMultiphysics",
+    "Node",
+    "Flow",
+    "Graph"
+  ],
+  "author": "roigcarlo@gmail.com",
+  "license": "AGPL-3.0-or-later",
+  "devDependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.18.2"
+  }
+}
