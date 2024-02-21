@@ -3,23 +3,35 @@
 A node editor for Kratos Problemtypes
 
 ## Installation
-First download `litegrapg.js`
+Install [node.js](https://nodejs.org/en/download/package-manager)
 
-```bash
-git clone https://github.com/jagenjo/litegraph.js
+Ej. Ubuntu
+```console
+sudo apt install nodejs
 ``` 
 
-Then install this project inside `litegraph.js`
+Clone this repo
 
-```bash
-cd litegraph.js
+```console
 git clone https://github.com/KratosMultiphysics/Flowgraph.git
 ```
 
-## How to open
-- Open `index.html` in a browser, e.g.,
-```bash
-firefox index.html
+## How to run
+
+For users use either
+
+```console
+npm run start 
+```
+
+```console
+node app.js
+```
+
+For developers
+
+```console
+npm run devstart 
 ```
 
 ## Description

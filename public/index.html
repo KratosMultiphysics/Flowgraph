@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css">
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 
-    <link rel="stylesheet" type="text/css" href="../css/litegraph.css">
+    <link rel="stylesheet" type="text/css" href="css/litegraph/litegraph.css">
     <link rel="stylesheet" type="text/css" href="css/style.css">
     <link rel="stylesheet" type="text/css" href="css/jvc.css">
     <link rel="stylesheet" type="text/css" href="css/problemtype-editor.css">
@@ -26,12 +26,11 @@
     <div style="display:none; font-family: Font Awesome 6 Free;">.</div>
     <div id="main"></div>
 
-    <script type="text/javascript" src="../external/jquery-1.6.2.min.js"></script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 
-    <script type="text/javascript" src="../src/litegraph.js"></script>
+    <script type="text/javascript" src="js/litegraph/litegraph.core.js"></script>
     <script type="text/javascript" src="js/jvc.js"></script>
     <script type="text/javascript" src="js/problemtype-editor.js"></script>
-    <script type="text/javascript" src="js/builder.js"></script>
     <script type="text/javascript" src="js/side.js"></script>
     <script type="text/javascript" src="js/highlightjs-copy.min.js"></script>
 
@@ -42,31 +41,29 @@
     <!-- Mods to the base source code of litegraph.js. -->
     <!-- Needs to be done after importing litegraph AND before registering nodes -->
     <!-- Maybe ask to merge in the main lib when they are mature -->
-    <script type="text/javascript" src="js/injections/selection_import.js"></script>
-    <script type="text/javascript" src="js/injections/extended_menu.js"></script>
-    <script type="text/javascript" src="js/injections/remove_widget.js"></script>
-    <script type="text/javascript" src="js/injections/draw_widget.js"></script>
-    <script type="text/javascript" src="js/injections/draw_node.js"></script>
-    <script type="text/javascript" src="js/injections/node_panel.js"></script>
+    <script type="text/javascript" src="js/extensions/selection_import.js"></script>
+    <script type="text/javascript" src="js/extensions/extended_menu.js"></script>
+    <script type="text/javascript" src="js/extensions/remove_widget.js"></script>
+    <script type="text/javascript" src="js/extensions/draw_widget.js"></script>
+    <script type="text/javascript" src="js/extensions/draw_node.js"></script>
 
     <script type="text/javascript" src="js/jszip.js"></script>
     <script type="text/javascript" src="js/problem_manager.js"></script>
-
-    <!-- TODO: Filter which ones of these could be useful for us -->
-    <script type="text/javascript" src="../src/nodes/base.js"></script>
-
-    <script type="text/javascript" src="js/nodes/utilities/error_handler.js"></script>
-    <script type="text/javascript" src="js/nodes/utilities/input_list.js"></script>
-    <script type="text/javascript" src="js/nodes/utilities/key_value.js"></script>
-    <script type="text/javascript" src="js/nodes/utilities/input_map.js"></script>
 
     <!-- Databases -->
     <script type="text/javascript" src="js/db/elements.js"></script>
     <script type="text/javascript" src="js/db/conditions.js"></script>
 
+    <!-- Nodes -->
+    <script type="text/javascript" src="js/nodes/utilities/error_handler.js"></script>
+    <script type="text/javascript" src="js/nodes/utilities/input_list.js"></script>
+    <script type="text/javascript" src="js/nodes/utilities/key_value.js"></script>
+    <script type="text/javascript" src="js/nodes/utilities/input_map.js"></script>
+
     <!-- Kratos -->
     <script type="text/javascript" src="js/nodes/ModelParts/models.js"></script>
     <script type="text/javascript" src="js/nodes/ModelParts/read_mdpa.js"></script>
+    <script type="module" src="js/nodes/ModelParts/read_med.js"></script>
     <script type="text/javascript" src="js/nodes/ModelParts/model_import_settings.js"></script>
 
     <script type="text/javascript" src="js/nodes/materials/material_import_settings.js"></script>

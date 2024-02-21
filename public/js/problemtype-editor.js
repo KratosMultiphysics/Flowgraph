@@ -28,7 +28,7 @@ function Editor(container_id, options) {
     var graphcanvas = (this.graphcanvas = new LGraphCanvas(canvas, graph));
 
     graphcanvas.connections_width = 8;
-    graphcanvas.background_image = "imgs/grid.png";
+    graphcanvas.background_image = "img/grid.png";
 
     graph.onAfterExecute = function() {
         graphcanvas.draw(true);
@@ -40,7 +40,7 @@ function Editor(container_id, options) {
         this.addToolsButton(
             "maximize_button",
             "",
-            "imgs/icon-maximize.png",
+            "img/icon-maximize.png",
             this.onFullscreenButton.bind(this),
             ".tools-right"
         );
@@ -128,12 +128,12 @@ Editor.prototype.onLiveButton = function() {
     this.graphcanvas.switchLiveMode(true);
     this.graphcanvas.draw();
     var url = this.graphcanvas.live_mode
-        ? "imgs/gauss_bg_medium.jpg"
-        : "imgs/gauss_bg.jpg";
+        ? "img/gauss_bg_medium.jpg"
+        : "img/gauss_bg.jpg";
     var button = this.root.querySelector("#livemode_button");
     button.innerHTML = !is_live_mode
-        ? "<img src='imgs/icon-record.png'/> Live"
-        : "<img src='imgs/icon-gear.png'/> Edit";
+        ? "<img src='img/icon-record.png'/> Live"
+        : "<img src='img/icon-gear.png'/> Edit";
 };
 
 Editor.prototype.onDropItem = function(e)
@@ -190,7 +190,7 @@ Editor.prototype.addMiniWindow = function(w, h) {
 
     var graphcanvas = new LGraphCanvas( canvas, this.graph );
     graphcanvas.show_info = false;
-    graphcanvas.background_image = "imgs/grid.png";
+    graphcanvas.background_image = "img/grid.png";
     graphcanvas.scale = 0.25;
     graphcanvas.allow_dragnodes = false;
     graphcanvas.allow_interaction = false;
