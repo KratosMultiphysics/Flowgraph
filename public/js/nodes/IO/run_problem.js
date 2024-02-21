@@ -1,6 +1,5 @@
 async function uploadJson(url, json_data) {
     let pp_blob = new Blob([JSON.stringify(json_data)], {type: "application/json"})
-    console.log(pp_blob);
     const response = await fetch(url, {method:"POST", body:pp_blob}).then(
         async (response) => {
             if (response.ok) return response;
@@ -49,7 +48,7 @@ class RunProblem {
         this.addInput("data", 0);
 
         this.virtual_run_ip = this.addWidget("string", "Ip", "localhost");
-        this.virtual_run_pt = this.addWidget("string", "Port", "8288");
+        this.virtual_run_pt = this.addWidget("string", "Port", "8182");
 
         this._debug = this.addWidget("text", "Debug", "");
 

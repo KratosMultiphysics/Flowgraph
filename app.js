@@ -5,6 +5,7 @@ import path from 'path';
 import cors from 'cors';
 
 import express from 'express';
+import { spawn } from 'child_process';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -14,10 +15,9 @@ import config from 'config';
 const port = config.get('port');
 const app = express();
 
-console.log(config);
-
 // App configuration
 app.use(express.static(path.join(__dirname, 'public')));  // Use static public directory
+app.use(express.json());                                  // Enable direct transfers of JSON for the backend
 app.use(cors());                                          // Enable CORS
 
 // Routes
@@ -27,7 +27,8 @@ app.get('/', (req, res) => {
 
 // File transfer
 app.post('/upload_json', (req, res) => {
-  fs.writeFile("public/ProjectParameters.json", JSON.stringify(req.body, null, 2), function(err) {
+  console.log(req.body);
+  fs.writeFile("simulations/ProjectParameters.json", JSON.stringify(req.body, null, 2), function(err) {
       if(err) { return console.log(err); }
   }); 
 
@@ -36,16 +37,17 @@ app.post('/upload_json', (req, res) => {
 
 // Spawn simulation process and stream output
 app.get('/run_simulation', async (req, res) => {
-  var spawn = require('child_process').spawn;
   let process_env = {
       'env': {
           'LD_LIBRARY_PATH'   : `${config.kratos_path}/libs`,
           'PYTHONPATH'        : `${config.kratos_path}/`
       },
-      'cwd': 'public/'
+      'cwd': config.working_dir || `./simulations/`
   }
 
-  var child = spawn('python', ['MainKratos.py'], process_env);
+  console.log("Trying to run the case", process_env)
+
+  var child = spawn('ls', ['MainKratos.py'], process_env);
 
   child.stdout.setEncoding('utf8');
   child.stdout.on('data', function(data) {
