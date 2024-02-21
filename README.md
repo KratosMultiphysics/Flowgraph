@@ -16,6 +16,13 @@ Clone this repo
 git clone https://github.com/KratosMultiphysics/Flowgraph.git
 ```
 
+Install packages
+
+```console
+npm install
+npm install -g nodemon
+```
+
 ## How to run
 
 For users use either
