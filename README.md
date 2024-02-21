@@ -41,7 +41,17 @@ For developers
 npm run devstart 
 ```
 
-## Description
+## Configuration
+
+You can change the configuration file used by setting the `NODE_ENV` variable. For example
+
+```console
+export NODE_ENV=debug
+```
+
+will use `confg/debug.json` configure file.
+
+<!-- ## Description 
 
 ### Tree of node dependencies
 
@@ -149,4 +159,4 @@ Fluid Dynamics Application
 Structural Mechanics Application
 Your Other Installed Application
 Output
-
+-->
