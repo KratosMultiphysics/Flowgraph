@@ -24,7 +24,6 @@ function Editor(container_id, options) {
     var graph = (this.graph = new LGraph());
 
     graph.config.align_to_grid = false;
-    
     var graphcanvas = (this.graphcanvas = new LGraphCanvas(canvas, graph));
 
     graphcanvas.connections_width = 8;
@@ -236,4 +235,16 @@ Editor.prototype.addMiniWindow = function(w, h) {
     this.root.querySelector(".content").appendChild(miniwindow);
 };
 
+LiteGraph.release_link_on_empty_shows_menu = true;
+LiteGraph.auto_load_slot_types = true;
 LiteGraph.Editor = Editor;
+
+LiteGraph.slot_types_default_out = {};
+LiteGraph.slot_types_default_in = {};
+
+function register_default_in_type(io_type, node_type) {
+    LiteGraph.slot_types_default_in[io_type] = (LiteGraph.slot_types_default_in[io_type] || []).concat(node_type);
+}
+function register_default_out_type(io_type, node_type) {
+    LiteGraph.slot_types_default_out[io_type] = (LiteGraph.slot_types_default_out[io_type] || []).concat(node_type);
+}
