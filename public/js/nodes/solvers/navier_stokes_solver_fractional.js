@@ -29,7 +29,7 @@ class NavierStokesSolverFractional extends Solver {
         this.pilinsol = iidx++;
         this.addInput("Pressure Linear solver", "pressure_linear_solver_settings");
         this.imat = iidx++;
-        this.addInput("Materials settings", "materials_settings");
+        this.addInput("Materials settings", "material_import_settings");
         this.itime = iidx++;
         this.addInput("Time stepping", "time");
         this.iformulation = iidx++;

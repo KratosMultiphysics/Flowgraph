@@ -8,7 +8,7 @@ class PotentialFlowSolver extends Solver {
         // set inputs
         this.addInput("Modelpart Name",         "string");                  // 0 
         this.addInput("Modelpart Settings",     "model_import_settings");   // 1
-        this.addInput("Material  Settings",     "materials_settings");      // 2
+        this.addInput("Material  Settings",     "material_import_settings");// 2
         this.addInput("Volume submodelpart",    "string");                  // 3
         this.addInput("Skin submodelparts",     "string_list");             // 4
         this.addInput("NonSkin submodelparts",  "string_list");             // 5

@@ -9,7 +9,7 @@ class StructuralMechanicsSolver extends Solver {
         this.addInput("skin_parts", "array");               // 3
         this.addInput("no_skin_parts", "array");            // 4
         this.addInput("linear_solver_settings", "linear_solver_settings");     // 5
-        this.addInput("material_import_settings", "model_import_settings");   // 6
+        this.addInput("material_import_settings", "material_import_settings");   // 6
 
         this.addOutput("solver_settings", "solver_settings,structure_solver_settings");
 
