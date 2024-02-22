@@ -27,7 +27,6 @@ app.get('/', (req, res) => {
 
 // File transfer
 app.post('/upload_json', (req, res) => {
-  console.log(req.body);
   fs.writeFile("simulations/ProjectParameters.json", JSON.stringify(req.body, null, 2), function(err) {
       if(err) { return console.log(err); }
   }); 
@@ -39,15 +38,15 @@ app.post('/upload_json', (req, res) => {
 app.get('/run_simulation', async (req, res) => {
   let process_env = {
       'env': {
-          'LD_LIBRARY_PATH'   : `${config.kratos_path}/libs`,
-          'PYTHONPATH'        : `${config.kratos_path}/`
+          'LD_LIBRARY_PATH'   : `${config.kratos_root}/libs`,
+          'PYTHONPATH'        : `${config.kratos_root}/`
       },
       'cwd': config.working_dir || `./simulations/`
   }
 
-  console.log("Trying to run the case", process_env)
+  console.log(process_env)
 
-  var child = spawn('ls', ['MainKratos.py'], process_env);
+  var child = spawn('python', ['MainKratos.py'], process_env);
 
   child.stdout.setEncoding('utf8');
   child.stdout.on('data', function(data) {
