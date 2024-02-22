@@ -108,7 +108,7 @@ class AnalysisStage {
                     "analysis_stage":           this._type,
                     "problem_data":             this.getInputData(3),
                     "solver_settings":          this.getInputData(4),
-                    "processes":                this.getInputData(5),
+                    "processes":                {"boundary_conditions_process_list":this.getInputData(5)},
                     "output_processes":         this.getInputData(6),
                 },
             }
