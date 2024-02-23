@@ -2,45 +2,18 @@
 LiteGraph.node_images_path = "../nodes_data/";
 
 var editor = new LiteGraph.Editor("main");
+
 window.graphcanvas = editor.graphcanvas;
 window.graph = editor.graph;
 window.graphcanvas.title_text_font = '400 16px "Roboto"';
+
 window.addEventListener("resize", function() { editor.graphcanvas.resize(); } );
-//window.addEventListener("keydown", editor.graphcanvas.processKey.bind(editor.graphcanvas) );
 window.onbeforeunload = function(){
 	var data = JSON.stringify( graph.serialize() );
 	localStorage.setItem("litegraphg demo backup", data );
 }
 
-//create scene loader
-var elem = document.createElement("span");
-
-elem.className = "selector"
-elem.innerHTML = "<span style='vertical-align: middle;'> Kratos FlowGraph <span class='glyph'>\uf35a</span></span> ";
-
-elem.innerHTML += "<span id='play-graph' class='float-btn btn-blue'>Generate</span>";
-elem.innerHTML += "<label id='save-graph' class='float-btn'>Save</label>";
-elem.innerHTML += "<label class='float-btn'>Load<input type='file' id='load-graph' style='display:none'></label>";
-elem.innerHTML += "<label id='expt-group' class='float-btn'>Export</label>";
-elem.innerHTML += "<label class='float-btn'>Import<input type='file' id='impt-group' style='display:none'></label>";
-elem.innerHTML += "<label class='float-btn float-btn-left' onclick='openNav()'>Viewer</label>";
-elem.innerHTML += "<label class='float-btn float-btn-right' style='min-width:40px' onclick='addViewerNode()'>+</label>";
-elem.innerHTML += "<label class='float-btn float-btn-left' onclick='llamaCall()'>KTS-LLM</label>";
-elem.innerHTML += "<input id='kratos-llm' class='float-inpt float-inpt-right' style='min-width:120px'></label>";
-
-$('.loadmeter').remove();
-
-editor.tools.appendChild(elem);
-
 document.querySelector("#play-graph").addEventListener("click", function() {
-    // if (graph.status == LGraph.STATUS_STOPPED) {
-    //     this.innerHTML = "Stop";
-    //     graph.start();
-    // } else {
-    //     this.innerHTML = "Generate";
-    //     graph.stop();
-    // }
-
     graph.runStep();
 });
 

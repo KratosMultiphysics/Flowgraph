@@ -118,11 +118,6 @@ h2 {
 	text-align: right;
 }
 
-label {
-	font-weight: bold;
-	color: #AAF;
-}
-
 input,textarea { 
 	color: #EEE;
 	background-color: #555;

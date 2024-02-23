@@ -2,23 +2,13 @@
 function Editor(container_id, options) {
     options = options || {};
 
-    //fill container
-    var html  = "<div class='header'><div class='tools tools-left'></div><div class='tools tools-right'></div></div>";
-        html += "<div class='content'><div class='editor-area'><canvas class='graphcanvas' width='1000' height='500' tabindex=10></canvas></div></div>";
-        html += "<div class='sidepanel' id='side-viewer' toggled='collapsed'>";
-        html += "<pre id='json-display'></pre>";
-        html += "</div>";
+    this.root = $("#main")[0];
 
-    var root = document.createElement("div");
-    this.root = root;
-    root.className = "litegraph litegraph-editor";
-    root.innerHTML = html;
+    this.tools = this.root.querySelector(".tools");
+    this.content = this.root.querySelector(".content");
+    this.footer = this.root.querySelector(".footer");
 
-    this.tools = root.querySelector(".tools");
-    this.content = root.querySelector(".content");
-    this.footer = root.querySelector(".footer");
-
-    var canvas = root.querySelector(".graphcanvas");
+    var canvas = this.root.querySelector(".graphcanvas");
 
     // Create graph
     var graph = (this.graph = new LGraph());
@@ -34,28 +24,7 @@ function Editor(container_id, options) {
     };
 
 	graphcanvas.onDropItem = this.onDropItem.bind(this);
-
-    if (!options.skip_maximize) {
-        this.addToolsButton(
-            "maximize_button",
-            "",
-            "img/icon-maximize.png",
-            this.onFullscreenButton.bind(this),
-            ".tools-right"
-        );
-    }
-    if (options.miniwindow) {
-        this.addMiniWindow(300, 200);
-    }
-
-    //append to DOM
-    var parent = document.getElementById(container_id);
-    if (parent) {
-        parent.appendChild(root);
-    }
-
     graphcanvas.resize();
-    // graphcanvas.draw(true,true);
 }
 
 Editor.prototype.addLoadCounter = function() {

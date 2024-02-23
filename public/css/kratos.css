@@ -53,6 +53,10 @@ input[type="file"] {
     font-size: 20px;
 }
 
+.litegraph-editor .selector label{
+    float:left;
+}
+
 .sidepanel {
     height: calc(100% - 46px);
     width: 0px; 
