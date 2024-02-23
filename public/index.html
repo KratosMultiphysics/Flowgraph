@@ -24,6 +24,7 @@
 
 <body>
     <div style="display:none; font-family: Font Awesome 6 Free;">.</div>
+    
     <div id="main">
         <div class="litegraph litegraph-editor">
             <div class="header">
@@ -39,8 +40,10 @@
                         <label class='float-btn'>Import<input type='file' id='impt-group' style='display:none'></label>
                         <label class='float-btn float-btn-left' onclick='openNav()'>Viewer</label>
                         <label class='float-btn float-btn-right' style='min-width:40px' onclick=addViewerNode()>+</label>
-                        <label class='float-btn float-btn-left' onclick='llamaCall()'>KTS-LLM</label>
-                        <input id='kratos-llm' class='float-inpt float-inpt-right' style='min-width:120px'></label>
+
+                        <!-- Disable KRATOS-LLM connection until we have a stable model -->
+                        <!-- <label class='float-btn float-btn-left' onclick='llamaCall()'>KTS-LLM</label>
+                        <input id='kratos-llm' class='float-inpt float-inpt-right' style='min-width:120px'></label> -->
                      </span>
                 </div>
                 <div class="tools tools-right">

@@ -105,7 +105,6 @@ document.querySelector('#impt-group').addEventListener('change', (event) => {
         graph.last_node_id = last_node_id;
         
         // Links
-
         for(var link in import_group["links"]) {
             const old_id = import_group["links"][link][LINK_OBJECT_ID]
             const new_id = ++last_link_id;
