@@ -125,7 +125,7 @@ class AnalysisStage {
 AnalysisStage.title = "Analysis stage";
 AnalysisStage.doc_ref = "https://kratosmultiphysics.github.io/Kratos/pages/Kratos/Sequence_Diagrams/General/AnalysisStage.html"
 AnalysisStage.desc = "Base Analysis stage";
-AnalysisStage.doc = `<span class='glyph-solid'>&#xf02d</span> <a href="${AnalysisStage.doc}">Analysis Stage</a>`;
+AnalysisStage.doc = `<span class='glyph-solid'>&#xf02d</span> <a href="${AnalysisStage.doc_ref}">Analysis Stage</a>`;
 
 // Set the colors of selected connection to better reflect the flow
 LGraphCanvas.link_type_colors["stage_flow"] = "#90bdd1";
