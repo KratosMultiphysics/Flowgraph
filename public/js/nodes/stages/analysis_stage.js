@@ -22,7 +22,6 @@ class AnalysisStage {
         // this.error_list = ["Error1", "Error2", "Error3", "Error4"];
     }
 
-
     SetUpInputs(){
         // List of inputs and outputs ("name", "type")
         this.addInput("Stage",              "stage_flow");          // 0
@@ -63,8 +62,6 @@ class AnalysisStage {
             ErrorHandler.drawErrorTooltip(ctx, this);
         }
     }
-
-
 
     setUpOrchestrtor(){
 
@@ -126,7 +123,9 @@ class AnalysisStage {
 }
 
 AnalysisStage.title = "Analysis stage";
+AnalysisStage.doc_ref = "https://kratosmultiphysics.github.io/Kratos/pages/Kratos/Sequence_Diagrams/General/AnalysisStage.html"
 AnalysisStage.desc = "Base Analysis stage";
+AnalysisStage.doc = `<span class='glyph-solid'>&#xf02d</span> <a href="${AnalysisStage.doc}">Analysis Stage</a>`;
 
 // Set the colors of selected connection to better reflect the flow
 LGraphCanvas.link_type_colors["stage_flow"] = "#90bdd1";

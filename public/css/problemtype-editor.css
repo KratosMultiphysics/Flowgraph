@@ -28,6 +28,13 @@ body, html {
     font-weight: 400;
 }
 
+.litegraph-editor .glyph-solid {
+  font-family: "Font Awesome 5 Free";
+  font-style:normal;
+  font-weight: 900;
+}
+
+
 .litegraph-editor h1 {
     color: #ddd;
     font-size: 28px;

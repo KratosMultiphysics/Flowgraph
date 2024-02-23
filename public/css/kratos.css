@@ -68,3 +68,11 @@ input[type="file"] {
     overflow-x: hidden; 
     transition: 0.5s;
   }
+
+  #node-panel a:link {
+    color: white;
+  }
+
+  #node-panel a:visited {
+    color: white;
+  }

@@ -23,8 +23,6 @@
 </head>
 
 <body>
-    <div style="display:none; font-family: Font Awesome 6 Free;">.</div>
-    
     <div id="main">
         <div class="litegraph litegraph-editor">
             <div class="header">
@@ -78,6 +76,7 @@
     <!-- Mods to the base source code of litegraph.js. -->
     <!-- Needs to be done after importing litegraph AND before registering nodes -->
     <!-- Maybe ask to merge in the main lib when they are mature -->
+    <script type="text/javascript" src="js/extensions/custom_node_panel.js"></script>
     <script type="text/javascript" src="js/extensions/selection_import.js"></script>
     <script type="text/javascript" src="js/extensions/extended_menu.js"></script>
     <script type="text/javascript" src="js/extensions/remove_widget.js"></script>
