@@ -7,7 +7,7 @@ Install [node.js](https://nodejs.org/en/download/package-manager)
 
 Ej. Ubuntu
 ```console
-sudo apt install nodejs
+sudo apt install nodejs npm
 ``` 
 
 Clone this repo
@@ -16,11 +16,12 @@ Clone this repo
 git clone https://github.com/KratosMultiphysics/Flowgraph.git
 ```
 
-Install packages
+Navigate into the Flowgraph directory and install packages
 
 ```console
+cd Flowgraph
 npm install
-npm install -g nodemon
+sudo npm install -g nodemon
 ```
 
 ## How to run
