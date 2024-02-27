@@ -50,4 +50,4 @@ class FsiStage extends AnalysisStage {
 FsiStage.title = "Fluid Structure Interaction analysis stage";
 FsiStage.desc = "Base FSIApplication stage";
 
-LiteGraph.registerNodeType("Stages/FsiStage", FsiStage);
+LiteGraph.registerNodeType("Stage components/Analysis stages/FsiStage", FsiStage);

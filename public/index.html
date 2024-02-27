@@ -30,7 +30,7 @@
                     <span class="selector">
                         <label>
                             <span style='vertical-align: middle;'> Kratos FlowGraph <span class='glyph'>&#xf35a</span></span>
-                        </label>    
+                        </label>
                         <label id='play-graph' class='float-btn btn-blue'>Generate</label>
                         <label id='save-graph' class='float-btn'>Save</label>
                         <label class='float-btn'>Load<input type='file' id='load-graph' style='display:none'></label>
@@ -48,13 +48,13 @@
 
                 </div>
             </div>
-    
+
             <div class="content">
                 <div class="editor-area">
                     <canvas class="graphcanvas" width="1000" height="500" tabindex=10></canvas>
                 </div>
             </div>
-    
+
             <div class="sidepanel" id="side-viewer" toggled="collapsed">
                 <pre id="json-display"></pre>
             </div>
@@ -119,16 +119,18 @@
     <script type="text/javascript" src="js/nodes/IO/run_problem.js"></script>
 
     <!-- Stages -->
-    <script type="text/javascript" src="js/nodes/stages/problem_data.js"></script>
-    <script type="text/javascript" src="js/nodes/stages/pre_process.js"></script>
-    <script type="text/javascript" src="js/nodes/stages/post_process.js"></script>
-    <script type="text/javascript" src="js/nodes/stages/analysis_stage.js"></script>
-    <script type="text/javascript" src="js/nodes/stages/structural_mechanics_analysis.js"></script>
-    <script type="text/javascript" src="js/nodes/stages/orchestrator.js"></script>
-    <script type="text/javascript" src="js/nodes/stages/fluid_stage.js"></script>
-    <script type="text/javascript" src="js/nodes/stages/fluid_structure_interaction_stage.js"></script>
-    <script type="text/javascript" src="js/nodes/stages/convection_diffusion_stage.js"></script>
-    <script type="text/javascript" src="js/nodes/stages/potential_flow_stage.js"></script>
+    <script type="text/javascript" src="js/nodes/stage_components/problem_data.js"></script>
+    <script type="text/javascript" src="js/nodes/stage_components/pre_process.js"></script>
+    <script type="text/javascript" src="js/nodes/stage_components/post_process.js"></script>
+    <script type="text/javascript" src="js/nodes/stage_components/analysis_stages/analysis_stage.js"></script>
+    <script type="text/javascript" src="js/nodes/stage_components/analysis_stages/structural_mechanics_analysis.js"></script>
+    <script type="text/javascript" src="js/nodes/stage_components/analysis_stages/fluid_stage.js"></script>
+    <script type="text/javascript" src="js/nodes/stage_components/analysis_stages/fluid_structure_interaction_stage.js"></script>
+    <script type="text/javascript" src="js/nodes/stage_components/analysis_stages/convection_diffusion_stage.js"></script>
+    <script type="text/javascript" src="js/nodes/stage_components/analysis_stages/potential_flow_stage.js"></script>
+
+    <!-- Orchestrators -->
+    <script type="text/javascript" src="js/nodes/stage_components//orchestrator.js"></script>
 
     <!-- Materials -->
     <script type="text/javascript" src="js/nodes/IO/list_of_materials.js"></script>
@@ -161,9 +163,9 @@
     <script type="text/javascript" src="js/nodes/processes/assign_vector_variable_to_conditions_process.js"></script>
     <script type="text/javascript" src="js/nodes/processes/assign_vector_by_direction_to_condition_process.js"></script>
     <script type="text/javascript" src="js/nodes/processes/assign_flag_process.js"></script>
-    
+
     <script type="text/javascript" src="js/nodes/processes/define_wake_process_2d.js"></script>
-    
+
     <script type="text/javascript" src="js/nodes/output_processes/output_process.js"></script>
     <script type="text/javascript" src="js/nodes/output_processes/gid_output.js"></script>
 

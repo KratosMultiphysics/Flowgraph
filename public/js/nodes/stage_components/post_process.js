@@ -23,6 +23,6 @@ class StagePostProcess {
 StagePostProcess.title = "Postprocess";
 StagePostProcess.desc = "Creates a Post Process section for a stage";
 
-LiteGraph.registerNodeType("Stages/PostProcess", StagePostProcess);
+LiteGraph.registerNodeType("Stage components/PostProcess", StagePostProcess);
 
 console.log("Post-Process node created"); //helps to debug

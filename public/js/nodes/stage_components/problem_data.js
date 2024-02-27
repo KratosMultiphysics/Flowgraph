@@ -34,9 +34,9 @@ class ProblemData {
 ProblemData.title = "Problem Data";
 ProblemData.desc = "General configutation of the problem";
 
-LiteGraph.registerNodeType("Stages/Problem Data", ProblemData);
+LiteGraph.registerNodeType("Stage components/Problem Data", ProblemData);
 
 console.log("ProblemData node created"); //helps to debug
 
 // Register default i/o
-register_default_out_type("problem_data", "Stages/AnalysisStage");
+register_default_out_type("problem_data", "Stage components/Analysis stages/AnalysisStage");

@@ -8,6 +8,6 @@ class ConvectionDiffusionStage extends AnalysisStage {
 ConvectionDiffusionStage.title = "Convection Diffusion stage";
 ConvectionDiffusionStage.desc = "Base ConvectionDiffusionApplication stage";
 
-LiteGraph.registerNodeType("Stages/ConvectionDiffusionStage", ConvectionDiffusionStage);
+LiteGraph.registerNodeType("Stage components/Analysis stages/ConvectionDiffusionStage", ConvectionDiffusionStage);
 
 console.log("ConvectionDiffusionStage node created");

@@ -8,6 +8,6 @@ class PotentialFlowStage extends AnalysisStage {
 PotentialFlowStage.title = "Potential Flow Stage";
 PotentialFlowStage.desc = "Stage for Potential Flow problems";
 
-LiteGraph.registerNodeType("Stages/PotentialFlowStage", PotentialFlowStage);
+LiteGraph.registerNodeType("Stage components/Analysis stages/PotentialFlowStage", PotentialFlowStage);
 
 console.log("PotentialFlowStage node created");

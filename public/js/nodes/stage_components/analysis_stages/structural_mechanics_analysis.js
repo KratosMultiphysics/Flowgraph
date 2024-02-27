@@ -8,6 +8,6 @@ class StructuralMechanicsStage extends AnalysisStage {
 StructuralMechanicsStage.title = "Structural Mechanics Analysis Stage";
 StructuralMechanicsStage.desc = "Structural mechanics analysis stage";
 
-LiteGraph.registerNodeType("Stages/StructuralMechanicsStage", StructuralMechanicsStage);
+LiteGraph.registerNodeType("Stage components/Analysis stages/StructuralMechanicsStage", StructuralMechanicsStage);
 
 console.log("StructuralMechanicsStage node created");
