@@ -122,9 +122,10 @@ class AnalysisStage {
     }
 }
 
+// Set the node name and the description
 AnalysisStage.title = "Analysis stage";
 AnalysisStage.doc_ref = "https://kratosmultiphysics.github.io/Kratos/pages/Kratos/Sequence_Diagrams/General/AnalysisStage.html"
-AnalysisStage.desc = "Base Analysis stage";
+AnalysisStage.desc = "Base Analysis stage que tal estas hace muy buen dia ";
 AnalysisStage.doc = `<span class='glyph-solid'>&#xf02d</span> <a href="${AnalysisStage.doc_ref}">Analysis Stage</a>`;
 
 // Set the colors of selected connection to better reflect the flow
@@ -132,10 +133,10 @@ LGraphCanvas.link_type_colors["stage_flow"] = "#90bdd1";
 LGraphCanvas.slot_type_colors["stage_flow"] = "#90bdd1";
 LGraphCanvas.slot_type_colorsOff["stage_flow"] = "#90bdd1";
 
-LiteGraph.registerNodeType("Stages/AnalysisStage", AnalysisStage);
-console.log(LiteGraph.slot_types_default_out)
-
 // Register default i/o
+register_default_in_type("problem_data", "Stages/Problem Data");
 register_default_in_type("stage_flow", "Stages/AnalysisStage");
 register_default_out_type("stage_flow", "Stages/AnalysisStage");
 
+// Register in the system
+LiteGraph.registerNodeType("Stages/AnalysisStage", AnalysisStage);
