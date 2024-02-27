@@ -31,12 +31,16 @@ class ProblemData {
     }
 }
 
-ProblemData.title = "Problem Data";
+ProblemData.title = "Problem data";
 ProblemData.desc = "General configutation of the problem";
 
-LiteGraph.registerNodeType("Stage components/Problem Data", ProblemData);
+LiteGraph.registerNodeType("Analysis stages/Components/ProblemData", ProblemData);
 
 console.log("ProblemData node created"); //helps to debug
 
 // Register default i/o
-register_default_out_type("problem_data", "Stage components/Analysis stages/AnalysisStage");
+register_default_out_type("problem_data", "Analysis stages/ConvectionDiffusionAnalysis");
+register_default_out_type("problem_data", "Analysis stages/StructuralMechanicsAnalysis");
+register_default_out_type("problem_data", "Analysis stages/FluidDynamicsAnalysis");
+register_default_out_type("problem_data", "Analysis stages/FsiAnalysis");
+register_default_out_type("problem_data", "Analysis stages/PotentialFlowAnalysis");

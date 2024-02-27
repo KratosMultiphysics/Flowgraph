@@ -1,4 +1,4 @@
-class FsiStage extends AnalysisStage {
+class FsiAnalysis extends AnalysisStage {
     constructor() {
         super();
         this._type = "KratosMultiphysics.FSIApplication.fsi_analysis"
@@ -47,7 +47,7 @@ class FsiStage extends AnalysisStage {
     }
 
 
-FsiStage.title = "Fluid Structure Interaction analysis stage";
-FsiStage.desc = "Base FSIApplication stage";
+FsiAnalysis.title = "Fluid-structure interaction";
+FsiAnalysis.desc = "Base FSIApplication stage";
 
-LiteGraph.registerNodeType("Stage components/Analysis stages/FsiStage", FsiStage);
+LiteGraph.registerNodeType("Analysis stages/FsiAnalysis", FsiAnalysis);

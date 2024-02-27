@@ -1,4 +1,4 @@
-class StagePostProcess {
+class StagePostprocess {
     constructor() {
         // Model
         this.MODEL_INPUT  = 0;
@@ -20,9 +20,9 @@ class StagePostProcess {
     }
 }
 
-StagePostProcess.title = "Postprocess";
-StagePostProcess.desc = "Creates a Post Process section for a stage";
+StagePostprocess.title = "Postprocess";
+StagePostprocess.desc = "Creates a Post Process section for a stage";
 
-LiteGraph.registerNodeType("Stage components/PostProcess", StagePostProcess);
+LiteGraph.registerNodeType("Analysis stages/Components/PostProcess", StagePostprocess);
 
 console.log("Post-Process node created"); //helps to debug

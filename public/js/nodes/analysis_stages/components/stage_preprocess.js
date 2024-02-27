@@ -1,4 +1,4 @@
-class StagePreProcess {
+class StagePreprocess {
     constructor() {
         // Model
         this.MODEL_INPUT  = 1;
@@ -27,9 +27,9 @@ class StagePreProcess {
     }
 }
 
-StagePreProcess.title = "Preprocess";
-StagePreProcess.desc = "Creates a Pre Process section for a stage";
+StagePreprocess.title = "Preprocess";
+StagePreprocess.desc = "Creates a Pre Process section for a stage";
 
-LiteGraph.registerNodeType("Stage components/Preprocess", StagePreProcess);
+LiteGraph.registerNodeType("Analysis stages/Components/Preprocess", StagePreprocess);
 
 console.log("Pre-Process node created"); //helps to debug
