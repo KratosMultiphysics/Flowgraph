@@ -139,4 +139,4 @@ register_default_in_type("stage_flow", "Stages/AnalysisStage");
 register_default_out_type("stage_flow", "Stages/AnalysisStage");
 
 // Register in the system
-LiteGraph.registerNodeType("Stages/AnalysisStage", AnalysisStage);
+LiteGraph.registerNodeType("basic (Kratos)/AnalysisStage", AnalysisStage);
