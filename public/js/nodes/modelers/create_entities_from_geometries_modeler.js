@@ -1,5 +1,7 @@
-class CreateEntitiesFromGeometriesModeler {
+class CreateEntitiesFromGeometriesModeler extends Modeler {
     constructor() {
+        super()
+
         // Model
         this.MODEL_INPUT  = 0;
         this.MODEL_OUTPUT = 0;
@@ -10,7 +12,6 @@ class CreateEntitiesFromGeometriesModeler {
         // List of inputs and outputs ("name", "type")
         this.addInput("Elements list", "input_list");
         this.addInput("Conditions list", "input_list");
-        this.addOutput("Modeler", "stage_modeler");
 
         this.size = this.computeSize();
         this.serialize_widgets = true;

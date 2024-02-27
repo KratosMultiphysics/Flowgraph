@@ -4,9 +4,7 @@ class Modeler {
         this.glyph = {shape: '\uf6cf', font:'900 14px "Font Awesome 5 Free"', width: 16, height: 9};
 
         // List of inputs and outputs ("name", "type")
-        this.addInput("Input", "stage_modeler");
-
-        this.addOutput("Modeler", "stage_modeler")
+        this.addOutput("Modeler", "modeler_list")
     }
 
     onExecute() {
@@ -19,6 +17,6 @@ class Modeler {
 Modeler.title = "Modeler";
 Modeler.desc = "Base Modeler";
 
-LiteGraph.registerNodeType("Modelers/Modeler", Modeler);
+LiteGraph.registerNodeType("Modelers/Base/Modeler", Modeler);
 
 console.log("Modeler node created"); //helps to debug

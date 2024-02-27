@@ -65,7 +65,7 @@ class Orchestrator {
 Orchestrator.title = "Orchestrator";
 Orchestrator.desc = "Creates a base Orchestrator object for several stages.";
 
-LiteGraph.registerNodeType("basic (Kratos)/Orchestrator", Orchestrator);
+LiteGraph.registerNodeType("Orchestrators/Base/Orchestrator", Orchestrator);
 
 console.log("Orchestrator node created");
 

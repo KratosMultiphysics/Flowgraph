@@ -1,5 +1,7 @@
-class ImportMDPAModeler {
+class ImportMDPAModeler extends Modeler {
     constructor() {
+        super()
+
         // Model
         this.MODEL_INPUT  = 0;
         this.MODEL_OUTPUT = 0;
@@ -7,25 +9,28 @@ class ImportMDPAModeler {
         // Identifier Glyph
         this.glyph = {shape: '\uf6cf', font:'900 14px "Font Awesome 5 Free"', width: 16, height: 9};
 
-        // List of inputs and outputs ("name", "type")
-        this.addInput("File Name", "string");
-        this.addInput("ModelPart Name", "string");
-        this.addOutput("Modeler", "stage_modeler");
+        // List of inputs and outputs
+        this.input_filename = this.addWidget("string","MDPA filename", "", function(v){});
+        this.model_part_name = this.addWidget("string","Model part name", "MainModelPart", function(v){});
+        this.echo_level = this.addWidget("combo", "Echo level", 0, function(v) {}, {
+            values: [0, 1, 2, 3]
+        });
 
         this.size = this.computeSize();
         this.serialize_widgets = true;
     }
 
     onExecute() {
-        this._value = {
-            "model": {
-                "echo_level" : 0,
-                "input_filename" :  this.getInputData(0),
-                "model_part_name" : this.getInputData(1),
+        let output = {
+            "name" : "KratosMultiphysics.modelers.import_mdpa_modeler.ImportMDPAModeler",
+            "parameters": {
+                "echo_level" : parseInt(this.echo_level.value),
+                "input_filename" :  this.input_filename.value,
+                "model_part_name" : this.model_part_name.value,
             }
         };
 
-        this.setOutputData(0, this._value);
+        this.setOutputData(0, [output]);
     }
 }
 

@@ -1,11 +1,13 @@
-class DeleteModelPartsModeler {
+class DeleteModelPartsModeler extends Modeler {
     constructor() {
+        super()
+
         // Model
         this.MODEL_INPUT  = 0;
         this.MODEL_OUTPUT = 0;
 
         // List of inputs and outputs ("name", "type")
-        this.addOutput("", 0);
+        this.addInput("Modelpart name", "string");
 
         this.widgets_up = true;
 
