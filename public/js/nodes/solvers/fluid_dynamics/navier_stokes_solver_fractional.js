@@ -1,4 +1,4 @@
-class NavierStokesSolverFractional extends Solver {
+class NavierStokesSolverFractionalStep extends Solver {
     constructor() {
         super();
 
@@ -52,7 +52,7 @@ class NavierStokesSolverFractional extends Solver {
             "maximum_pressure_iterations": -1,
             "velocity_tolerance": -1,
             "pressure_tolerance": -1,
-            
+
             "domain_size": -1,
             "model_import_settings": {},
             "model_part_name": [],
@@ -84,10 +84,10 @@ class NavierStokesSolverFractional extends Solver {
         });
         this.velocity_tolerance = this.addWidget("combo", "Velocity non-lin tol ", 1e-3, function(v) {}, {
             values: [1, 1e-1, 1e-2, 1e-3, 1e-4, 1e-5, 1e-6,]
-        });        
+        });
         this.pressure_tolerance = this.addWidget("combo", "Pressure non-lin tol", 1e-3, function(v) {}, {
             values: [1, 1e-1, 1e-2, 1e-3, 1e-4, 1e-5, 1e-6,]
-        });        
+        });
     }
 
     onExecute() {
@@ -131,7 +131,7 @@ class NavierStokesSolverFractional extends Solver {
             this._value["model_import_settings"] = val;
         }
 
-        
+
         idx = this.pilinsol;
         if (this.getInputData(idx) != undefined) {
             val = this.getInputData(idx);
@@ -169,12 +169,12 @@ class NavierStokesSolverFractional extends Solver {
         this._value["maximum_iterations"] = this.maximum_iterations.value;
         this._value["velocity_tolerance"] = this.velocity_tolerance.value;
         this._value["pressure_tolerance"] = this.pressure_tolerance.value;
-       
+
         this.setOutputData(this.osolver, this._value);
     }
 }
 
-NavierStokesSolverFractional.title = "Navier Stokes Solver Fractional";
-NavierStokesSolverFractional.desc = "Properties for the fluid solver";
+NavierStokesSolverFractionalStep.title = "Navier-Stokes fractional step solver";
+NavierStokesSolverFractionalStep.desc = "Incompressible Navier-Stokes fractional step solver.";
 
-LiteGraph.registerNodeType("Solvers/Navier Stokes Solver Fractional", NavierStokesSolverFractional);
+LiteGraph.registerNodeType("Solvers/Fluid dynamics/NavierStokesSolverFractionalStep", NavierStokesSolverFractionalStep);

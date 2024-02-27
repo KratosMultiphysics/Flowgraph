@@ -171,7 +171,7 @@ class NavierStokesSolverMonolithic extends Solver {
     }
 }
 
-NavierStokesSolverMonolithic.title = "Navier Stokes Solver Monolithic";
-NavierStokesSolverMonolithic.desc = "Properties for the fluid solver";
+NavierStokesSolverMonolithic.title = "Navier-Stokes monolithic solver";
+NavierStokesSolverMonolithic.desc = "Incompressible Navier-Stokes monolithic solver.";
 
-LiteGraph.registerNodeType("Solvers/Navier Stokes Solver Monolithic", NavierStokesSolverMonolithic);
+LiteGraph.registerNodeType("Solvers/Fluid dynamics/NavierStokesSolverMonolithic", NavierStokesSolverMonolithic);

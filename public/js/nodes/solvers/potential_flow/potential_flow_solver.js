@@ -6,7 +6,7 @@ class PotentialFlowSolver extends Solver {
         this.size = this.computeSize();
 
         // set inputs
-        this.addInput("Modelpart Name",         "string");                  // 0 
+        this.addInput("Modelpart Name",         "string");                  // 0
         this.addInput("Modelpart Settings",     "model_import_settings");   // 1
         this.addInput("Material  Settings",     "material_import_settings");// 2
         this.addInput("Volume submodelpart",    "string");                  // 3
@@ -14,7 +14,7 @@ class PotentialFlowSolver extends Solver {
         this.addInput("NonSkin submodelparts",  "string_list");             // 5
 
         // set outputs
-        this.addOutput("Solver", "solver_settings,fluid_solver_settings");  // 0 
+        this.addOutput("Solver", "solver_settings,fluid_solver_settings");  // 0
 
         // set properties
         this.properties = {
@@ -71,7 +71,7 @@ class PotentialFlowSolver extends Solver {
     }
 }
 
-PotentialFlowSolver.title = "Potential Flow Solver";
+PotentialFlowSolver.title = "Potential flow solver";
 PotentialFlowSolver.desc = "Properties for the potential flow solver";
 
-LiteGraph.registerNodeType("Solvers/Potential Flow", PotentialFlowSolver);
+LiteGraph.registerNodeType("Solvers/Potential flow/PotentialFlowSolver", PotentialFlowSolver);
