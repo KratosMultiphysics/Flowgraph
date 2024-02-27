@@ -29,7 +29,7 @@ app.get('/', (req, res) => {
 app.post('/upload_json', (req, res) => {
   fs.writeFile("simulations/ProjectParameters.json", JSON.stringify(req.body, null, 2), function(err) {
       if(err) { return console.log(err); }
-  }); 
+  });
 
   res.sendStatus(200);
 });
@@ -68,5 +68,5 @@ app.get('/run_simulation', async (req, res) => {
 
 // Start server
 app.listen(port, () => {
-  console.log(`Flowgrapg is running on port ${port}`);
+  console.log(`Flowgraph is running on http://localhost:${port}`);
 });
