@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Flowgraph</title>
+
+    <!--<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">-->
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+    <meta content="utf-8" http-equiv="encoding">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;400;900&display=swap">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+    <link rel="stylesheet" type="text/css" href="css/litegraph/litegraph.css">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="css/jvc.css">
+    <link rel="stylesheet" type="text/css" href="css/problemtype-editor.css">
+    <link rel="stylesheet" type="text/css" href="css/kratos.css">
+    <link rel="stylesheet" type="text/css" href="css/highlightjs-copy.min.css">
+</head>
+
+<body>
+    <div id="main">
+        <div class="litegraph litegraph-editor">
+            <div class="header">
+                <div class="tools tools-left">
+                    <span class="selector">
+                        <label>
+                            <span style='vertical-align: middle;'> Kratos FlowGraph <span class='glyph'>&#xf35a</span></span>
+                        </label>
+                        <label id='play-graph' class='float-btn btn-blue'>Generate</label>
+                        <label id='save-graph' class='float-btn'>Save</label>
+                        <label class='float-btn'>Load<input type='file' id='load-graph' style='display:none'></label>
+                        <label id='expt-group' class='float-btn'>Export</label>
+                        <label class='float-btn'>Import<input type='file' id='impt-group' style='display:none'></label>
+                        <label class='float-btn float-btn-left' onclick='openNav()'>Viewer</label>
+                        <label class='float-btn float-btn-right' style='min-width:40px' onclick=addViewerNode()>+</label>
+
+                        <!-- Disable KRATOS-LLM connection until we have a stable model -->
+                        <!-- <label class='float-btn float-btn-left' onclick='llamaCall()'>KTS-LLM</label>
+                        <input id='kratos-llm' class='float-inpt float-inpt-right' style='min-width:120px'></label> -->
+                     </span>
+                </div>
+                <div class="tools tools-right">
+
+                </div>
+            </div>
+
+            <div class="content">
+                <div class="editor-area">
+                    <canvas class="graphcanvas" width="1000" height="500" tabindex=10></canvas>
+                </div>
+            </div>
+
+            <div class="sidepanel" id="side-viewer" toggled="collapsed">
+                <pre id="json-display"></pre>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+    <script type="text/javascript" src="js/litegraph/litegraph.core.js"></script>
+    <script type="text/javascript" src="js/jvc.js"></script>
+    <script type="text/javascript" src="js/problemtype-editor.js"></script>
+    <script type="text/javascript" src="js/side.js"></script>
+    <script type="text/javascript" src="js/highlightjs-copy.min.js"></script>
+
+    <!-- Model Manager -->
+    <script type="text/javascript" src="js/utils.js"></script>
+    <script type="text/javascript" src="js/model_manager.js"></script>
+
+    <!-- Mods to the base source code of litegraph.js. -->
+    <!-- Needs to be done after importing litegraph AND before registering nodes -->
+    <!-- Maybe ask to merge in the main lib when they are mature -->
+    <script type="text/javascript" src="js/extensions/custom_node_panel.js"></script>
+    <script type="text/javascript" src="js/extensions/selection_import.js"></script>
+    <script type="text/javascript" src="js/extensions/extended_menu.js"></script>
+    <script type="text/javascript" src="js/extensions/remove_widget.js"></script>
+    <script type="text/javascript" src="js/extensions/draw_widget.js"></script>
+    <script type="text/javascript" src="js/extensions/draw_node.js"></script>
+
+    <script type="text/javascript" src="js/jszip.js"></script>
+    <script type="text/javascript" src="js/problem_manager.js"></script>
+
+    <!-- Databases -->
+    <script type="text/javascript" src="js/db/elements.js"></script>
+    <script type="text/javascript" src="js/db/conditions.js"></script>
+
+    <!-- Base nodes from litegrapg.js -->
+    <script type="text/javascript" src="js/base.js"></script>
+
+    <!-- Nodes -->
+    <% nodes.forEach(dir => { %>
+        <script type="module" src="<%= dir %>"></script>
+    <% }); %>
+
+    <!-- Initialize interface -->
+    <script type="text/javascript" src="js/demos.js"></script>
+    <script type="text/javascript" src="js/code.js"></script>
+</body>
+</html>
