@@ -1,3 +1,5 @@
+import { Material } from "/js/nodes/materials/material.js";
+
 class MaterialNewtonian extends Material {
     constructor() {
         super(); 

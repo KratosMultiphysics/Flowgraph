@@ -1,3 +1,5 @@
+import { Process } from "/js/nodes/processes/process.js";
+
 class AssignVectorByDirectionToConditionProcess extends Process {
     constructor() {
         super();

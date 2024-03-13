@@ -1,3 +1,5 @@
+import { AnalysisStage } from "/js/nodes/analysis_stages/base/analysis_stage.js";
+
 class FsiAnalysis extends AnalysisStage {
     constructor() {
         super();

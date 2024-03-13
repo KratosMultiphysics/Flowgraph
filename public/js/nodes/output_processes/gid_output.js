@@ -1,3 +1,5 @@
+import { OutputProcess } from "/js/nodes/output_processes/output_process.js";
+
 class GiDIO extends OutputProcess {
     constructor() {
         super(); 

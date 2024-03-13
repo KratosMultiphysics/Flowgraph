@@ -1,3 +1,5 @@
+import { InputList } from "/js/nodes/utilities/input_list.js";
+
 class OutputProcessesList extends InputList {
     constructor() {
         super();

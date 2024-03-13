@@ -1,3 +1,4 @@
+import { Orchestrator } from "/js/nodes/orchestrators/base/orchestrator.js";
 
 class SequentialOrchestrator extends Orchestrator {
     constructor() {

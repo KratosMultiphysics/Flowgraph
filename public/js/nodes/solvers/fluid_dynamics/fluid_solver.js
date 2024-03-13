@@ -1,3 +1,5 @@
+import { Solver } from "/js/nodes/solvers/base/solver.js";
+
 class FluidSolver extends Solver {
     constructor() {
         super();

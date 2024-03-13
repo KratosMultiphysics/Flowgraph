@@ -29,8 +29,6 @@ class ReadMdpa {
 
         // We handle the serialization of this node manually
         this.serialize_widgets = true;
-
-        console.log("Creating node...", this._output_slector_map.length);
     }
 
     rebuildNode() {

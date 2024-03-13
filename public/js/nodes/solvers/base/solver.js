@@ -1,4 +1,4 @@
-class Solver {
+export class Solver {
     constructor() {
         // Identifier Glyph
         this.glyph = {shape: '\uf085', font:'900 14px "Font Awesome 5 Free"', width: 16, height: 9};
