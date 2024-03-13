@@ -1,3 +1,5 @@
+import { Modeler } from "/js/nodes/modelers/base/modeler.js";
+
 class DeleteModelPartsModeler extends Modeler {
     constructor() {
         super()

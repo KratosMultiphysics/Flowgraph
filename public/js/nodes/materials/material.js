@@ -1,4 +1,4 @@
-class Material {
+export class Material {
     constructor() {
         // Identifier Glyph
         this.glyph = {shape: '\uf3a5', font:'900 14px "Font Awesome 5 Free"', width: 16, height: 9};

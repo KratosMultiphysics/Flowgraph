@@ -1,3 +1,5 @@
+import { Modeler } from "/js/nodes/modelers/base/modeler.js";
+
 class CreateEntitiesFromGeometriesModeler extends Modeler {
     constructor() {
         super()

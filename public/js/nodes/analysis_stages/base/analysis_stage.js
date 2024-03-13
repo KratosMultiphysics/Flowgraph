@@ -1,4 +1,4 @@
-class AnalysisStage {
+export class AnalysisStage {
     constructor() {
         // Model
         this.MODEL_INPUT  = 0;

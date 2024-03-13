@@ -1,4 +1,4 @@
-class InputList {
+export class InputList {
     constructor() {
         // Identifier Glyph
         this.glyph = {shape: '\uf0cb', font:'900 14px "Font Awesome 5 Free"', width: 16, height: 9};
@@ -92,5 +92,3 @@ InputList.desc = "Merges several elements into an array";
 LiteGraph.registerNodeType("Lists/Generic List", InputList);
 
 console.log("InputList node created"); //helps to debug
-
-// export default InputList;

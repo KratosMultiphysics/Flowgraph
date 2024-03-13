@@ -1,5 +1,4 @@
-
-class Orchestrator {
+export class Orchestrator {
     constructor() {
         // Identifier Glyph
         this.glyph = {shape: '\uf70e', font:'900 14px "Font Awesome 5 Free"', width: 16, height: 9};

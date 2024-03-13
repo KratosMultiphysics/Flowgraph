@@ -1,3 +1,5 @@
+import { Process } from "/js/nodes/processes/process.js";
+
 class AssignScalarVariableProcess extends Process {
     constructor() {
         super();

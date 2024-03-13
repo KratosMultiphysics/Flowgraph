@@ -4,6 +4,8 @@ import fs from 'fs';
 import path from 'path';
 import cors from 'cors';
 
+import generate_module_list from './src/module_importer.js';
+
 import express from 'express';
 import { spawn } from 'child_process';
 
@@ -20,9 +22,16 @@ app.use(express.static(path.join(__dirname, 'public')));  // Use static public d
 app.use(express.json());                                  // Enable direct transfers of JSON for the backend
 app.use(cors());                                          // Enable CORS
 
+app.set('view engine', 'ejs');                            // Use ejs
+
 // Routes
 app.get('/', (req, res) => {
-  res.render('index.html');
+  res.render(
+    'index.ejs', 
+    {
+      'nodes': generate_module_list()
+    }
+  );
 });
 
 // File transfer
