@@ -1,9 +1,9 @@
-import { Process } from "/js/nodes/processes/process.js";
+import { Process } from "/js/nodes/processes/base/process.js";
 
 class ApplyThermalFaceProcess extends Process {
     constructor() {
         super();
-        
+
         this.addInput("model_part","string");
         this.addOutput("Process","process_list");
 
@@ -26,16 +26,16 @@ class ApplyThermalFaceProcess extends Process {
             "python_module" : "apply_thermal_face_process",
             "kratos_module" : "KratosMultiphysics.ConvectionDiffusionApplication.python_scripts"
         }
-        
+
         output["Parameters"] = this.properties
         output["Parameters"]["model_part_name"] = this.getInputData(0)
-    
+
         this.setOutputData(0, [output]);
     };
 }
 
-ApplyThermalFaceProcess.title = "ThermalFace Process";
-ApplyThermalFaceProcess.desc = "Define ThermalFace";
+ApplyThermalFaceProcess.title = "Thermal face process";
+ApplyThermalFaceProcess.desc = "Define a thermal face.";
 
 LiteGraph.registerNodeType("Processes/ApplyThermalFaceProcess", ApplyThermalFaceProcess);
 

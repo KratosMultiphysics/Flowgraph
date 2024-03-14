@@ -6,9 +6,9 @@ function TimeStepping() {
         //"time_step_table": [[0.1, 0.1],[0.2, 0.2]]
     }
 
-    this.automatic_time_step = this.addWidget("combo", "Auto stepping", "false",
+    this.automatic_time_step = this.addWidget("combo", "Auto stepping", false,
         function(v) {}, {
-            values: ["false", "true"]
+            values: [false, true]
         });
     this.time_step = this.addWidget("number", "Time step", 0.1,
         function(v) {}, {

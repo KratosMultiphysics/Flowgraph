@@ -14,6 +14,6 @@ class MaterialsList extends InputList{
 MaterialsList.title = "List of Materials";
 MaterialsList.desc = "Merges several materials into an array";
 
-LiteGraph.registerNodeType("Lists/materials_list", MaterialsList);
+LiteGraph.registerNodeType("Lists/Materials", MaterialsList);
 
 console.log("Materials list node created"); //helps to debug

@@ -1,9 +1,5 @@
 class StagePreprocess {
     constructor() {
-        // Model
-        this.MODEL_INPUT  = 1;
-        this.MODEL_OUTPUT = 0;
-
         // Identifier Glyph
         this.glyph = {shape: '\uf56f', font:'900 14px "Font Awesome 5 Free"', width: 16, height: 9};
 
@@ -16,19 +12,16 @@ class StagePreprocess {
 
     onExecute() {
         this.output = {
-            "list_of_modelers": this.getInputData(0) || "[]",
-            "list_of_operations": this.getInputData(1) || "[]"
+            "modelers": this.getInputData(0) || [],
+            "operations": this.getInputData(1) || []
         }
 
         this.setOutputData(0, this.output);
     }
-
-    onSelection(e) {
-    }
 }
 
 StagePreprocess.title = "Preprocess";
-StagePreprocess.desc = "Creates a Pre Process section for a stage";
+StagePreprocess.desc = "Creates a preprocess section for a stage";
 
 LiteGraph.registerNodeType("Analysis stages/Components/Preprocess", StagePreprocess);
 

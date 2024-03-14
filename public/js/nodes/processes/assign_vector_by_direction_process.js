@@ -1,13 +1,13 @@
-import { Process } from "/js/nodes/processes/process.js";
+import { Process } from "/js/nodes/processes/base/process.js";
 
 class AssignVectorByDirectionProcess extends Process {
     constructor() {
         super();
-        
+
         this.addInput("model_part","string");
         this.addInput("direction","array");
         this.addOutput("Process","process_list");
-        
+
         this.modulus = this.addWidget("number", "Modulus", 0,
             function(v) {}, {
                 min: 0,

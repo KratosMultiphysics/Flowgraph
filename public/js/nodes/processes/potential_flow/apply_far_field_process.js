@@ -1,9 +1,9 @@
-import { Process } from "/js/nodes/processes/process.js";
+import { Process } from "/js/nodes/processes/base/process.js";
 
 class ApplyFarFieldProcess extends Process {
     constructor() {
         super();
-        
+
         this.addInput("model_part","string");
         this.addOutput("Process","process_list");
 
@@ -32,9 +32,9 @@ class ApplyFarFieldProcess extends Process {
     };
 }
 
-ApplyFarFieldProcess.title = "Apply Far Field Process";
+ApplyFarFieldProcess.title = "Apply far field process";
 ApplyFarFieldProcess.desc = "Applies a far field condition to a model part.";
 
-LiteGraph.registerNodeType("Processes/ApplyFarFieldProcess", ApplyFarFieldProcess);
+LiteGraph.registerNodeType("Processes/Potential flow/ApplyFarFieldProcess", ApplyFarFieldProcess);
 
 console.log("ApplyFarFieldProcess node created"); //helps to debug

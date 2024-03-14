@@ -1,16 +1,16 @@
-import { Process } from "/js/nodes/processes/process.js";
+import { Process } from "/js/nodes/processes/base/process.js";
 
 class AssignFlagProcess extends Process {
     constructor() {
         super();
-        
+
         this.addInput("model_part","string");
         this.addInput("entities","array");
         this.addOutput("Process","process_list");
 
         this.flag_name = this.addWidget("string","Flag name=", "", function(v){} );
         this.boolean_value = this.addWidget("toggle","Value", true, function(v){}, { on: "true", off:"false"} );
-        
+
         this.properties = {
             "interval"        : [0.0, 1e30]
         }

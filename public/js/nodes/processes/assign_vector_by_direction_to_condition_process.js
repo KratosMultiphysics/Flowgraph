@@ -1,9 +1,9 @@
-import { Process } from "/js/nodes/processes/process.js";
+import { Process } from "/js/nodes/processes/base/process.js";
 
 class AssignVectorByDirectionToConditionProcess extends Process {
     constructor() {
         super();
-        
+
         this.addInput("model_part","string");
         this.addInput("direction","array");
         this.addInput("entities","array");

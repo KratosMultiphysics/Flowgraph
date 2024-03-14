@@ -3,7 +3,7 @@ function MonolithicFormulation() {
         this.size = this.computeSize();
 
         this.output = {
-            "type": "Monolithic",
+            "type": "monolithic",
             "formulation": {
                 "element_type": "",
                 "use_orthogonal_subscales": -1,

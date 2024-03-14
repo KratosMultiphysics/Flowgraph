@@ -1,9 +1,9 @@
-import { Process } from "/js/nodes/processes/process.js";
+import { Process } from "/js/nodes/processes/base/process.js";
 
-class DefineWakeProcess2d extends Process {
+class DefineWakeProcess2D extends Process {
     constructor() {
         super();
-        
+
         this.addInput("model_part","string");
         this.addOutput("Process","process_list");
 
@@ -32,9 +32,9 @@ class DefineWakeProcess2d extends Process {
     };
 }
 
-DefineWakeProcess2d.title = "Define Wake Process 2D";
-DefineWakeProcess2d.desc = "Defines the Wake in 2D";
+DefineWakeProcess2D.title = "Define wake process (2D)";
+DefineWakeProcess2D.desc = "Defines the wake in 2D.";
 
-LiteGraph.registerNodeType("Processes/DefineWakeProcess2d", DefineWakeProcess2d);
+LiteGraph.registerNodeType("Processes/Potential flow/DefineWakeProcess2D", DefineWakeProcess2D);
 
-console.log("DefineWakeProcess2d node created"); //helps to debug
+console.log("DefineWakeProcess2D node created"); //helps to debug

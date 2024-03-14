@@ -1,6 +1,6 @@
-import { Solver } from "/js/nodes/solvers/base/solver.js";
+import { FluidSolver } from "/js/nodes/solvers/fluid_dynamics/fluid_solver.js";
 
-class NavierStokesSolverFractionalStep extends Solver {
+class NavierStokesSolverFractionalStep extends FluidSolver {
     constructor() {
         super();
 
@@ -47,23 +47,20 @@ class NavierStokesSolverFractionalStep extends Solver {
 
         this.properties = {
             "solver_type": "fractional_step",
-            "echo_level": -1,
+            "domain_size": 2,
+            "echo_level": 0,
             "compute_reactions": false,
-
-            "maximum_velocity_iterations": -1,
-            "maximum_pressure_iterations": -1,
-            "velocity_tolerance": -1,
-            "pressure_tolerance": -1,
-
+            "maximum_velocity_iterations": 3,
+            "maximum_pressure_iterations": 3,
+            "velocity_tolerance": 1.0e-3,
+            "pressure_tolerance": 1.0e-2,
             "domain_size": -1,
             "model_import_settings": {},
-            "model_part_name": [],
+            "model_part_name": "FluidModelPart",
             "volume_model_part_name": [],
             "skin_parts": [],
             "no_skin_parts": [],
-
             "material_import_settings": {},
-
             "velocity_linear_solver_settings": {},
             "pressure_linear_solver_settings": {},
             "time_stepping": {},

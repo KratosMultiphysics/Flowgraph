@@ -1,5 +1,7 @@
 {
     "host" : "127.0.0.1",
     "port" : "8182",
-    "kratos_root": "${HOME}/Kratos/bin/Release"
+    "kratos_root": "/home/rzorrilla/Kratos/bin/Release",
+    "working_dir": "/home/rzorrilla/Desktop/test_flowgraph",
+    "python_binary": "python3"
 }

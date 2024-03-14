@@ -2,11 +2,11 @@ import { OutputProcess } from "/js/nodes/output_processes/output_process.js";
 
 class GiDIO extends OutputProcess {
     constructor() {
-        super(); 
+        super();
 
         this.addInput("ModelPart", "string");
         this.addInput("OutputName", "string");
-        this.addOutput("Output Process", "output_process");
+        this.addOutput("Output Process", "output_process_list");
 
         this.properties = {
             "file_label": "time",
@@ -19,7 +19,7 @@ class GiDIO extends OutputProcess {
             "nodal_results": ["VELOCITY", "PRESSURE"],
             "gauss_point_results": []
         }
-        
+
         this.size = this.computeSize();
     }
 
@@ -45,18 +45,18 @@ class GiDIO extends OutputProcess {
         }
         output["Parameters"]["model_part_name"] = this.getInputData(0);
         output["Parameters"]["output_name"] = this.getInputData(1);
-    
+
         for(let item in this.properties ) {
-            output["Parameters"][item] = this.properties[item];
+            output["Parameters"]["postprocess_parameters"]["result_file_configuration"][item] = this.properties[item];
         }
-    
+
         this.setOutputData(0, output);
     }
 }
 
 GiDIO.title = "GiD";
-GiDIO.desc = "Creates GiD IO";
+GiDIO.desc = "Creates a GiD IO process.";
 
-LiteGraph.registerNodeType("Output Processes/GiD", GiDIO);
+LiteGraph.registerNodeType("Output processes/GiD", GiDIO);
 
 console.log("GiDIO node created"); //helps to debug

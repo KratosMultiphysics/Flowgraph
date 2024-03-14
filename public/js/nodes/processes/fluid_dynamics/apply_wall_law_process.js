@@ -1,9 +1,9 @@
-import { Process } from "/js/nodes/processes/process.js";
+import { Process } from "/js/nodes/processes/base/process.js";
 
 class ApplyWallLawProcess extends Process {
     constructor() {
         super();
-        
+
         this.addInput("model_part","string");
         this.addOutput("Process","process_list");
 
@@ -26,14 +26,14 @@ class ApplyWallLawProcess extends Process {
         output["Parameters"] = this.properties
         output["Parameters"]["model_part_name"] = this.getInputData(0)
         output["Parameters"]["wall_model_name"] = this.wall_model_name.value
-        
+
         this.setOutputData(0, [output]);
     }
 }
 
-ApplyWallLawProcess.title = "Apply Wall Law Process";
+ApplyWallLawProcess.title = "Apply wall law process";
 ApplyWallLawProcess.desc = "Node to specify a wall law boundary process.";
 
-LiteGraph.registerNodeType("Processes/ApplyWallLawProcess", ApplyWallLawProcess);
+LiteGraph.registerNodeType("Processes/Fluid dynamics/ApplyWallLawProcess", ApplyWallLawProcess);
 
 console.log("ApplyWallLawProcess node created"); //helps to debug

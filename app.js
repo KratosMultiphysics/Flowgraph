@@ -27,7 +27,7 @@ app.set('view engine', 'ejs');                            // Use ejs
 // Routes
 app.get('/', (req, res) => {
   res.render(
-    'index.ejs', 
+    'index.ejs',
     {
       'nodes': generate_module_list()
     }
@@ -36,7 +36,8 @@ app.get('/', (req, res) => {
 
 // File transfer
 app.post('/upload_json', (req, res) => {
-  fs.writeFile("simulations/ProjectParameters.json", JSON.stringify(req.body, null, 2), function(err) {
+  let problem_dir = `${config.working_dir}` || `./simulations/`
+  fs.writeFile(`${problem_dir}/ProjectParameters.json`, JSON.stringify(req.body, null, 2), function(err) {
       if(err) { return console.log(err); }
   });
 
@@ -50,12 +51,12 @@ app.get('/run_simulation', async (req, res) => {
           'LD_LIBRARY_PATH'   : `${config.kratos_root}/libs`,
           'PYTHONPATH'        : `${config.kratos_root}/`
       },
-      'cwd': config.working_dir || `./simulations/`
+      'cwd': `${config.working_dir}` || `./simulations/`
   }
 
   console.log(process_env)
 
-  var child = spawn('python', ['MainKratos.py'], process_env);
+  var child = spawn(`${config.python_binary}` || "python3", ['MainKratos.py'], process_env);
 
   child.stdout.setEncoding('utf8');
   child.stdout.on('data', function(data) {

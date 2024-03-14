@@ -1,9 +1,9 @@
-import { Process } from "/js/nodes/processes/process.js";
+import { Process } from "/js/nodes/processes/base/process.js";
 
 class ApplyOutletProcess extends Process {
     constructor() {
         super();
-        
+
         this.addInput("model_part","string");
         this.addOutput("Process","process_list");
 
@@ -25,19 +25,19 @@ class ApplyOutletProcess extends Process {
             "python_module" : "apply_outlet_process",
             "kratos_module" : "KratosMultiphysics.FluidDynamicsApplication"
         }
-        
+
         output["Parameters"] = this.properties
         output["Parameters"]["model_part_name"] = this.getInputData(0)
         output["Parameters"]["variable_name"] = this.variable_name.value
         output["Parameters"]["value"] = this.value.value
-    
+
         this.setOutputData(0, [output]);
     };
 }
 
-ApplyOutletProcess.title = "Apply Outlet Process";
-ApplyOutletProcess.desc = "Define outlet";
+ApplyOutletProcess.title = "Apply outlet process";
+ApplyOutletProcess.desc = "Defines the outlet.";
 
-LiteGraph.registerNodeType("Processes/ApplyOutletProcess", ApplyOutletProcess);
+LiteGraph.registerNodeType("Processes/Fluid dynamics/ApplyOutletProcess", ApplyOutletProcess);
 
 console.log("ApplyOutletProcess created"); //helps to debug

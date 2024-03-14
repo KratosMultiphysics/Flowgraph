@@ -1,9 +1,5 @@
 class StagePostprocess {
     constructor() {
-        // Model
-        this.MODEL_INPUT  = 0;
-        this.MODEL_OUTPUT = 0;
-
         // Identifier Glyph
         this.glyph = {shape: '\uf56e', font:'900 14px "Font Awesome 5 Free"', width: 16, height: 9};
 
@@ -14,9 +10,11 @@ class StagePostprocess {
     }
 
     onExecute() {
-    }
+        this.output = {
+            "operations": this.getInputData(0) || []
+        }
 
-    onSelection(e) {
+        this.setOutputData(0, this.output);
     }
 }
 

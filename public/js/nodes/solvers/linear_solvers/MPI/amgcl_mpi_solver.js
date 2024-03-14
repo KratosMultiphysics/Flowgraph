@@ -4,7 +4,7 @@ class AMGCLMPISolver {
         this.glyph = {shape: '\uf013', font:'900 14px "Font Awesome 5 Free"', width: 16, height: 9};
 
         this.properties = {
-            "solver_type": "AMGCL",
+            "solver_type": "amgcl",
             "provide_coordinates": false,
             "max_iteration": 100,
             "gmres_krylov_space_dimension": 100,

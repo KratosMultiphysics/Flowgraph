@@ -1,9 +1,9 @@
-import { Process } from "/js/nodes/processes/process.js";
+import { Process } from "/js/nodes/processes/base/process.js";
 
 class AssignVectorVariableToConditionsProcess extends Process {
     constructor() {
         super();
-        
+
         this.addInput("model_part","string");
         this.addInput("value","array");
         this.addInput("entities","array")

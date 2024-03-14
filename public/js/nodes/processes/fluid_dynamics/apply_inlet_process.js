@@ -1,9 +1,9 @@
-import { Process } from "/js/nodes/processes/process.js";
+import { Process } from "/js/nodes/processes/base/process.js";
 
 class ApplyInletProcess extends Process {
     constructor() {
         super();
-        
+
         this.addInput("model_part","string");
         this.addOutput("Process","process_list");
 
@@ -35,9 +35,9 @@ class ApplyInletProcess extends Process {
     };
 }
 
-ApplyInletProcess.title = "Apply Inlet Process";
-ApplyInletProcess.desc = "Define inlet";
+ApplyInletProcess.title = "Apply inlet process";
+ApplyInletProcess.desc = "Define inlet.";
 
-LiteGraph.registerNodeType("Processes/ApplyInletProcess", ApplyInletProcess);
+LiteGraph.registerNodeType("Processes/Fluid dynamics/ApplyInletProcess", ApplyInletProcess);
 
 console.log("ApplyInletProcess node created"); //helps to debug

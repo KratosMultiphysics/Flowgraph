@@ -1,13 +1,13 @@
-import { Process } from "/js/nodes/processes/process.js";
+import { Process } from "/js/nodes/processes/base/process.js";
 
 class AssignScalarVariableProcess extends Process {
     constructor() {
         super();
-        
+
         this.addInput("model_part","string");
         this.addOutput("Process","process_list");
 
-        
+
         this.scalar_value = this.addWidget("number", "Value", 0,
             function(v) {}, {
                 min: 0,

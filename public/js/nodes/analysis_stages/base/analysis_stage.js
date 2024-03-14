@@ -106,7 +106,7 @@ export class AnalysisStage {
                     "problem_data":             this.getInputData(3),
                     "solver_settings":          this.getInputData(4),
                     "processes":                {"boundary_conditions_process_list":this.getInputData(5)},
-                    "output_processes":         this.getInputData(6),
+                    "output_processes":         {"output_process_list": this.getInputData(6)},
                 },
             }
         } else {

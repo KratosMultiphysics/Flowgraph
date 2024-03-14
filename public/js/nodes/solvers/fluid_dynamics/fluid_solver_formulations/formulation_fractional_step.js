@@ -3,7 +3,7 @@ function FractionalStepFormulation() {
         this.size = this.computeSize();
 
         this.output = {
-            "type": "FrationalStep",
+            "type": "fractional_step",
             "formulation": {
                 "fract_step_coeff_0": "",
                 "fract_step_coeff_1": "",
