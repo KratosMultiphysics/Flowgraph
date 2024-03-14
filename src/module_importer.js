@@ -3,6 +3,16 @@ import fs from 'fs';
 import path from 'path';
 
 /**
+ * Returns true if the file is a node file
+ * @param {*} file 
+ * @returns 
+ */
+function is_node_file(file) {
+    return file.endsWith('.js');
+
+}
+
+/**
  * Returns a list of all files in a directory and its subdirectories
  * @param {*} dir directory to traverse
  * @param {*} file_list list to append files to
@@ -11,10 +21,9 @@ function recursively_traverse_directories(dir, file_list) {
     fs.readdirSync(dir).forEach(file => {
         let dirPath = path.join(dir, file);
         let isFile = !fs.statSync(dirPath).isDirectory();
-        isFile 
-            ? file_list.push(dirPath)
-            : recursively_traverse_directories(dirPath, file_list)
-            ;
+
+        if (isFile) { if (is_node_file(dirPath)) file_list.push(dirPath); }
+        else { recursively_traverse_directories(dirPath, file_list); }
     });
 }
 
