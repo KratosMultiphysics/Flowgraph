@@ -885,6 +885,4 @@ LGraphCanvas.prototype.drawLinkTooltip = function( ctx, link )
     for(let l in lines) {
         ctx.fillText(lines[l], pos[0] - w * 0.5 + 8, pos[1] - h + line_w * l + 15 * 0.3);
     }
-
-    // ctx.fillText(text, pos[0], pos[1] - 15 - h * 0.3);
 }
