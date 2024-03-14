@@ -91,7 +91,7 @@ export class AnalysisStage {
 
         this.stage_name = "auto_" + this.id + "_stage";
         if(this._name.value != undefined && this._name.value != "") {
-            stage_name = toSnakeCase(this._name.value) + "_stage";
+            this.stage_name = toSnakeCase(this._name.value) + "_stage";
         }
 
         // Generate the stage data
