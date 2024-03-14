@@ -24,6 +24,6 @@ class MaterialImportSettings {
 MaterialImportSettings.title = "Material Import Settings";
 MaterialImportSettings.desc = "Define Material Settings";
 
-LiteGraph.registerNodeType("Materials/MaterialImportSettings", MaterialImportSettings);
+LiteGraph.registerNodeType("Solvers/Components/MaterialImportSettings", MaterialImportSettings);
 
 console.log("MaterialImportSettings node created"); //helps to debug

@@ -3,7 +3,7 @@ class ModelImportSettings {
         this.addInput("name","string");
         this.model_type = this.addWidget("combo", "Type", "mdpa", function(v) {}, { values: ["mdpa", "use_input_model_part"] });
 
-        this.addOutput("Process","model_import_settings");
+        this.addOutput("Settings","model_import_settings");
 
         this.properties = {
             "input_type": "mpda",
@@ -27,6 +27,6 @@ class ModelImportSettings {
 ModelImportSettings.title = "Model Import Settings";
 ModelImportSettings.desc = "Define inlet";
 
-LiteGraph.registerNodeType("ModelParts/ModelImportSettings", ModelImportSettings);
+LiteGraph.registerNodeType("Solvers/Components/ModelImportSettings", ModelImportSettings);
 
 console.log("ModelImportSettings node created"); //helps to debug
