@@ -120,8 +120,9 @@ LGraphCanvas.prototype.drawNodeWidgets = function(
     var text_color = LiteGraph.WIDGET_TEXT_COLOR;
     var secondary_text_color = LiteGraph.WIDGET_SECONDARY_TEXT_COLOR;
 
-    let lavel_trim = LGraph.WIDGET_LAVEL_TRIM || 10;
-    let value_trim = LGraph.WIDGET_VALUE_TRIM || 10;
+    let label_trim = LiteGraph.WIDGET_LABEL_TRIM || 10;
+    let value_trim = LiteGraph.WIDGET_VALUE_TRIM || 10;
+        value_trim = Math.max(value_trim, value_trim + (node.size[0] - LiteGraph.NODE_WIDTH)/6);
     
     var margin = 18;
 
@@ -305,7 +306,7 @@ LGraphCanvas.prototype.drawNodeWidgets = function(
                     ctx.rect(margin, y, widget_width - margin * 2, H);
                     ctx.clip();
 
-                    let lavel_text = String(w.name).substring(0,lavel_trim) + (w.name.length < lavel_trim + 3 ? "" : "...");
+                    let lavel_text = String(w.name).substring(0,label_trim) + (w.name.length < label_trim + 3 ? "" : "...");
 
                     ctx.fillStyle = secondary_text_color;
                     const label = w.label || w.name;	
