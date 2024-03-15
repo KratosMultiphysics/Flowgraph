@@ -16,7 +16,7 @@ function Editor(container_id, options) {
     graph.config.align_to_grid = false;
     var graphcanvas = (this.graphcanvas = new LGraphCanvas(canvas, graph));
 
-    graphcanvas.connections_width = 48;
+    graphcanvas.connections_width = 8;
     graphcanvas.background_image = "img/grid.png";
 
     graph.onAfterExecute = function() {
