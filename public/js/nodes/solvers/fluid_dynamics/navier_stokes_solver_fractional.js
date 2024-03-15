@@ -10,14 +10,7 @@ class NavierStokesSolverFractionalStep extends FluidSolver {
         // set inputs
         let iidx = 0;
         this.imod = iidx++;
-        this.addInput("Modelpart settings", "model_import_settings", {
-            //"glyph": {
-            //    shape: "\uf6cf",
-            //    font: '900 10px "Font Awesome 5 Free"',
-            //    width: 9,
-            //    height: 10
-            //}
-        });
+        this.addInput("Modelpart settings", "model_import_settings");
         this.imodn = iidx++;
         this.addInput("model_part_name", "string");
         this.ivolmp = iidx++;
