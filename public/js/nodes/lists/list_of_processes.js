@@ -8,7 +8,6 @@ class ProcessesList extends InputList {
 
         this.scaling_type = this.addWidget("toggle", "Group", true, function(v){
             that.process_list.disabled = !v;
-            console.log(that.process_list.disabled.value)
         });
 
         this.process_list = this.addWidget("combo", "Process List", 0, function(v) {}, {
@@ -22,12 +21,29 @@ class ProcessesList extends InputList {
         });
 
         this.process_list.tooltip = (w) => {
-            return w.value;
+
+            let tooltip = [
+                `${w.name}`, "", `${w.value}`, "",
+                "Selects the process list where the ", "process will be assigned",
+            ];
+
+            let help_tooltip = {
+                "title": `${w.name}`,
+                "value": `${w.value}`,
+                "descp": [
+                    "Selects the process list where the process will be assigned",
+                    "depending on the ascending house of mars",
+                    "the solver may refuse to work until you perform",
+                    "a sacrifice of blood to the god of war"
+                ],
+            }
+
+            return help_tooltip;
         }
 
-        this.scaling_type.tooltip = (w) => {
-            return w.value;
-        }
+        // this.scaling_type.tooltip = (w) => {
+        //     return [w.value];
+        // }
     }
 
     setIOType() {

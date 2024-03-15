@@ -16,7 +16,7 @@ function Editor(container_id, options) {
     graph.config.align_to_grid = false;
     var graphcanvas = (this.graphcanvas = new LGraphCanvas(canvas, graph));
 
-    graphcanvas.connections_width = 8;
+    graphcanvas.connections_width = 48;
     graphcanvas.background_image = "img/grid.png";
 
     graph.onAfterExecute = function() {
@@ -211,9 +211,9 @@ LiteGraph.Editor = Editor;
 LiteGraph.slot_types_default_out = {};
 LiteGraph.slot_types_default_in = {};
 
-LiteGraph.NODE_WIDTH = 224;
-LiteGraph.WIDGET_LAVEL_TRIM = 10;
-LiteGraph.WIDGET_VALUE_TRIM = 10;
+LiteGraph.NODE_WIDTH = 244;
+LiteGraph.WIDGET_LAVEL_TRIM = 12;
+LiteGraph.WIDGET_VALUE_TRIM = 12;
 
 function register_default_in_type(io_type, node_type) {
     LiteGraph.slot_types_default_in[io_type] = (LiteGraph.slot_types_default_in[io_type] || []).concat(node_type);

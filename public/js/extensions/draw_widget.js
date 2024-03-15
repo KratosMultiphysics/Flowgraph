@@ -5,39 +5,92 @@
  * @param {*} ctx 
  * @param {*} active_widget 
  */
-LGraphCanvas.prototype.drawNodewidgetTooltip = function(node, ctx, active_widget) {
-    let box_x = node.size[0]-17;
-    let box_y = LiteGraph.NODE_TITLE_TEXT_Y - LiteGraph.NODE_TITLE_HEIGHT - 12;
+LGraphCanvas.prototype.drawNodewidgetTooltip = function(node, ctx, widget, widget_pos_y, widget_height) {
     
-    let lines = [active_widget.tooltip(active_widget)];
+    let box_x = node.size[0];
+    let box_y = widget_pos_y + 0 + widget_height * 0.5;
+    
+    let tooltip_data = widget.tooltip(widget);
     let line_w = 14;
+
+    let lines_title = tooltip_data["title"];
+    let lines_value = tooltip_data["value"];
     
     ctx.old_font = ctx.font;
-    // ctx.font = "14px Courier New";
-    let info = lines.map((line)=>ctx.measureText(line).width).reduce((a,b)=>Math.max(a,b));
-
-    let h = line_w * ( lines.length + 1 ); // + 25 * 0.3;
-    let w = info + 20;
     
+    let lines_descp = tooltip_data["descp"];
+
+    let info = lines_descp.map((lines_descp)=>ctx.measureText(lines_descp).width).reduce((a,b)=>Math.max(a,b));
+        info = Math.max(info, ctx.measureText(lines_title).width);
+        info = Math.max(info, ctx.measureText(lines_value).width);
+
+    let h = line_w * ( lines_descp.length + 1 + 5 ) + 8;
+    let w = info + 20 + 30;
+    
+    // Draw box
     ctx.shadowColor = "black";
     ctx.shadowOffsetX = 2;
     ctx.shadowOffsetY = 2;
     ctx.shadowBlur = 3;
-    ctx.fillStyle = "#544";
+    ctx.fillStyle = "#444";
     ctx.beginPath();
-    ctx.roundRect( box_x - w*0.5, box_y - 15 - h, w, h, [3]);
-    ctx.moveTo( box_x - 10, box_y - 15 );
-    ctx.lineTo( box_x + 10, box_y - 15 );
-    ctx.lineTo( box_x, box_y - 5 );
+    ctx.roundRect( box_x +15, box_y - h * 0.5, w, h, [3]);
+    ctx.moveTo( box_x + 15, box_y - 10 );
+    ctx.lineTo( box_x + 15, box_y + 10 );
+    ctx.lineTo( box_x + 5, box_y );
     ctx.fill();
     ctx.shadowColor = "transparent";
-    ctx.textAlign = "center";
-    ctx.fillStyle = "#ECC";
+    ctx.textAlign = "left";
+    ctx.fillStyle = "#AAA";
 
-    for(let l in lines) {
-        ctx.fillText(lines[l], box_x, box_y - h + 24 * l + 15 * 0.3);
+    // Draw the title
+    ctx.font = node.glyph.font || LiteGraph.NODE_DEFAULT_TITLE_FONT;
+    ctx.fillText(
+        "\uf05a",
+        15 + 12 + box_x, 
+        box_y - h * 0.5 + 14 * 0 + 23
+    );
+    ctx.font = ctx.old_font;
+
+    ctx.fillText(
+        lines_title,
+        30 + 20 + box_x, 
+        box_y - h * 0.5 + 14 * 0 + 22
+    );
+
+    // Draw the value
+    ctx.font = node.glyph.font || LiteGraph.NODE_DEFAULT_TITLE_FONT;
+    ctx.fillText(
+        "\uf02b",
+        15 + 12 + box_x, 
+        box_y - h * 0.5 + 14 * 2 + 22
+    );
+    ctx.font = ctx.old_font;
+
+    ctx.font = "bold 14px Arial";
+    ctx.fillText(
+        lines_value,
+        30 + 20 + box_x, 
+        box_y - h * 0.5 + 14 * 2 + 22
+    );
+    ctx.font = ctx.old_font;
+
+    // Draw the description
+    ctx.font = node.glyph.font || LiteGraph.NODE_DEFAULT_TITLE_FONT;
+    ctx.fillText(
+        "\uf19c",
+        15 + 12 + box_x, 
+        box_y - h * 0.5 + 14 * 4 + 30
+    );
+    ctx.font = ctx.old_font;
+
+    for(let l in lines_descp) {
+        ctx.fillText(
+            lines_descp[l], 
+            30 + 20 + box_x, 
+            box_y - h * 0.5 + 14 * 4 + (l*14) + 30
+        );
     }
-
     ctx.font = ctx.old_font;
 }
 
@@ -252,12 +305,12 @@ LGraphCanvas.prototype.drawNodeWidgets = function(
                     ctx.rect(margin, y, widget_width - margin * 2, H);
                     ctx.clip();
 
-                    let lavel_text = String(w.lavel).substring(0,lavel_trim) + (w.lavel.length < lavel_trim + 3 ? "" : "...");
+                    let lavel_text = String(w.name).substring(0,lavel_trim) + (w.name.length < lavel_trim + 3 ? "" : "...");
 
                     ctx.fillStyle = secondary_text_color;
                     const label = w.label || w.name;	
                     if (label != null) {
-                        ctx.fillText(label, margin * 2, y + H * 0.7);
+                        ctx.fillText(lavel_text, margin * 2, y + H * 0.7);
                     }
                     ctx.fillStyle = text_color;
                     ctx.textAlign = "right";
@@ -291,7 +344,7 @@ LGraphCanvas.prototype.drawNodeWidgets = function(
         var node_pos = node.pos;
 
         if (w.tooltip && mouse_pos[0] > node_pos[0] + margin && mouse_pos[0] < node_pos[0] + widget_width - margin && mouse_pos[1] > node_pos[1] + y && mouse_pos[1] < node_pos[1] + y + H) {
-            this.drawNodewidgetTooltip(node, ctx, w);
+            this.drawNodewidgetTooltip(node, ctx, w, y, H);
         }
 
         //////////////////////////////////////////
