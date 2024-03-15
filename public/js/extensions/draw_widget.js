@@ -1,3 +1,46 @@
+
+/**
+ * Draws a tooltip when hovering a widget to show the current value without trimming
+ * @param {*} node 
+ * @param {*} ctx 
+ * @param {*} active_widget 
+ */
+LGraphCanvas.prototype.drawNodewidgetTooltip = function(node, ctx, active_widget) {
+    let box_x = node.size[0]-17;
+    let box_y = LiteGraph.NODE_TITLE_TEXT_Y - LiteGraph.NODE_TITLE_HEIGHT - 12;
+    
+    let lines = [active_widget.tooltip(active_widget)];
+    let line_w = 14;
+    
+    ctx.old_font = ctx.font;
+    // ctx.font = "14px Courier New";
+    let info = lines.map((line)=>ctx.measureText(line).width).reduce((a,b)=>Math.max(a,b));
+
+    let h = line_w * ( lines.length + 1 ); // + 25 * 0.3;
+    let w = info + 20;
+    
+    ctx.shadowColor = "black";
+    ctx.shadowOffsetX = 2;
+    ctx.shadowOffsetY = 2;
+    ctx.shadowBlur = 3;
+    ctx.fillStyle = "#544";
+    ctx.beginPath();
+    ctx.roundRect( box_x - w*0.5, box_y - 15 - h, w, h, [3]);
+    ctx.moveTo( box_x - 10, box_y - 15 );
+    ctx.lineTo( box_x + 10, box_y - 15 );
+    ctx.lineTo( box_x, box_y - 5 );
+    ctx.fill();
+    ctx.shadowColor = "transparent";
+    ctx.textAlign = "center";
+    ctx.fillStyle = "#ECC";
+
+    for(let l in lines) {
+        ctx.fillText(lines[l], box_x, box_y - h + 24 * l + 15 * 0.3);
+    }
+
+    ctx.font = ctx.old_font;
+}
+
 /**
  * draws the widgets stored inside a node
  * @method drawNodeWidgets
@@ -18,10 +61,15 @@ LGraphCanvas.prototype.drawNodeWidgets = function(
     var show_text = this.ds.scale > 0.5;
     ctx.save();
     ctx.globalAlpha = this.editor_alpha;
+
     var outline_color = LiteGraph.WIDGET_OUTLINE_COLOR;
     var background_color = LiteGraph.WIDGET_BGCOLOR;
     var text_color = LiteGraph.WIDGET_TEXT_COLOR;
     var secondary_text_color = LiteGraph.WIDGET_SECONDARY_TEXT_COLOR;
+
+    let lavel_trim = LGraph.WIDGET_LAVEL_TRIM || 10;
+    let value_trim = LGraph.WIDGET_VALUE_TRIM || 10;
+    
     var margin = 18;
 
     for (var i = 0; i < widgets.length; ++i) {
@@ -174,8 +222,11 @@ LGraphCanvas.prototype.drawNodeWidgets = function(
                                 v = w.value
                             }
                         }
+
+                        let value_text = String(w.value).substring(0,value_trim) + (w.value.length < value_trim + 3 ? "" : "...");
+
                         ctx.fillText(
-                            v,
+                            value_text,
                             widget_width - margin * 2 - 4,
                             y + H * 0.7
                         );
@@ -201,7 +252,8 @@ LGraphCanvas.prototype.drawNodeWidgets = function(
                     ctx.rect(margin, y, widget_width - margin * 2, H);
                     ctx.clip();
 
-                    //ctx.stroke();
+                    let lavel_text = String(w.lavel).substring(0,lavel_trim) + (w.lavel.length < lavel_trim + 3 ? "" : "...");
+
                     ctx.fillStyle = secondary_text_color;
                     const label = w.label || w.name;	
                     if (label != null) {
@@ -209,7 +261,15 @@ LGraphCanvas.prototype.drawNodeWidgets = function(
                     }
                     ctx.fillStyle = text_color;
                     ctx.textAlign = "right";
-                    ctx.fillText(String(w.value).substr(0,30), widget_width - margin * 2, y + H * 0.7); //30 chars max
+
+                    let value_text = String(w.value).substring(0,value_trim) + (w.value.length < value_trim + 3 ? "" : "...");
+
+                    ctx.fillText(
+                        value_text, 
+                        widget_width - margin * 2, 
+                        y + H * 0.7
+                    ); //30 chars max
+
                     ctx.restore();
                 }
                 break;
@@ -219,8 +279,24 @@ LGraphCanvas.prototype.drawNodeWidgets = function(
                 }
                 break;
         }
+
         posY += (w.computeSize ? w.computeSize(widget_width)[1] : H) + 4;
         ctx.globalAlpha = this.editor_alpha;
+
+        //////////////////////////////////////////
+        // FlowGraph Extension                  //
+        //////////////////////////////////////////
+
+        var mouse_pos = this.graph_mouse;
+        var node_pos = node.pos;
+
+        if (w.tooltip && mouse_pos[0] > node_pos[0] + margin && mouse_pos[0] < node_pos[0] + widget_width - margin && mouse_pos[1] > node_pos[1] + y && mouse_pos[1] < node_pos[1] + y + H) {
+            this.drawNodewidgetTooltip(node, ctx, w);
+        }
+
+        //////////////////////////////////////////
+        // FlowGraph Extension End              //
+        //////////////////////////////////////////
 
     }
     ctx.restore();
