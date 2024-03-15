@@ -1,4 +1,4 @@
-import { InputList } from "/js/nodes/utilities/input_list.js";
+import { InputList } from "/js/nodes/lists/input_list.js";
 
 class MaterialsList extends InputList{
     constructor() {
