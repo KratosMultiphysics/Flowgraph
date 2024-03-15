@@ -112,8 +112,8 @@ class ReadMdpa {
             for (const match of sub_mdpa) {
                 if (match[0].includes("Begin")) {
                     sub_mdpa_namepath = `${sub_mdpa_namepath}.${match[3]}`;
-                    // this._submodelpart_names.push(`${this.filename}${sub_mdpa_namepath}`);
-                    this._submodelpart_names.push(`${match[3]}`);
+                    this._submodelpart_names.push(`${this.filename}${sub_mdpa_namepath}`);
+                    // this._submodelpart_names.push(`${match[3]}`);
                 }
 
                 if (match[0].includes("End")) {
