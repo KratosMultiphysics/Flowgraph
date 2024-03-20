@@ -40,7 +40,7 @@ export default function generate_module_list() {
         recursively_traverse_directories(dir, node_list);
     });
 
-    node_list = node_list.map(e => e.split('/').slice(1).join('/'));
+    node_list = node_list.map(e => e.split(path.sep).slice(1).join('/'));
 
     return node_list;   
 }
