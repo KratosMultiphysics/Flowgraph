@@ -18,6 +18,7 @@ function Editor(container_id, options) {
 
     graphcanvas.connections_width = 8;
     graphcanvas.background_image = "img/grid.png";
+    // graphcanvas.links_render_mode = LiteGraph.STRAIGHT_LINK;
 
     graph.onAfterExecute = function() {
         graphcanvas.draw(true);
@@ -112,11 +113,19 @@ Editor.prototype.onDropItem = function(e)
 		var file = e.dataTransfer.files[i];
 		var ext = LGraphCanvas.getFileExtension(file.name);
 		var reader = new FileReader();
-		if(ext == "json")
+		
+        if(ext == "json")
 		{
 			reader.onload = function(event) {
 				var data = JSON.parse( event.target.result );
-				that.graph.configure(data);
+
+                if (is_litegraph_json(data)) {
+                    console.log("Loading a Litegraph json");
+                    that.graph.configure(data);
+                } else if (is_kratos_json(data)) {
+                    console.log("Loading a Kratos ProjectParameters json");
+                    that.graph.configure_project_parameters(data);
+                }
 			};
 			reader.readAsText(file);
 		}
@@ -212,6 +221,8 @@ LiteGraph.slot_types_default_out = {};
 LiteGraph.slot_types_default_in = {};
 
 LiteGraph.NODE_WIDTH = 244;
+LiteGraph.NODE_WIDTH_MARGIN = 60;
+LiteGraph.NODE_HEIGHT_MARGIN = 40;
 LiteGraph.WIDGET_LABEL_TRIM = 10;
 LiteGraph.WIDGET_VALUE_TRIM = 15;
 
