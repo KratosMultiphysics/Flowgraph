@@ -39,7 +39,7 @@ class KratosProblemParametersBuilder {
             .map( w => [w[1].options.property, w[1]])
         );
 
-        // Iterate over all entries and assign those that are not objects
+        // Iterate over all keys and assign those that are not objects
         for (let [_key, _value] of Object.entries(value)) {
             if (typeof(_value) != "object") {
                 if (_key in node.properties) node.properties[_key]  = _value; // Property
@@ -64,6 +64,7 @@ class KratosProblemParametersBuilder {
                 if (value.solver_type == "monolithic")      return "Solvers/Fluid dynamics/NavierStokesSolverMonolithic";
                 
                 // This should be unreachable
+                warn(`Trying to create a "${key}" with "solver_type":"${value.solver_type}" which is not registered`);
                 return undefined;
             case "linear_solver_settings":
                 if (value.solver_type == "amgcl")           return "Solvers/Linear Solvers/Serial/AMGCL";
@@ -71,11 +72,15 @@ class KratosProblemParametersBuilder {
                 if (value.solver_type == "cg")              return "Solvers/Linear Solvers/Serial/CG";
                 if (value.solver_type == "LinearSolversApplication.sparse_lu") 
                                                             return "Solvers/Linear Solvers/Serial/SparseLU";
+
+                warn(`Trying to create a "${key}" with "solver_type":"${value.solver_type}" which is not registered`);
+                return undefined;
             case "model_import_settings":                   return "Solvers/Components/ModelImportSettings";
             case "material_import_settings":                return "Solvers/Components/MaterialImportSettings";
             default: 
 
                 // This is most liekey reachable
+                warn(`Trying to create a "${key}" which is not registered`);
                 return undefined;
         };
 
@@ -105,10 +110,9 @@ class KratosProblemParametersBuilder {
      * @param {String} key 
      * @param {*} value 
      */
-    processNodeJson(key, value) {
+    processNodeJson(key, value, prev_node) {
         let node_type = this.deduceNode(key, value);
 
-        console.log(`Creating ${key} node`, node_type);
         if (node_type) {
             let node = LiteGraph.createNode(node_type);
 
@@ -123,11 +127,17 @@ class KratosProblemParametersBuilder {
     
             // Add node to the graph
             this.graph.add(node, true);
+
+            // If we come from a previous node, we need to link them
+            let target_slot = prev_node.inputs.findIndex(slot => slot.type == key);
+            if (target_slot != -1) {
+                node.connect(0, prev_node, target_slot);
+            }
     
             // Process the rest of the data
             for (let [_key, _value] of Object.entries(value)) {
                 if (this.ppnodes.indexOf(_key) != -1) {
-                    this.processNodeJson(_key, _value);
+                    this.processNodeJson(_key, _value, node);
                 }
             }
         }
@@ -191,7 +201,7 @@ class KratosProblemParametersBuilder {
         // Process the rest of the data
         for (let [_key, _value] of Object.entries(data.stage_settings)) {
             if (this.ppnodes.indexOf(_key) != -1) {
-                this.processNodeJson(_key, _value);
+                this.processNodeJson(_key, _value, stage_node);
             }
         }
     }
