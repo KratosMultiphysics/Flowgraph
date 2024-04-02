@@ -23,6 +23,8 @@ class KratosProblemParametersBuilder {
             "material_import_settings"
         ];
         this.node_y_stack = {}
+
+        console.log(graph);
     }
 
     /**
@@ -86,6 +88,10 @@ class KratosProblemParametersBuilder {
 
         // This should be unreachable
         return undefined;
+    }
+
+    deduceNodeFromNodeInfo(key, value) {
+        
     }
 
     /**
