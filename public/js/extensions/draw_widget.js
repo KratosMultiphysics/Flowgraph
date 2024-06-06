@@ -344,7 +344,11 @@ LGraphCanvas.prototype.drawNodeWidgets = function(
         var mouse_pos = this.graph_mouse;
         var node_pos = node.pos;
 
-        if (w.tooltip && mouse_pos[0] > node_pos[0] + margin && mouse_pos[0] < node_pos[0] + widget_width - margin && mouse_pos[1] > node_pos[1] + y && mouse_pos[1] < node_pos[1] + y + H) {
+        if (node.is_selected && w.tooltip 
+                             && mouse_pos[0] > node_pos[0] + margin 
+                             && mouse_pos[0] < node_pos[0] + widget_width - margin 
+                             && mouse_pos[1] > node_pos[1] + y 
+                             && mouse_pos[1] < node_pos[1] + y + H ) {
             this.drawNodewidgetTooltip(node, ctx, w, y, H);
         }
 

@@ -131,9 +131,9 @@ LGraphCanvas.slot_type_colors["stage_flow"] = "#90bdd1";
 LGraphCanvas.slot_type_colorsOff["stage_flow"] = "#90bdd1";
 
 // Register default i/o
-register_default_in_type("problem_data", "Stages/Problem Data");
-register_default_in_type("stage_flow", "Stages/AnalysisStage");
-register_default_out_type("stage_flow", "Stages/AnalysisStage");
+register_default_in_type("problem_data", "Analysis stages/Components/Problem Data");
+register_default_in_type("stage_flow", "Analysis stages/Base/AnalysisStage");
+register_default_out_type("stage_flow", "Analysis stages/Base/AnalysisStage");
 
 // Register in the system
 LiteGraph.registerNodeType("Analysis stages/Base/AnalysisStage", AnalysisStage);
