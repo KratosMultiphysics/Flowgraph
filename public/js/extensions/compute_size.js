@@ -1,3 +1,6 @@
+LiteGraph.NODE_SLOT_MARGIN_TOP = 5;
+LiteGraph.NODE_SLOT_MARGIN_BOT = 5;
+
 /**
  * Computes the minimum size of a node according to its inputs and output slots
  * @method computeSize
@@ -60,17 +63,21 @@ LGraphNode.prototype.computeSize = function(out) {
     // FlowGraph Extension End              //
     //////////////////////////////////////////
 
-    size[1] = (this.constructor.slot_start_y || 0) + rows * LiteGraph.NODE_SLOT_HEIGHT;
+    size[1] = (this.constructor.slot_start_y || 0) 
+            + rows * LiteGraph.NODE_SLOT_HEIGHT
+            + LiteGraph.NODE_SLOT_MARGIN_TOP
+            + LiteGraph.NODE_SLOT_MARGIN_BOT;
 
     var widgets_height = 0;
     if (this.widgets && this.widgets.length) {
         for (var i = 0, l = this.widgets.length; i < l; ++i) {
-            if (this.widgets[i].computeSize)
-                widgets_height += this.widgets[i].computeSize(size[0])[1] + 4;
-            else
-                widgets_height += LiteGraph.NODE_WIDGET_HEIGHT + 4;
+            if (this.widgets[i].computeSize) {
+                widgets_height += this.widgets[i].computeSize(size[0])[1];
+            } else {
+                widgets_height += LiteGraph.NODE_WIDGET_HEIGHT;
+            }
+            widgets_height += 4;
         }
-        widgets_height += 8;
     }
 
     // Compute height using widgets height
@@ -95,7 +102,7 @@ LGraphNode.prototype.computeSize = function(out) {
         size[1] = this.constructor.min_height;
     }
 
-    size[1] += 6; //margin
+    // size[1] += 6; //margin
 
     return size;
 };
