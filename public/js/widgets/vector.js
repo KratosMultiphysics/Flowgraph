@@ -60,14 +60,18 @@ export class VectorWidget {
         var num_components = Object.keys(this.comp).length;
 
         ctx.textAlign = "left";
+        ctx.fillStyle = text_color;
+        ctx.fillText( this.name, margin * 2, y + H * 0.7 + H * (0));
+
         ctx.strokeStyle = outline_color;
         ctx.fillStyle = background_color;
+
         ctx.beginPath();
 
         if(show_text)
-            ctx.roundRect(margin, y, widgetWidth - margin * 2, num_components * H, [H * 0.5] );
+            ctx.roundRect(margin, y+H*(1), widgetWidth - margin * 2, num_components * H, [H * 0.5] );
         else
-            ctx.rect(margin, y, widgetWidth - margin * 2, num_components * H );
+            ctx.rect(margin, y+H*(1), widgetWidth - margin * 2, num_components * H );
 
         ctx.fill();
         if (show_text) {
@@ -76,17 +80,16 @@ export class VectorWidget {
                 
                 for( let i = 0; i < num_components - 1; i++ ) {
                     ctx.beginPath();
-                    ctx.moveTo(margin,y+H*(i+1));
-                    ctx.lineTo(widgetWidth - margin,y+H*(i+1));
+                    ctx.moveTo(margin,y+H*(i+2));
+                    ctx.lineTo(widgetWidth - margin,y+H*(i+2));
                     ctx.stroke();
                 }
             }
-            ctx.fillStyle = text_color;
             ctx.fillStyle = secondary_text_color;
 
             Object.entries(this.comp).forEach(([key,val],idx) => {
                 let label_text = String(key).substring(0,label_trim) + (key.length < (label_trim + 3) ? "" : "...");
-                ctx.fillText( label_text, margin * 2, y + H * 0.7 + H * (idx));
+                ctx.fillText( label_text, margin * 2, y + H * 0.7 + H * (idx+1));
             });
             
             ctx.fillStyle = text_color;
@@ -106,7 +109,7 @@ export class VectorWidget {
                     let value      = this.elem.querySelector(`.component_${asClassName(key)}`).innerText;
                     let value_text = String(value).substring(0,value_trim) + (value.length < (value_trim + 3) ? "" : "...");
                     ctx.fillText(
-                        value_text, widgetWidth - margin * 2, y + H * 0.7 + H * (idx)
+                        value_text, widgetWidth - margin * 2, y + H * 0.7 + H * (idx+1)
                     );
 
                 });
@@ -115,6 +118,25 @@ export class VectorWidget {
     }
 
     computeSize(x) {
-        return [x, Object.keys(this.comp).length * LiteGraph.NODE_WIDGET_HEIGHT];
+        return [x, (Object.keys(this.comp).length + 1) * LiteGraph.NODE_WIDGET_HEIGHT];
+    }
+
+    mouse(event, [x, y], node) {
+        let w = this;
+        if (event.type == LiteGraph.pointerevents_method+"down") {
+            event.target.data.vector_prompt(node.title + ": " + this.name,w.comp,function(v) {
+                this.inner_value_change(this, v);
+            }.bind(w),
+            event,w.options ? w.options.multiline : false );
+        }
+    }
+
+    inner_value_change(widget, values) {
+        Object.entries(this.comp).forEach(([key,val],idx) => {
+            console.log(key, val);
+            let value_comp = widget.elem.querySelector(`.component_${asClassName(key)}`);
+            value_comp.innerText = values.get(key);
+            widget.comp[key] = values.get(key);
+        });
     }
 }

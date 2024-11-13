@@ -102,7 +102,7 @@ LGraphNode.prototype.computeSize = function(out) {
         size[1] = this.constructor.min_height;
     }
 
-    // size[1] += 6; //margin
+    size[1] += 6; //margin
 
     return size;
 };

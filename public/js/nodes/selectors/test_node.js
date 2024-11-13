@@ -9,21 +9,25 @@ class TestNode {
         // Set widgets
         // this.srt_wid = this.addWidget("text", "Paco", "Veinte y dos");
         this.addInput("Stage",              "stage_flow");          // 0
-        this.comp_wid_0 = this.addCustomWidget(new VectorWidget("Test", {"The name of this component is absurdly long": 1, "X": 2, "μ": 3, "在": 9.00}));
-        this.comp_wid_1 = this.addCustomWidget(new VectorWidget("Test", {"lalalala": 1, "X": 2, "Y": 3, "Z": 0.00}));
-        this.comp_wid_2 = this.addCustomWidget(new VectorWidget("Test", {"lalalala": 1, "X": 2, "Y": 3, "Z": 0.00}));
+        // this.comp_wid_0 = this.addCustomWidget(new VectorWidget("Array Input Name", {"The name of this component is absurdly long": 1, "X": 2, "μ": 3, "在": 9.00}));
+        this.comp_wid_1 = this.addCustomWidget(new VectorWidget("Array3D", {"X": 2, "Y": 3, "Z": 0.00}));
+        // this.comp_wid_2 = this.addCustomWidget(new VectorWidget("Test", {"X": 2, "Y": 3, "Z": 0.00}));
+        // this.comp_wid_1 = this.addCustomWidget(new VectorWidget("Test", {"X": 2, "Y": 3, "Z": 0.00}));
+        // this.comp_wid_2 = this.addCustomWidget(new VectorWidget("Test", {"X": 2, "Y": 3, "Z": 0.00}));
+        // this.comp_wid_1 = this.addCustomWidget(new VectorWidget("Test", {"X": 2, "Y": 3, "Z": 0.00}));
+        // this.comp_wid_2 = this.addCustomWidget(new VectorWidget("Test", {"X": 2, "Y": 3, "Z": 0.00}));
 
         let inputDOM = document.createElement("p");
             inputDOM.setAttribute("contenteditable", true);
             inputDOM.innerHTML = "This is a test text";
 
-        this.comp_wid_2 = this.addCustomWidget(new DOMWidget("Test", inputDOM));
+        // this.comp_wid_2 = this.addCustomWidget(new DOMWidget("Test", inputDOM));
 
         this.size = this.computeSize();
     }
 
     onExecute() {
-        this.setOutputData(0, this.condition_selector.value);
+        // this.setOutputData(0, this.condition_selector.value);
     }
 }
 
