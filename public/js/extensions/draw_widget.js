@@ -107,6 +107,7 @@ LGraphCanvas.prototype.drawNodeWidgets = function(
     if (!node.widgets || !node.widgets.length) {
         return 0;
     }
+    
     var width = node.size[0];
     var widgets = node.widgets;
     posY += 2;
@@ -306,12 +307,12 @@ LGraphCanvas.prototype.drawNodeWidgets = function(
                     ctx.rect(margin, y, widget_width - margin * 2, H);
                     ctx.clip();
 
-                    let lavel_text = String(w.name).substring(0,label_trim) + (w.name.length < label_trim + 3 ? "" : "...");
+                    let label_text = String(w.name).substring(0,label_trim) + (w.name.length < label_trim + 3 ? "" : "...");
 
                     ctx.fillStyle = secondary_text_color;
                     const label = w.label || w.name;	
                     if (label != null) {
-                        ctx.fillText(lavel_text, margin * 2, y + H * 0.7);
+                        ctx.fillText(label_text, margin * 2, y + H * 0.7);
                     }
                     ctx.fillStyle = text_color;
                     ctx.textAlign = "right";
@@ -344,7 +345,11 @@ LGraphCanvas.prototype.drawNodeWidgets = function(
         var mouse_pos = this.graph_mouse;
         var node_pos = node.pos;
 
-        if (w.tooltip && mouse_pos[0] > node_pos[0] + margin && mouse_pos[0] < node_pos[0] + widget_width - margin && mouse_pos[1] > node_pos[1] + y && mouse_pos[1] < node_pos[1] + y + H) {
+        if (node.is_selected && w.tooltip 
+                             && mouse_pos[0] > node_pos[0] + margin 
+                             && mouse_pos[0] < node_pos[0] + widget_width - margin 
+                             && mouse_pos[1] > node_pos[1] + y 
+                             && mouse_pos[1] < node_pos[1] + y + H ) {
             this.drawNodewidgetTooltip(node, ctx, w, y, H);
         }
 
