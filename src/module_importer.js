@@ -31,7 +31,7 @@ function recursively_traverse_directories(dir, file_list) {
  * Generate a list of all nodes in the public/js/nodes directory
  * @returns {Array} List of all nodes in the public/js/nodes directory
  */
-export default function generate_module_list() { 
+export function generate_node_list() { 
 
     let node_directories = ['./public/js/nodes'];
     let node_list = [];
@@ -43,4 +43,24 @@ export default function generate_module_list() {
     node_list = node_list.map(e => e.split(path.sep).slice(1).join('/'));
 
     return node_list;   
+}
+
+/**
+ * Generate a list of all widgets in the public/js/widgets directory
+ * @returns {Array} List of all widgets in the public/js/widgets directory
+ */
+export function generate_widget_list() { 
+
+    let widget_directories = ['./public/js/widgets'];
+    let widget_list = [];
+
+    widget_directories.forEach(dir => {
+        recursively_traverse_directories(dir, widget_list);
+    });
+
+    widget_list = widget_list.map(e => e.split(path.sep).slice(1).join('/'));
+
+    console.log(widget_list)
+
+    return widget_list;   
 }

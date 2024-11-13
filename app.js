@@ -4,7 +4,8 @@ import fs from 'fs';
 import path from 'path';
 import cors from 'cors';
 
-import generate_module_list from './src/module_importer.js';
+import { generate_node_list } from './src/module_importer.js';
+import { generate_widget_list } from './src/module_importer.js';
 
 import express from 'express';
 import { spawn } from 'child_process';
@@ -29,7 +30,8 @@ app.get('/', (req, res) => {
   res.render(
     'index.ejs',
     {
-      'nodes': generate_module_list()
+      'nodes': generate_node_list(),
+      'widgets': generate_widget_list(),
     }
   );
 });

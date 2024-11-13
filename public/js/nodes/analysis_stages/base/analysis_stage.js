@@ -91,7 +91,7 @@ export class AnalysisStage {
 
         this.stage_name = "auto_" + this.id + "_stage";
         if(this._name.value != undefined && this._name.value != "") {
-            this.stage_name = toSnakeCase(this._name.value) + "_stage";
+            this.stage_name = toSnakeCase(this._name.value);
         }
 
         // Generate the stage data
@@ -117,15 +117,12 @@ export class AnalysisStage {
         this.setOutputData(0, this._value);
         this.setOutputData(1, this.stage_name);
     }
-
-    onSelection(e) {
-    }
 }
 
 // Set the node name and the description
 AnalysisStage.title = "Analysis stage";
 AnalysisStage.doc_ref = "https://kratosmultiphysics.github.io/Kratos/pages/Kratos/Sequence_Diagrams/General/AnalysisStage.html"
-AnalysisStage.desc = "Base Analysis stage que tal estas hace muy buen dia ";
+AnalysisStage.desc = "Base Analysis stage";
 AnalysisStage.doc = `<span class='glyph-solid'>&#xf02d</span> <a href="${AnalysisStage.doc_ref}">Analysis Stage</a>`;
 
 // Set the colors of selected connection to better reflect the flow
@@ -134,9 +131,9 @@ LGraphCanvas.slot_type_colors["stage_flow"] = "#90bdd1";
 LGraphCanvas.slot_type_colorsOff["stage_flow"] = "#90bdd1";
 
 // Register default i/o
-register_default_in_type("problem_data", "Stages/Problem Data");
-register_default_in_type("stage_flow", "Stages/AnalysisStage");
-register_default_out_type("stage_flow", "Stages/AnalysisStage");
+register_default_in_type("problem_data", "Analysis stages/Components/Problem Data");
+register_default_in_type("stage_flow", "Analysis stages/Base/AnalysisStage");
+register_default_out_type("stage_flow", "Analysis stages/Base/AnalysisStage");
 
 // Register in the system
 LiteGraph.registerNodeType("Analysis stages/Base/AnalysisStage", AnalysisStage);

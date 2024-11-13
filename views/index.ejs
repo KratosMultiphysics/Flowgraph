@@ -63,24 +63,30 @@
 
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 
+    <!-- Utilities -->
+    <script type="text/javascript" src="js/utils.js"></script>
+
+    <!-- Libraries and core interface TODO: Clean and order this include list -->
     <script type="text/javascript" src="js/litegraph/litegraph.core.js"></script>
     <script type="text/javascript" src="js/jvc.js"></script>
+    <script type="text/javascript" src="js/json_loader.js"></script>
     <script type="text/javascript" src="js/problemtype-editor.js"></script>
     <script type="text/javascript" src="js/side.js"></script>
     <script type="text/javascript" src="js/highlightjs-copy.min.js"></script>
 
     <!-- Model Manager -->
-    <script type="text/javascript" src="js/utils.js"></script>
     <script type="text/javascript" src="js/model_manager.js"></script>
 
     <!-- Mods to the base source code of litegraph.js. -->
     <!-- Needs to be done after importing litegraph AND before registering nodes -->
     <!-- Maybe ask to merge in the main lib when they are mature -->
+    <script type="text/javascript" src="js/extensions/load_project_parameters.js"></script>
     <script type="text/javascript" src="js/extensions/custom_node_panel.js"></script>
     <script type="text/javascript" src="js/extensions/selection_import.js"></script>
     <script type="text/javascript" src="js/extensions/extended_menu.js"></script>
     <script type="text/javascript" src="js/extensions/remove_widget.js"></script>
     <script type="text/javascript" src="js/extensions/compute_size.js"></script>
+    <script type="text/javascript" src="js/extensions/remove_node.js"></script>
     <script type="text/javascript" src="js/extensions/draw_widget.js"></script>
     <script type="text/javascript" src="js/extensions/draw_node.js"></script>
 
@@ -93,6 +99,11 @@
 
     <!-- Base nodes from litegrapg.js -->
     <script type="text/javascript" src="js/base.js"></script>
+
+    <!-- Widgets -->
+    <% widgets.forEach(dir => { %>
+        <script type="module" src="<%= dir %>"></script>
+    <% }); %>
 
     <!-- Nodes -->
     <% nodes.forEach(dir => { %>

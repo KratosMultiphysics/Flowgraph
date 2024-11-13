@@ -21,29 +21,28 @@ class ProcessesList extends InputList {
         });
 
         this.process_list.tooltip = (w) => {
-
-            let tooltip = [
-                `${w.name}`, "", `${w.value}`, "",
-                "Selects the process list where the ", "process will be assigned",
-            ];
-
             let help_tooltip = {
                 "title": `${w.name}`,
                 "value": `${w.value}`,
                 "descp": [
                     "Selects the process list where the process will be assigned",
-                    "depending on the ascending house of mars",
-                    "the solver may refuse to work until you perform",
-                    "a sacrifice of blood to the god of war"
                 ],
             }
 
             return help_tooltip;
         }
 
-        // this.scaling_type.tooltip = (w) => {
-        //     return [w.value];
-        // }
+        this.scaling_type.tooltip = (w) => {
+            let help_tooltip = {
+                "title": `${w.name}`,
+                "value": `${w.value}`,
+                "descp": [
+                    "Toggles a switch controling if the process list will be used as a group or not",
+                ],
+            }
+
+            return help_tooltip;
+        }
     }
 
     setIOType() {
@@ -58,6 +57,8 @@ class ProcessesList extends InputList {
 }
 
 ProcessesList.title = "List of Processes";
+ProcessesList.doc_ref = "https://kratosmultiphysics.github.io/Kratos/pages/Kratos/Processes/process.html"
 ProcessesList.desc = "Merges several processes into a list";
+ProcessesList.doc = `<span class='glyph-solid'>&#xf02d</span> <a href="${ProcessesList.doc_ref}">Process</a>`;
 
 LiteGraph.registerNodeType("Lists/Processes", ProcessesList);

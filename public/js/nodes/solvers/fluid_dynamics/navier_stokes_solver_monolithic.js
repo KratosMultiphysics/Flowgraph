@@ -9,12 +9,12 @@ class NavierStokesSolverMonolithic extends FluidSolver {
 
         // set inputs
         this.addInput("Modelpart settings", "model_import_settings");
+        this.addInput("Materials settings", "material_import_settings");
         this.addInput("Modelpart name", "string");
         this.addInput("Volume submodelpart", "string");
         this.addInput("Skin submodelparts", "string");
         this.addInput("NonSkin submodelparts", "string");
         this.addInput("Linear solver", "linear_solver_settings");
-        this.addInput("Materials settings", "material_import_settings");
         this.addInput("Time stepping", "time");
         this.addInput("Formulation", "formulation");
 
@@ -75,27 +75,27 @@ class NavierStokesSolverMonolithic extends FluidSolver {
         }
 
         if (this.getInputData(1) != undefined) {
-            this._value["model_part_name"] = this.getInputData(1);
+            this._value["material_import_settings"] = this.getInputData(6);
         }
 
         if (this.getInputData(2) != undefined) {
-            this._value["volume_model_part_name"] = this.getInputData(2);
+            this._value["model_part_name"] = this.getInputData(1);
         }
 
         if (this.getInputData(3) != undefined) {
-            this._value["skin_parts"] = this.getInputData(3);
+            this._value["volume_model_part_name"] = this.getInputData(2);
         }
 
         if (this.getInputData(4) != undefined) {
-            this._value["no_skin_parts"] = this.getInputData(4);
+            this._value["skin_parts"] = this.getInputData(3);
         }
 
         if (this.getInputData(5) != undefined) {
-            this._value["linear_solver_settings"] = this.getInputData(5);
+            this._value["no_skin_parts"] = this.getInputData(4);
         }
 
         if (this.getInputData(6) != undefined) {
-            this._value["material_import_settings"] = this.getInputData(6);
+            this._value["linear_solver_settings"] = this.getInputData(5);
         }
 
         if (this.getInputData(7) != undefined) {
