@@ -40,11 +40,11 @@ export class VectorWidget {
     }
 
     get value() {
-        return options.getValue?.() ?? undefined;
+        return this.options.getValue?.() ?? undefined;
     }
 
     set value(v) {
-        options.setValue?.(v);
+        this.options.setValue?.(v);
         widget.callback?.(widget.value);
     }
 
