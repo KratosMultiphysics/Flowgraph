@@ -99,8 +99,8 @@ export class AnalysisStage {
             this._value["orchestrator"]["settings"]["execution_list"].push(this.stage_name);
 
             this._value["stages"][this.stage_name] = {
-                "stage_preprocess":         this.getInputData(1),
-                "stage_postprocess":        this.getInputData(2),
+                "stage_preprocess":         this.getInputData(1) || {},
+                "stage_postprocess":        this.getInputData(2) || {},
                 "stage_settings": {
                     "analysis_stage":           this._type,
                     "problem_data":             this.getInputData(3),
