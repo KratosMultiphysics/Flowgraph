@@ -7,12 +7,12 @@
 const LGraphRemove = LiteGraph.LGraph.prototype.remove;
 
 LGraph.prototype.remove = function(node) {
-    LGraphRemove.apply(node);
-
     // Remove widgets from the node
     if (node.widgets) {
         for (let w in node.widgets) {
             node.widgets[w].onRemoved?.();
         }
     }
+
+    LGraphRemove.call(this, node);
 };
