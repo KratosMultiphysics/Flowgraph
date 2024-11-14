@@ -2608,11 +2608,14 @@
 			if (info.widgets_values) {
 				for (var i = 0; i < info.widgets_values.length; ++i) {
 					if (this.widgets[i]) {
+                        console.log("Restoring values")
 						this.widgets[i].value = info.widgets_values[i];
 					}
 				}
 			}
 		}
+
+        console.log("configure", info);
 
         if (this.onConfigure) {
             this.onConfigure(info);
@@ -2669,6 +2672,7 @@
 				else
 					o.widgets_values[i] = null;
             }
+            console.log(o.widgets_values)
         }
 
         if (!o.type) {

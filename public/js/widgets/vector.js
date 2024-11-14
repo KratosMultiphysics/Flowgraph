@@ -7,8 +7,10 @@ export class VectorWidget {
     constructor(name, components, options) {
         this.type = "vector";
         this.name = name;
-        this.comp = components  || { "X": 0.0, "Y": 1.0, "Z": 2.0 };
-        this.options = options  || {};
+
+        // Important: This variable needs to be called value so the serialization works
+        this.options = options || {};
+        this.value = components || { "X": 0.0, "Y": 0.0, "Z": 0.0 };
         this.elem = document.createElement("div");
     
         // Not sure why are we using a DOM element to store the values.
@@ -39,15 +41,6 @@ export class VectorWidget {
         this.elem.options = this.options;
     }
 
-    get value() {
-        return this.options.getValue?.() ?? undefined;
-    }
-
-    set value(v) {
-        this.options.setValue?.(v);
-        widget.callback?.(widget.value);
-    }
-
     draw(ctx, node, widgetWidth, y, widgetHeight) {
         var H = LiteGraph.NODE_WIDGET_HEIGHT;
         var show_text = true;
@@ -57,7 +50,7 @@ export class VectorWidget {
         var text_color = LiteGraph.WIDGET_TEXT_COLOR;
         var secondary_text_color = LiteGraph.WIDGET_SECONDARY_TEXT_COLOR;
         var margin = 18;
-        var num_components = Object.keys(this.comp).length;
+        var num_components = Object.keys(this.value).length;
 
         ctx.textAlign = "left";
         ctx.fillStyle = text_color;
@@ -87,7 +80,7 @@ export class VectorWidget {
             }
             ctx.fillStyle = secondary_text_color;
 
-            Object.entries(this.comp).forEach(([key,val],idx) => {
+            Object.entries(this.value).forEach(([key,val],idx) => {
                 let label_text = String(key).substring(0,label_trim) + (key.length < (label_trim + 3) ? "" : "...");
                 ctx.fillText( label_text, margin * 2, y + H * 0.7 + H * (idx+1));
             });
@@ -105,7 +98,7 @@ export class VectorWidget {
                     y + H * 0.7
                 );
             } else {
-                Object.entries(this.comp).forEach(([key,val],idx) => {
+                Object.entries(this.value).forEach(([key,val],idx) => {
                     let value      = this.elem.querySelector(`.component_${asClassName(key)}`).innerText;
                     let value_text = String(value).substring(0,value_trim) + (value.length < (value_trim + 3) ? "" : "...");
                     ctx.fillText(
@@ -118,13 +111,13 @@ export class VectorWidget {
     }
 
     computeSize(x) {
-        return [x, (Object.keys(this.comp).length + 1) * LiteGraph.NODE_WIDGET_HEIGHT];
+        return [x, (Object.keys(this.value).length + 1) * LiteGraph.NODE_WIDGET_HEIGHT];
     }
 
     mouse(event, [x, y], node) {
         let w = this;
         if (event.type == LiteGraph.pointerevents_method+"down") {
-            event.target.data.vector_prompt(node.title + ": " + this.name,w.comp,function(v) {
+            event.target.data.vector_prompt(node.title + ": " + this.name,w.value,function(v) {
                 this.inner_value_change(this, v);
             }.bind(w),
             event,w.options ? w.options.multiline : false );
@@ -132,11 +125,10 @@ export class VectorWidget {
     }
 
     inner_value_change(widget, values) {
-        Object.entries(this.comp).forEach(([key,val],idx) => {
-            console.log(key, val);
+        Object.entries(this.value).forEach(([key,val],idx) => {
             let value_comp = widget.elem.querySelector(`.component_${asClassName(key)}`);
             value_comp.innerText = values.get(key);
-            widget.comp[key] = values.get(key);
+            widget.value[key] = values.get(key);
         });
     }
 }

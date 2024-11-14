@@ -17,11 +17,20 @@
 
         dialog_form.setAttribute("id", "dialog-vector");
 
-        Object.keys(values).forEach(function(key) {
+        Object.keys(values).forEach(function(key,idx) {
             var form_input = document.createElement("div");
+            var extra_class = "";
+
+            if (idx == 0) {
+                extra_class = "top-input";
+            } 
+
+            if (idx == Object.keys(values).length - 1) {
+                extra_class = "bot-input";
+            }
             
             form_input.className = "displayinput";
-            form_input.innerHTML = "<span class='label'>"+key+"</span><input autofocus type='text' class='value'/ name='"+key+"' value='"+values[key]+"'>";
+            form_input.innerHTML = "<span class='label'>"+key+"</span><input autofocus type='text' class='value "+extra_class+"'/ name='"+key+"' value='"+values[key]+"'>";
 
             dialog_form.appendChild(form_input);
         });
