@@ -20,7 +20,7 @@
   ],
   "author": "roigcarlo@gmail.com",
   "license": "AGPL-3.0-or-later",
-  "devDependencies": {
+  "dependencies": {
     "config": "^3.3.11",
     "cors": "^2.8.5",
     "ejs": "^3.1.9",
