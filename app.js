@@ -56,6 +56,12 @@ app.get('/run_simulation', async (req, res) => {
       'cwd': `${config.working_dir}` || `./simulations/`
   }
 
+  if (config.kratos_pip) {
+      // remove env keys from process_env
+      delete process_env.env.LD_LIBRARY_PATH;
+      delete process_env.env.PYTHONPATH;
+  }
+
   console.log(process_env)
 
   var child = spawn(`${config.python_binary}` || "python3", ['MainKratos.py'], process_env);
